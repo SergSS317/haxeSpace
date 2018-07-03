@@ -1,0 +1,9 @@
+<settings>
+	<star type="0" size="100" light="100000" chance="0.001">	<color red="0" green="255" blue="255" alpha="255"/></star>
+	<star type="1" size="50" light="1000" chance="0.1">		<color red="180" green="250" blue="250" alpha="255"/></star>
+	<star type="2" size="17" light="20" chance="0.7">		<color red="255" green="255" blue="255" alpha="255"/></star>
+	<star type="3" size="13" light="4" chance="2">			<color red="240" green="240" blue="150" alpha="255"/></star>
+	<star type="4" size="10" light="1.0" chance="3.5">		<color red="255" green="255" blue="0" alpha="255"/></star>
+	<star type="5" size="8" light="0.2" chance="8">		<color red="255" green="180" blue="0" alpha="255"/></star>
+	<star type="6" size="3" light="0.01" chance="80">		<color red="255" green="0" blue="0" alpha="255"/></star>
+</settings>
