@@ -21,7 +21,7 @@ import haxe.Resource;
 class StarPrototipe
 {
 	public var stType:Int;
-	public var stLight:Int;
+	public var stLight:Float;
 	public var stSize:Float;
 	public var stColor:Color;
 	//public var stChance:Int;
@@ -29,7 +29,7 @@ class StarPrototipe
 	public var stChanceMin:Float;
 	public static var ChanceCounter:Float;
 	
-	public function new( _stType:Int, _stLight:Int, _stSize:Float, _stColor:Color, _stChance:Float){
+	public function new( _stType:Int, _stLight:Float, _stSize:Float, _stColor:Color, _stChance:Float){
 		this.stType = _stType;
 		this.stLight = _stLight;
 		this.stSize = _stSize;
@@ -61,7 +61,7 @@ class XmlControl
 			//trace(star.node.color.att.red+","+star.node.color.att.green+","+star.node.color.att.blue);
 			//tmpColor=Color.fromBytes( Std.parseInt(star.node.color.att.red),Std.parseInt(star.node.color.att.green),Std.parseInt(star.node.color.att.blue),255)
 			starPrototypes.push(new StarPrototipe(	Std.parseInt( star.att.type), 
-													Std.parseInt(star.att.light), 
+													Std.parseFloat(star.att.light), 
 													Std.parseFloat(star.att.size), 
 													Color.fromBytes( Std.parseInt(star.node.color.att.red),Std.parseInt(star.node.color.att.green),Std.parseInt(star.node.color.att.blue),255),
 													//Std.parseInt(star.att.chance)));
