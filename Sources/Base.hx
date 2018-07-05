@@ -70,7 +70,7 @@ class Base {
 		controls = new Controls();
 		
 		MyXml = new XmlControl();
-		galxy = new Galaxy(50000, 2, 0.15, 0);
+		galxy = new Galaxy(200000, 2, 0.25, 0);
 		previousRealTime = 0.0;
         realTime         = 0.0;
 		font = Assets.fonts.kenpixel_mini_square;

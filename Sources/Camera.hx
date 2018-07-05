@@ -9,10 +9,11 @@ package;
  
 class Camera
 {
-	var MapSize = 500;
+	var MapSize = 700;
 	public var x: Float;
 	public var y: Float;
-	public static var zoom:Float=1.0;
+	public static var zoom:Float = 1.0;
+	public static var minzoom:Float=0.001;
 	public static var maxzoom:Float=1.0;
 	public var speed = 100.0;
 	public static var ZoomChanged:Bool=false;
@@ -24,8 +25,9 @@ class Camera
 	public function new(x: Int, y: Int) {
 		this.x = x;
 		this.y = y;
-		zoom = 1.0;
-		maxzoom = 10.0;
+		maxzoom = 20.0;
+		minzoom = 0.0000000007;
+		zoom = minzoom;
 		ZoomChanged = true;
 	}
 	
@@ -51,10 +53,10 @@ public function update(controls: Controls, deltaTime: Float) {
 	
     if (controls.zoomup && !controls.zoomdown) {
 		//trace('zoom:'+zoom);
-		zoom +=  speed * 0.1 * deltaTime * 0.1;
+		zoom +=  speed * minzoom * deltaTime * 0.1;
 		ZoomChanged = true;
     } else if (controls.zoomdown && !controls.zoomup) {
-		zoom -=  speed * 0.1 * deltaTime * 0.1;
+		zoom -=  speed * minzoom * deltaTime * 0.1;
 		ZoomChanged = true;
 		//trace('zoom:'+zoom);
     }
@@ -64,7 +66,7 @@ public function update(controls: Controls, deltaTime: Float) {
 	if (y > MapSize) y = MapSize;
 	if (ZoomChanged)
 	{
-		if (zoom < 0.1) zoom = 0.1;//максимальное отдаление
+		if (zoom < minzoom) zoom = minzoom;//максимальное отдаление
 		else if (zoom > maxzoom) zoom = maxzoom;
 		//ScaleFlare = 1 / Math.exp(zoom) * 25;
 	}

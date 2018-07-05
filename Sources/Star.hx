@@ -29,7 +29,7 @@ class Star {
 	var ty = 0.0;
 	public var PosFl:Vector4= new Vector4(0, 0, 0, 0);
 	public var PosStar:Vector4= new Vector4(0, 0, 0, 0);
-	
+	public var Randomize:Float = 0.1;
 	public static var TotalCount:Int = 0;
 	
 	public function new(x: Float, y: Float, color:Color, size:Float, light:Float ) {
@@ -39,10 +39,11 @@ class Star {
 		this.flare = Assets.images.Light3;
 		this.UnderFlare = Assets.images.UnderFlare;
 		//this.flare = Assets.images.lightj;
-		this.Size = size;
+		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
+		//trace(this.Size);
 		this.x = x;
 		this.y = y;
-		this.Light =light;
+		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
 		this.color = color;
 		TotalCount++;
 		
@@ -78,7 +79,7 @@ class Star {
 		//scaleflare = 1 / Math.exp(Camera.zoom * 0.001)  * (Light * 25);
 		//scaleflare = Light*Camera.ScaleFlare;
 		//scaleflare = 1 / Math.exp(Camera.zoom*Camera.zoom)  * (Light*50);
-		scaleflare = 1 / (Camera.zoom*2)  * (Light*50);
+		scaleflare = 1 / (Camera.zoom*1.2)  * (Light*20);
 		//trace("scaleflare: " + scaleflare);
 		//trace("L: "+Light+"   CZ: "+Camera.zoom+"   EXP: "+Math.exp(Camera.zoom));
 		//PosFl = new Vector4(tx - scaleflare / 2, ty - scaleflare / 2, scaleflare, scaleflare);

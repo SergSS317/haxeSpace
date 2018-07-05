@@ -17,7 +17,7 @@ class Random
 	public static function Rnd()
 	{
 		Counter++;
-		var rnd = (Seed * Counter * 9301 + 49297) % 233280;
+		var rnd = (Seed * Counter * 123456789 + 987654321) % 1593574862;
 		trace(rnd);
 		return rnd;
 		
@@ -32,7 +32,8 @@ class Random
 		SetSeed(seed);
 		
 		Counter++;
-		var rnd = (Seed * Counter * 9301.0 + 49297.0) % 233280.0;
+		var rnd = Math.pow( (12345+Counter), 2) % Seed;//(Seed * Counter * 9301.0 + 49297.0) % 233280.0;
+		//var rnd = (Seed * Counter * 9301.0 + 49297.0) % 233280.0;
 		rnd = Math.abs(Math.sin(rnd));
 		rnd = MinValue+rnd * (MaxValue-MinValue);
 		//var rnd =(Seed * Counter * 9301 + 49297) (Seed * Counter * 9301 + 49297) % 233280;
@@ -44,4 +45,17 @@ class Random
 		//return this.Seed / 233280.0;
 	}
 	
+	public static function RndGaus(maxValue:Float, minValue:Float, seed:Int)
+	{
+		var const1 = 1.772453851;
+		var q:Float = 0.2;
+		var m:Float = 0;
+		Counter++;
+		trace("1: " + 1.0 / (q * const1) + "   : " + Math.pow(Counter - m, 2) + "   : " + (2 * Math.pow(q, 2)));
+		trace(Math.exp( -(Math.pow(Counter - m, 2) / (2 * Math.pow(q, 2)))));
+		var rnd:Float = 1.0 / (q * const1) * Math.exp( -(Math.pow(Counter - m, 2) / (2 * Math.pow(q, 2))));
+		trace(rnd);
+		rnd = MinValue+rnd * (MaxValue-MinValue);
+		return rnd;
+	}
 }
