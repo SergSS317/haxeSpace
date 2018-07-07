@@ -16,10 +16,11 @@ class Camera
 	public static var minzoom:Float=0.001;
 	public static var maxzoom:Float=1.0;
 	public var speed = 100.0;
+	
 	public static var ZoomChanged:Bool=false;
 	public static var aX:Float=0;//absolute
 	public static var aY:Float=0;
-	
+	public static var zoomspeed:Float = 0.000001;
 	public static var ScaleFlare:Float = 0.0;
 	
 	public function new(x: Int, y: Int) {
@@ -27,6 +28,7 @@ class Camera
 		this.y = y;
 		maxzoom = 20.0;
 		minzoom = 0.0000000007;
+		zoomspeed = minzoom;
 		zoom = minzoom;
 		ZoomChanged = true;
 	}
@@ -53,23 +55,29 @@ public function update(controls: Controls, deltaTime: Float) {
 	
     if (controls.zoomup && !controls.zoomdown) {
 		//trace('zoom:'+zoom);
-		zoom +=  speed * minzoom * deltaTime * 0.1;
+		if (zoom < maxzoom){
+		zoomspeed = 2*zoom;
+		zoom +=  deltaTime * zoomspeed;
 		ZoomChanged = true;
+		}
     } else if (controls.zoomdown && !controls.zoomup) {
-		zoom -=  speed * minzoom * deltaTime * 0.1;
+		if (zoom > minzoom){
+		zoomspeed = 2*zoom;
+		zoom -=  deltaTime * zoomspeed;
 		ZoomChanged = true;
+		}
 		//trace('zoom:'+zoom);
     }
 	if (x <-MapSize) x =-MapSize;
 	if (x > MapSize) x = MapSize;
 	if (y <-MapSize) y = -MapSize;
 	if (y > MapSize) y = MapSize;
-	if (ZoomChanged)
+	/*if (ZoomChanged)
 	{
 		if (zoom < minzoom) zoom = minzoom;//максимальное отдаление
 		else if (zoom > maxzoom) zoom = maxzoom;
 		//ScaleFlare = 1 / Math.exp(zoom) * 25;
-	}
+	}*/
 
 		aX = (MapSize*0.01)*x* zoom+800/2;
 		aY= (MapSize*0.01)*y* zoom+600/2;

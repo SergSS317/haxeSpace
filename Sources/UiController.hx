@@ -63,7 +63,8 @@ class UiController
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
 		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 70);
-		g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
+		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
+		//g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
 		//trace("Test");
   //  g.end();
 

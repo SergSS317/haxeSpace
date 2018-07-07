@@ -93,41 +93,36 @@ class Base {
 	public function render(framebuffer: Framebuffer): Void {
 		var g = backbuffer.g2;
 		g.begin();
-		//g.transformation = FastMatrix3.translation(Camera.aX, Camera.aY);
 		var CAM:FastMatrix3 = new FastMatrix3(	Camera.zoom, 	0, 				Camera.aX,
 												0,				Camera.zoom,	Camera.aY,
 												0,				0,				1);
 		g.transformation = CAM;
-		
-		//g.transformation = FastMatrix3.scale(Camera.zoom, Camera.zoom).;
-		//g.transformation = FastMatrix3.translation(Camera.aX, Camera.aY);
-		//g.color = Color.fromFloats(1.0, 1.0, 1.0, 0.5);
-		//g.drawScaledImage(Assets.images.BackGround,-1920 * Camera.zoom/2,-1080 * Camera.zoom/2, 1920 * Camera.zoom, 1080 * Camera.zoom);
-		
-		/*for ( star in  stars)
-		{
-			star.CalcDrawPosition(g);
-		}*/
-		
-		for ( star in  stars)
-		{
-			//star.CalcDrawPosition(g);
-			g.color = star.color;
-			//g.color = Color.fromFloats(star.color.R, star.color.G, star.color.B, 1 - Camera.zoom / Camera.maxzoom);
-			//trace(star);
-			g.drawScaledImage(star.flare, star.PosFl.x, star.PosFl.y, star.PosFl.z, star.PosFl.w);
+
+		//отрисовка светимости
+		if(Camera.zoom<3){
+			for ( star in  stars)
+			{
+				
+				g.color = star.color;
+				g.drawScaledImage(star.flare, star.FlareRect.x, star.FlareRect.y, star.FlareRect.w, star.FlareRect.h);
+			}
 		}
-		
+		if(Camera.zoom>0.001){
+		//отрисовка цвета звезд
 		for ( star in  stars)
 		{
 			g.color = star.color;
-			g.drawScaledImage(star.UnderFlare, star.PosStar.x, star.PosStar.y, star.PosStar.z, star.PosStar.w);
+			g.drawScaledImage(star.UnderFlare, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
+			//g.drawScaledImage(star.UnderFlare, star.asx, star.asy, star.asw, star.ash);
 		}
+		
+		//отрисовка самой звезды
 		g.color = Color.White;
 		for ( star in  stars)
 		{
 
-			g.drawScaledImage(star.image, star.PosStar.x, star.PosStar.y, star.PosStar.z, star.PosStar.w);
+			g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
+		}
 		}
 
 		uiController.render(g);
