@@ -8,6 +8,11 @@ import kha.Framebuffer;
 import kha.Image;
 import kha.Font;
 import kha.Color;
+
+
+import kha.input.Mouse;
+
+
 import kha.graphics2.Graphics;
 import kha.Assets;
 import kha.Scaler;
@@ -21,6 +26,7 @@ class UiController
 	public var font:Font;
 	public var previousRealTime:Float;
     public var realTime:Float;
+	public var uiButton:Button;
 	
 	
 	public function new() 
@@ -31,6 +37,9 @@ class UiController
 
 		previousRealTime = 0.0;
         realTime         = 0.0;
+		
+		uiButton = new Button(100, 100, 128, 256, Color.Pink);
+		Mouse.get().notify(onMouseDown, null, null, null);
 	}
 	
 	
@@ -63,6 +72,7 @@ class UiController
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
 		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 70);
+		uiButton.render(g);
 		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
 		//g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
 		//trace("Test");
@@ -70,5 +80,9 @@ class UiController
 
 
   }
+  
+  public function onMouseDown(button:Int, x:Int, y:Int){
+		uiButton.onMouseDown(button, x, y);
+	}
 	
 }

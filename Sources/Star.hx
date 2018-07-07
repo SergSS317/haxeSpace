@@ -37,7 +37,7 @@ class Star {
 		this.image = Assets.images.star3;
 		this.flare = Assets.images.Light12;
 		this.UnderFlare = Assets.images.UnderFlare;
-		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
+		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed)*0.4;
 		this.x = x;
 		this.y = y;
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);

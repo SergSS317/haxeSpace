@@ -15,39 +15,38 @@ class Sleeve
 	
 	public function new(starCount:Int, speenPower:Float, speenRotate:Float) 
 	{
-		this.StarCount = starCount;
+		//this.StarCount = starCount;
 		this.SpeenPower = speenPower;
 		this.SpeenRotate = speenRotate;
 		this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
 		StarsInSlave = 0;
-		Generate(StarCount, SpeenPower, SpeenRotate);
+		AddStars(starCount);
 	}
-	private var RndIter:Int=0;
-	function Generate( starCount:Int, speenPower:Float, speenRotate:Float)
+
+	public function AddStars( count:Int)
 	{
-		var xStarPosition = 0.0;
-		var yStarPosition = 0.0;
-		
-		var t:Float = 0.0;//угол поворота(частота появления)
-		var dt:Float = 0.0008;//шаг приращения угла поворота
-		var rnd:Float = 0.0;
-		
-		for ( i in 0...starCount)
+		StarCount+=count;
+		for ( i in 0...StarCount)
 		{
-			RndIter++;
-			rnd = Random.RndIter(0.999,0,SeedSleeve,RndIter);
-			
-			xStarPosition = 320.0 * Math.exp(speenPower * t+rnd) * Math.cos(speenRotate+rnd+t);
-			yStarPosition = 320.0 * Math.exp(speenPower * t+rnd) * Math.sin(speenRotate+rnd+t);
-			t += dt;
-			//dt *= 0.99;
-			StarsInSlave++;
-			
-			AddStar( xStarPosition, yStarPosition);
+			AddStar();
 		}
 	}
 	
-	function AddStar( x:Float, y:Float)
+	function AddStar()
+	{
+		var xStarPosition = 0.0;
+		var yStarPosition = 0.0;
+		var t = StarsInSlave * 0.0008;//угол поворота(шаг между звездами)
+		var rnd:Float = 0.0;
+	
+		rnd = Random.RndIter(0.999,0,SeedSleeve,StarsInSlave);
+		xStarPosition = 500.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		yStarPosition = 500.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		StarsInSlave++;
+		PastStar( xStarPosition, yStarPosition);
+	}
+	
+	function PastStar( x:Float, y:Float)
 	{
 		var Chance:Float = Random.Rnd2(Math.floor(XmlControl.StarPrototipe.ChanceCounter), 0, Galaxy.Seed);
 		for ( i in 0...XmlControl.starPrototypes.length)

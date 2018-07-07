@@ -27,7 +27,7 @@ class Camera
 	public function new(x: Int, y: Int) {
 		this.x = x;
 		this.y = y;
-		maxzoom = 20.0;
+		maxzoom = 100.0;
 		minzoom = 0.0000000007;
 		zoomspeed = minzoom;
 		zoom = minzoom;
