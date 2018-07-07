@@ -45,6 +45,15 @@ class Random
 		//return this.Seed / 233280.0;
 	}
 	
+	private var mCounter:Int = 0;
+	public static function RndIter(maxValue:Float, minValue:Float, seed:Int, Iteration:Float)
+	{
+		var rnd = Math.pow( (12345+Iteration), 2) % seed;		
+		rnd = Math.abs(Math.sin(rnd));
+		rnd = minValue+rnd * (maxValue-minValue);
+		return rnd;
+	}
+	
 	public static function RndGaus(maxValue:Float, minValue:Float, seed:Int)
 	{
 		var const1 = 1.772453851;

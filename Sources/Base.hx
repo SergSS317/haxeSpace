@@ -93,10 +93,7 @@ class Base {
 	public function render(framebuffer: Framebuffer): Void {
 		var g = backbuffer.g2;
 		g.begin();
-		var CAM:FastMatrix3 = new FastMatrix3(	Camera.zoom, 	0, 				Camera.aX,
-												0,				Camera.zoom,	Camera.aY,
-												0,				0,				1);
-		g.transformation = CAM;
+		g.transformation = Camera.Transform;
 
 		//отрисовка светимости
 		if(Camera.zoom<3){
@@ -109,41 +106,26 @@ class Base {
 		}
 		if(Camera.zoom>0.001){
 		//отрисовка цвета звезд
-		for ( star in  stars)
-		{
-			g.color = star.color;
-			g.drawScaledImage(star.UnderFlare, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			//g.drawScaledImage(star.UnderFlare, star.asx, star.asy, star.asw, star.ash);
-		}
-		
-		//отрисовка самой звезды
-		g.color = Color.White;
-		for ( star in  stars)
-		{
-
-			g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-		}
+			for ( star in  stars)
+			{
+				g.color = star.color;
+				g.drawScaledImage(star.UnderFlare, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
+			}
+			
+			//отрисовка самой звезды
+			g.color = Color.White;
+			for ( star in  stars)
+			{
+				g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
+			}
 		}
 
 		uiController.render(g);
 	g.end();	
 		    // draw our backbuffer onto the active framebuffer
     framebuffer.g2.begin();
-    Scaler.scale( backbuffer, framebuffer, System.screenRotation);
+		Scaler.scale( backbuffer, framebuffer, System.screenRotation);
     framebuffer.g2.end();
-		/*g.font = font;
-		g.fontSize = 24;
-		g.color = Color.White;
-		g.drawString("Stars count: " + stars.length +" ( "+Star.TotalCount+" );", 10, 10);
-		realTime = Scheduler.realTime();
-		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
-		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
-		g.drawString("FPS: " + tfps + " ;", 10, 34);
-		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 82);
-		//g.drawString("FPS: " + realTime , 10 - camera.aX, 70 - camera.aY);
-		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
-		g.drawString("Delta Time: "+( realTime - previousRealTime ), 10, 58);*/
-		
 		
 	}
 	

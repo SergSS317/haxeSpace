@@ -10,10 +10,11 @@ import kha.Color;
 //import ;
 class Galaxy
 {
-	public var StarCount:Int;
-	public var GalaxySleeve:Int;
-	public var SpeenPower:Float;
-	public static var Seed:Int;
+	public var Sleeves:Array<Sleeve>=new Array<Sleeve>();
+	public var StarCount:Int;		//колько нужно сгенерить звезд
+	public var GalaxySleeve:Int;	//число необходмых рукавов
+	public var SpeenPower:Float;	//сила спина
+	public static var Seed:Int;		//зерно мира
 	
 	public function new(starCount:Int, galaxySleeve:Int, speenPower:Float, seed:Int)
 	{
@@ -25,17 +26,12 @@ class Galaxy
 		//trace(":::"+Seed);
 		GenerateGalaxy();
 	}
-	
+	/*
 	private var StarsInSlave:Float = 0;
 	private var tmpLine:Float = 0;
 	function GenerateStar( x:Float, y:Float)
 	{
-		
 		var Chance:Float = Random.Rnd2(Math.floor(XmlControl.StarPrototipe.ChanceCounter), 0, Seed);
-		//if (Chance > XmlControl.StarPrototipe.ChanceCounter) Chance -= XmlControl.StarPrototipe.ChanceCounter*0.1;
-		/*var Chance:Float = Random.Rnd2(Math.floor(0.2 * XmlControl.StarPrototipe.ChanceCounter + tmpLine), tmpLine, Seed);
-		if (Chance > XmlControl.StarPrototipe.ChanceCounter) Chance -= XmlControl.StarPrototipe.ChanceCounter*0.1;*/
-		//trace(Seed);
 		for ( i in 0...XmlControl.starPrototypes.length)
 		{
 			//trace("StarGen2: "+Chance+"   min:"+XmlControl.starPrototypes[i].stChanceMin+"   max:"+XmlControl.starPrototypes[i].stChanceMax);
@@ -59,8 +55,6 @@ class Galaxy
 		var t:Float = 0.0;//угол поворота(частота появления)
 		var dt:Float = 0.0008;//шаг приращения угла поворота
 		var rnd:Float = 0.0;
-		//trace("GenerateSleeve "+Galaxy.Seed);
-		//trace("tmpLine: "+tmpLine+"   StarsInSlave: "+StarsInSlave);
 		for ( i in 0...starCount)
 		{
 			rnd = Random.Rnd2(0.999,0,Seed);
@@ -73,17 +67,14 @@ class Galaxy
 			tmpLine = StarsInSlave / starCount*XmlControl.StarPrototipe.ChanceCounter;
 			GenerateStar( x, y);
 		}
-		//trace("tmpLine: "+tmpLine+"   StarsInSlave: "+StarsInSlave);
-		//trace(StarsInSlave);
 	}
-
+*/
 	function GenerateGalaxy()
 	{
-		//trace("GenerateGalaxy "+Seed);
 		for ( i in 1...(GalaxySleeve+1))
 		{
-			//trace("GenerateGalaxy "+Seed);
-			GenerateSleeve( Math.round(StarCount/GalaxySleeve), SpeenPower, (2*Math.PI / GalaxySleeve) * i);
+			Sleeves.push(new Sleeve(Math.round(StarCount/GalaxySleeve), SpeenPower, (2*Math.PI / GalaxySleeve) * i));
+			//GenerateSleeve( Math.round(StarCount/GalaxySleeve), SpeenPower, (2*Math.PI / GalaxySleeve) * i);
 		}
 	}
 
