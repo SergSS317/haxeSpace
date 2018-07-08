@@ -26,8 +26,11 @@ class UiController
 	public var font:Font;
 	public var previousRealTime:Float;
     public var realTime:Float;
-	public var uiButton:Button;
-	
+	public var AddStars1000_btn:Button;
+	public var AddStars10000_btn:Button;
+	public var RemoveStars1000_btn:Button;
+	public var RemoveStars10000_btn:Button;
+
 	
 	public function new() 
 	{
@@ -38,7 +41,15 @@ class UiController
 		previousRealTime = 0.0;
         realTime         = 0.0;
 		
-		uiButton = new Button(100, 100, 128, 256, Color.Pink);
+		AddStars10000_btn = new Button(10, 512, 100, 32, Color.Blue,"+10k stars");
+		AddStars10000_btn.onClick = AddStars10000;
+		AddStars1000_btn = new Button(120, 512, 100, 32, Color.Blue,"+1k stars");
+		AddStars1000_btn.onClick = AddStars1000;
+
+		RemoveStars1000_btn = new Button(230, 512, 100, 32, Color.Blue,"-1k stars");
+		RemoveStars1000_btn.onClick = RemoveStars1000;
+		RemoveStars10000_btn = new Button(340, 512, 100, 32, Color.Blue,"-10k stars");
+		RemoveStars10000_btn.onClick = RemoveStars10000;
 		Mouse.get().notify(onMouseDown, null, null, null);
 	}
 	
@@ -62,7 +73,7 @@ class UiController
 		g.font = font;
 		g.fontSize = 20;
 		g.color = Color.White;
-		g.drawString("Stars count: " + Base.stars.length +" ( "+Star.TotalCount+" );", 10, 10);
+		g.drawString("Stars count: " + Star.TotalCount+" ;", 10, 10);
 		realTime = Scheduler.realTime();
 		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
 		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
@@ -72,7 +83,10 @@ class UiController
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
 		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 70);
-		uiButton.render(g);
+		AddStars1000_btn.render(g);
+		AddStars10000_btn.render(g);
+		RemoveStars1000_btn.render(g);
+		RemoveStars10000_btn.render(g);
 		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
 		//g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
 		//trace("Test");
@@ -82,7 +96,22 @@ class UiController
   }
   
   public function onMouseDown(button:Int, x:Int, y:Int){
-		uiButton.onMouseDown(button, x, y);
+		AddStars1000_btn.onMouseDown(button, x, y);
+		AddStars10000_btn.onMouseDown(button, x, y);
+		RemoveStars1000_btn.onMouseDown(button, x, y);
+		RemoveStars10000_btn.onMouseDown(button, x, y);
 	}
 	
+	public function AddStars1000(){
+		Base.galxy.AddStars(1000);
+	}
+	public function AddStars10000(){
+		Base.galxy.AddStars(10000);
+	}
+	public function RemoveStars1000(){
+		Base.galxy.RemoveStars(1000);
+	}
+	public function RemoveStars10000(){
+		Base.galxy.RemoveStars(10000);
+	}
 }

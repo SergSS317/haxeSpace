@@ -20,7 +20,7 @@ class Base {
 	//private var pipeline: PipelineState;
 	//private var star:Star;
 	private var backbuffer: Image;
-	public static var stars: Array<Star>;
+	//public static var stars: Array<Star>;
 	//public static var Sector:Array<Array<Sectors>>;
 	public static var Sector:Array<Sectors>;
 	private var controls: Controls;
@@ -30,7 +30,7 @@ class Base {
 	private var camera: Camera;
 	private var timer: Timer;
 	private var MyXml:XmlControl;
-	private var galxy:Galaxy;
+	public static var galxy:Galaxy;
 	public var font:Font;
 	 public var previousRealTime:Float;
     public var realTime:Float;
@@ -65,12 +65,12 @@ class Base {
 		
 		
 		
-		stars = new Array<Star>();
+		//stars = new Array<Star>();
 		
 		controls = new Controls();
 		
 		MyXml = new XmlControl();
-		galxy = new Galaxy(200000, 2, 0.25, 0);
+		galxy = new Galaxy(20000, 2, 0.25, 0);
 		previousRealTime = 0.0;
         realTime         = 0.0;
 		font = Assets.fonts.kenpixel_mini_square;
@@ -83,10 +83,11 @@ class Base {
 		uiController.update();
 		timer.update();
 		camera.update(controls, timer.deltaTime);
-		for ( star in  stars)
+		galxy.update();
+		/*for ( star in  stars)
 		{
 			star.update();
-		}       
+		} */      
         
 	}
 
@@ -95,30 +96,7 @@ class Base {
 		g.begin();
 		g.transformation = Camera.Transform;
 
-		//отрисовка светимости
-		if(Camera.zoom<3){
-			for ( star in  stars)
-			{
-				
-				g.color = star.color;
-				g.drawScaledImage(star.flare, star.FlareRect.x, star.FlareRect.y, star.FlareRect.w, star.FlareRect.h);
-			}
-		}
-		if(Camera.zoom>0.001){
-		//отрисовка цвета звезд
-			for ( star in  stars)
-			{
-				g.color = star.color;
-				g.drawScaledImage(star.UnderFlare, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			}
-			
-			//отрисовка самой звезды
-			g.color = Color.White;
-			for ( star in  stars)
-			{
-				g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			}
-		}
+		galxy.render(g);
 
 		uiController.render(g);
 	g.end();	
