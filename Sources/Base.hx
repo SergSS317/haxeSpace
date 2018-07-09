@@ -95,7 +95,7 @@ class Base {
 		var g = backbuffer.g2;
 		g.begin();
 		g.transformation = Camera.Transform;
-
+		//g.drawScaledImage(Assets.images.cloud, -500000,-500000,1000000,1000000);
 		galxy.render(g);
 
 		uiController.render(g);

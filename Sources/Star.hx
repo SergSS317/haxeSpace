@@ -35,7 +35,7 @@ class Star {
 	
 	public function new(x: Float, y: Float, color:Color, size:Float, light:Float ) {
 		this.image = Assets.images.star3;
-		this.flare = Assets.images.Light12;
+		this.flare = Assets.images.Light13;
 		this.UnderFlare = Assets.images.UnderFlare;
 		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed)*0.4;
 		this.x = x;
@@ -43,7 +43,7 @@ class Star {
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
 		this.color = color;
 		StarRect.Recalc(x - Size / 2, y - Size / 2, Size, Size);
-		tempScaleFlare=(Light*10)/1.2;
+		//tempScaleFlare=(Light*1)/1.3;
 		TotalCount++;
 	}
 
@@ -56,7 +56,7 @@ class Star {
 	function CalcDrawPosition(): Void {
 		if (Camera.ZoomChanged)
 		{
-			scaleflare = tempScaleFlare / Camera.zoom;
+			scaleflare = Light / Camera.zoom*1.2;// tempScaleFlare / Camera.zoom;
 			FlareRect.Recalc(x - scaleflare / 2, y - scaleflare / 2, scaleflare, scaleflare);
 		}
 	}	
