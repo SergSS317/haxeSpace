@@ -17,6 +17,8 @@ class Star {
 	public var flare: Image;		//спрайт светимости
 	public var UnderFlare: Image;	//спрайт цвета по краям звезды
 	public var color:Color;			//цвет звезды
+	public var FlareColor:Color;			//цвет звезды
+	
 	public var Light:Float;			//светимость
 	public var Size:Float;			//размер
 	
@@ -54,10 +56,10 @@ class Star {
 	var tempScaleFlare:Float = 1.0;
 	
 	function CalcDrawPosition(): Void {
-		if (Camera.ZoomChanged)
-		{
-			scaleflare = Light / Camera.zoom*1.2;// tempScaleFlare / Camera.zoom;
+		//if (Camera.ZoomChanged)
+		//{
+			scaleflare = Light / Camera.zoom*5;// tempScaleFlare / Camera.zoom;
 			FlareRect.Recalc(x - scaleflare / 2, y - scaleflare / 2, scaleflare, scaleflare);
-		}
+		//}
 	}	
 }

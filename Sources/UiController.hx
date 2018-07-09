@@ -88,7 +88,7 @@ class UiController
 		RemoveStars1000_btn.render(g);
 		RemoveStars10000_btn.render(g);
 		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
-		//g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
+		g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
 		//trace("Test");
   //  g.end();
 

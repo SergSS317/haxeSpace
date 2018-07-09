@@ -49,7 +49,30 @@ class Random
 	public static function RndIter(maxValue:Float, minValue:Float, seed:Int, Iteration:Float)
 	{
 		var rnd = Math.pow( (12345+Iteration), 2) % seed;		
-		rnd = Math.abs(Math.sin(rnd));
+		rnd = (Math.sin(rnd));
+		rnd = minValue+rnd * (maxValue-minValue);
+		return rnd;
+	}
+	
+	public static function RndIter2(maxValue:Float, minValue:Float, seed:Int, Iteration:Float)
+	{
+		var rnd = 0.0;
+		/*if (seed > Iteration + 12345){
+			rnd = (seed % (Iteration + 12345)/(Iteration + 12345));
+		}else{
+			rnd = ( (Iteration )%(seed+12345)/(seed + 12345));
+		}*/
+		if (seed > Iteration){
+			rnd = (seed % (Iteration)/(Iteration));
+		}else{
+			rnd = ( (Iteration )%(seed)/(seed));
+		}
+		
+		
+		
+		/*
+		var rnd = Math.pow( (12345+Iteration), 2) % seed;		
+		rnd = (Math.sin(rnd));*/
 		rnd = minValue+rnd * (maxValue-minValue);
 		return rnd;
 	}

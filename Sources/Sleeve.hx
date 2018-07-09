@@ -30,14 +30,11 @@ class Sleeve
 
 	public function AddStars( count:Int)
 	{
-		
-		//trace("Add star count: "+StarCount+"+"+count);
+		trace("SeedSleeve: " + SeedSleeve+"   StarsInSlave: " + StarsInSlave);
 		for ( i in 0...count)
 		{
 			AddStar();
 		}
-		
-		//trace("StarsInSlave " + StarsInSlave);
 		StarCount += count;
 	}
 	
@@ -45,62 +42,65 @@ class Sleeve
 	{
 		var xStarPosition = 0.0;
 		var yStarPosition = 0.0;
-		var t = StarsInSlave * 0.0008;//угол поворота(шаг между звездами)
+		var t = StarsInSlave * 0.00008;//угол поворота(шаг между звездами)
 		var rnd:Float = 0.0;
 	
-		rnd = Random.RndIter(0.999,0,SeedSleeve,StarsInSlave);
-		xStarPosition = 500.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		yStarPosition = 500.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		rnd = Random.RndIter2(1.0, -1.0, SeedSleeve, StarsInSlave);
+		//rnd = Random.RndIter2(0.519, -0.519, SeedSleeve, StarsInSlave);
+		//trace(rnd);
+		//xStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		//yStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		//xStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd*rnd+t);
+		//yStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd*rnd+t);
+		xStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd/10+t);
+		yStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd/10+t);
 		StarsInSlave++;
 		PastStar( xStarPosition, yStarPosition);
 	}
 	
 	public function RemoveStars( count:Int)
 	{
-		
-		//trace("Add star count: "+StarCount+"+"+count);
 		for ( i in 0...count)
 		{
 			RemoveStar();
 		}
-		
-		//trace("StarsInSlave " + StarsInSlave);
 		StarCount -= count;
 	}
 	
 	function RemoveStar()
 	{
-		//Base.stars.remove();
-		//StarsInSlave--;
-		
-		/*var xStarPosition = 0.0;
-		var yStarPosition = 0.0;
-		var t = StarsInSlave * 0.0008;//угол поворота(шаг между звездами)
-		var rnd:Float = 0.0;
-	
-		rnd = Random.RndIter(0.999,0,SeedSleeve,StarsInSlave);
-		xStarPosition = 500.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		yStarPosition = 500.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
-		StarsInSlave++;
-		PastStar( xStarPosition, yStarPosition);*/
+		var removedStar = stars[stars.length-1];
+		stars.remove(removedStar);
+		Base.galxy.AllStars.remove(removedStar);
+		 StarsInSlave--;
+		Star.TotalCount--;
 	}
 	
 	function PastStar( x:Float, y:Float)
 	{
-		var Chance:Float = Random.Rnd2(Math.floor(XmlControl.StarPrototipe.ChanceCounter), 0, Galaxy.Seed);
+		var Chance:Float = Math.abs(Math.sin(x))*XmlControl.StarPrototipe.ChanceCounter;
 		for ( i in 0...XmlControl.starPrototypes.length)
 		{
-			//trace("StarGen2: "+Chance+"   min:"+XmlControl.starPrototypes[i].stChanceMin+"   max:"+XmlControl.starPrototypes[i].stChanceMax);
 			if (Chance > XmlControl.starPrototypes[i].stChanceMin && Chance < XmlControl.starPrototypes[i].stChanceMax)
 			{
-				//Base.stars.insert(Base.stars.length, new Star(x, y, XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight));
 				stars.push(new Star(x, y, XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight));
 			}
 			else{
-				//trace("Chance: "+Chance);
-				//trace('NoChance');
+				//trace("NoChance! Chance: "+Chance);
 			}
 		}
+		/*
+		var Chance:Float = Random.Rnd2(Math.floor(XmlControl.StarPrototipe.ChanceCounter), 0, Galaxy.Seed);
+		for ( i in 0...XmlControl.starPrototypes.length)
+		{
+			if (Chance > XmlControl.starPrototypes[i].stChanceMin && Chance < XmlControl.starPrototypes[i].stChanceMax)
+			{
+				stars.push(new Star(x, y, XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight));
+			}
+			else{
+				//trace("NoChance! Chance: "+Chance);
+			}
+		}*/
 	}
 	
 	public function update(): Void {
@@ -116,22 +116,24 @@ class Sleeve
 			for ( star in  stars)
 			{
 				
+				//g.color = star.FlareColor;
 				g.color = star.color;
 				g.drawScaledImage(star.flare, star.FlareRect.x, star.FlareRect.y, star.FlareRect.w, star.FlareRect.h);
 			}
 		}
 		if(Camera.zoom>0.001){
 		//отрисовка цвета звезд
-			for ( star in  stars)
+			/*for ( star in  stars)
 			{
 				g.color = star.color;
 				g.drawScaledImage(star.UnderFlare, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			}
+			}*/
 			
 			//отрисовка самой звезды
-			g.color = Color.White;
+			//g.color = Color.White;
 			for ( star in  stars)
 			{
+				g.color = star.color;
 				g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
 			}
 		}
