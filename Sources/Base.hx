@@ -35,6 +35,7 @@ class Base {
 	 public var previousRealTime:Float;
     public var realTime:Float;
 	
+	public static var myMouse:MouseControl;
 	public function new() {
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 		//Assets.loadEverything()
@@ -46,6 +47,7 @@ class Base {
 		
 	}
 	private function loadingFinished(): Void {
+		myMouse = new MouseControl();
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 		backbuffer = Image.createRenderTarget(800, 600);
 
@@ -79,6 +81,7 @@ class Base {
 	}
 
 	function update(): Void {
+		//if (MouseControl.btnLeft) trace('md');
 		previousRealTime = realTime;
 		uiController.update();
 		timer.update();
@@ -97,7 +100,7 @@ class Base {
 		g.transformation = Camera.Transform;
 		//g.drawScaledImage(Assets.images.cloud, -500000,-500000,1000000,1000000);
 		galxy.render(g);
-		g.drawScaledImage(Assets.images.BlackHole2, -25000000000, -25000000000, 50000000000, 50000000000);
+		g.drawScaledImage(Assets.images.BlackHole2, -20000000000, -20000000000, 40000000000, 40000000000);
 		uiController.render(g);
 	g.end();	
 		    // draw our backbuffer onto the active framebuffer

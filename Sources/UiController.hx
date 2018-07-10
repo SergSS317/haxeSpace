@@ -59,8 +59,22 @@ class UiController
 
 	public function update(): Void {
 		previousRealTime = realTime;
+		MoveCam();
+		//if(MouseControl.btnLeft)
+		//onMouseDown(0, MouseControl.x, MouseControl.y);
+		
 	}
-
+	
+	//var tempCamX:Int;
+	function MoveCam()
+	{
+		if (MouseControl.btnLeft){
+			Camera.x+= 300;
+			//tempCamX = MouseControl.x;
+			//tempCamX = MouseControl.x;
+	
+		}
+	}
 
 	public function render(g: Graphics): Void {
 
@@ -83,6 +97,7 @@ class UiController
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
 		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 70);
+		//g.drawString("Zoom: " + Camera.zoom + " ;   "+Camera.deltamap+"   x="+Camera.x+"   y="+Camera.y, 10, 70);
 		AddStars1000_btn.render(g);
 		AddStars10000_btn.render(g);
 		RemoveStars1000_btn.render(g);
@@ -96,6 +111,7 @@ class UiController
   }
   
   public function onMouseDown(button:Int, x:Int, y:Int){
+	  //trace('MD');
 		AddStars1000_btn.onMouseDown(button, x, y);
 		AddStars10000_btn.onMouseDown(button, x, y);
 		RemoveStars1000_btn.onMouseDown(button, x, y);

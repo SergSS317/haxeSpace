@@ -9,9 +9,9 @@ package;
  import kha.math.FastMatrix3;
 class Camera
 {
-	var MapSize = 700;
-	public var x: Float;
-	public var y: Float;
+	var MapSize = 330000000000;
+	public static var x: Float;
+	public static var y: Float;
 	public static var zoom:Float = 1.0;
 	public static var minzoom:Float=0.001;
 	public static var maxzoom:Float=1.0;
@@ -24,9 +24,9 @@ class Camera
 	public static var ScaleFlare:Float = 0.0;
 	
 	public static var Transform:FastMatrix3;
-	public function new(x: Int, y: Int) {
-		this.x = x;
-		this.y = y;
+	public function new(_x: Int, _y: Int) {
+		x = _x;
+		y = _y;
 		maxzoom = 100.0;
 		minzoom = 0.0000000007;
 		zoomspeed = minzoom;
@@ -43,7 +43,7 @@ class Camera
 	}
 	
 	
-	
+	//var deltamap = MapSize * zoom;//*1000000000000000;
 public function update(controls: Controls, deltaTime: Float) {
 	//ZoomChanged = false;
     if (controls.left && !controls.right) {
@@ -83,7 +83,7 @@ public function update(controls: Controls, deltaTime: Float) {
 		}
 		//trace('zoom:'+zoom);
     }
-	var deltamap = MapSize * zoom*1000000000000000;
+	var deltamap = MapSize;
 	if (x <-deltamap) x =-deltamap;
 	if (x > deltamap) x = deltamap;
 	if (y <-deltamap) y = -deltamap;
