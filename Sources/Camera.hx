@@ -17,7 +17,7 @@ class Camera
 	public static var maxzoom:Float=1.0;
 	public var speed = 100.0;
 	
-	//public static var ZoomChanged:Bool=false;
+	//public static var ZoomChanged:Bool=false; 
 	public static var aX:Float=0;//absolute
 	public static var aY:Float=0;
 	public static var zoomspeed:Float = 0.000001;

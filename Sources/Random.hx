@@ -77,6 +77,28 @@ class Random
 		return rnd;
 	}
 	
+	public static function RndIter3(maxValue:Float, minValue:Float, seed:Int, Iteration:Float)
+	{
+		var rnd = 0.0;
+		var rnd = Math.pow( (12345 + Iteration), 2) % seed;
+		rnd = (rnd - Math.round(rnd / 12345) * 12345) / 12345;
+		
+		/*
+		if (seed > Iteration){
+			rnd = (seed % (Iteration)/(Iteration));
+		}else{
+			rnd = ( (Iteration )%(seed)/(seed));
+		}
+		*/
+		
+		
+		/*
+		var rnd = Math.pow( (12345+Iteration), 2) % seed;		
+		rnd = (Math.sin(rnd));*/
+		rnd = minValue+rnd * (maxValue-minValue);
+		return rnd;
+	}
+	
 	public static function RndGaus(maxValue:Float, minValue:Float, seed:Int)
 	{
 		var const1 = 1.772453851;

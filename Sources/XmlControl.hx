@@ -37,7 +37,7 @@ class StarPrototipe
 		this.stChanceMin = ChanceCounter;
 		ChanceCounter += _stChance;
 		this.stChanceMax = ChanceCounter;
-		trace("Chanses: " + stChanceMin + " - " + stChanceMax + " type of " + stType);
+		trace("Chanses: " + stChanceMin + " - " + stChanceMax + " type of " + stType+"   _stLight "+_stLight);
 	}
 }
 

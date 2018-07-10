@@ -25,7 +25,7 @@ class Galaxy
 		this.SpeenPower = speenPower;
 		this.AllStars = new Array<Star>();
 		//Seed = 123456789;
-		Seed = 202020202;
+		Seed = 123456789;
 		//trace(":::"+Seed);
 		GenerateGalaxy();
 	}
