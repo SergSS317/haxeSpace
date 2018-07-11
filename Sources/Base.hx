@@ -2,6 +2,7 @@ package;
 
 import kha.Framebuffer;
 import kha.math.Vector2;
+import kha.math.Vector3;
 
 //import kha.graphics4.PipelineState;
 import kha.graphics2.Graphics;
@@ -13,6 +14,20 @@ import kha.Color;
 import kha.math.FastMatrix3;
 import kha.Font;
 import kha.Scaler;
+
+import kha.graphics4.TextureUnit;
+import kha.graphics4.BlendingFactor;
+import kha.graphics4.PipelineState;
+import kha.graphics4.VertexStructure;
+import kha.graphics4.VertexBuffer;
+import kha.graphics4.IndexBuffer;
+import kha.graphics4.FragmentShader;
+import kha.graphics4.VertexShader;
+import kha.graphics4.VertexData;
+import kha.graphics4.Usage;
+import kha.graphics4.ConstantLocation;
+import kha.graphics4.CompareMode;
+import kha.graphics4.CullMode;
   
   
 class Base {
@@ -23,6 +38,7 @@ class Base {
 	//public static var stars: Array<Star>;
 	//public static var Sector:Array<Array<Sectors>>;
 	public static var Sector:Array<Sectors>;
+	public var Sprites:Array<Sprite>;
 	private var controls: Controls;
 	
 	private var uiController: UiController;
@@ -36,6 +52,9 @@ class Base {
     public var realTime:Float;
 	
 	public static var myMouse:MouseControl;
+	
+	public var drawning:Drawning;
+	public var spritedraw:SpriteDraw;
 	public function new() {
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 		//Assets.loadEverything()
@@ -47,6 +66,21 @@ class Base {
 		
 	}
 	private function loadingFinished(): Void {
+		
+		spritedraw = new SpriteDraw();
+		
+		Sprites = new Array<Sprite>();
+		for (i in 0...10)
+		{
+			Sprites.push(new Sprite(new Vector3(i * 0.1, i * 0.1, 0), Assets.images.Light13));
+		}
+		for (sprt in Sprites)
+		{
+			spritedraw.GenVertices(sprt);
+		}
+		
+		drawning = new Drawning();
+		
 		myMouse = new MouseControl();
 		Scheduler.addTimeTask(update, 0, 1 / 60);
 		backbuffer = Image.createRenderTarget(800, 600);
@@ -94,6 +128,25 @@ class Base {
         
 	}
 
+	public function render(frame:Framebuffer) {
+		// A graphics object which lets us perform 3D operations
+		var g = frame.g4;
+
+		// Begin rendering
+        g.begin();
+
+        // Clear screen
+		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
+		drawning.render(g);
+		/*for (sprt in sprite)
+		{
+		sprt.render(g);
+		}*/
+
+		// End rendering
+		g.end();
+    }
+	/*
 	public function render(framebuffer: Framebuffer): Void {
 		var g = backbuffer.g2;
 		g.begin();
@@ -109,7 +162,7 @@ class Base {
     framebuffer.g2.end();
 		
 	}
-	
+	*/
 	private function reset() {
 		timer.reset();
 	}
