@@ -83,6 +83,7 @@ class Drawning
 	}
 	var structure:VertexStructure;
 	var structureLength:Int;
+	
 	function loadingFinished() {
 		vertices = SpriteDraw.vertices;
 		uvs = SpriteDraw.uvs;
@@ -99,17 +100,7 @@ class Drawning
 		
 		//---------------------------------------------------------
 		
-		// Compile pipeline state
-		// Shaders are located in 'Sources/Shaders' directory
-        // and Kha includes them automatically
-		pipeline = new PipelineState();
-		pipeline.inputLayout = [structure];
-		pipeline.vertexShader = Shaders.simple_vert;
-		pipeline.fragmentShader = Shaders.simple_frag;
-        pipeline.depthWrite = true;					// Set depth mode
-        pipeline.depthMode = CompareMode.Always;
-		pipeline.blendDestination = BlendingFactor.DestinationAlpha;
-		pipeline.compile();
+		CreatePipeline(structure);
 		
 		//---------------------------------------------------------
 		
@@ -128,26 +119,26 @@ class Drawning
 		//-----------------------Camera----------------------------
 		//---------------------------------------------------------
 		// Projection matrix: 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-		var projection = FastMatrix4.perspectiveProjection(45.0, 4.0 / 3.0, 0.1, 100.0);
+		//var projection = FastMatrix4.perspectiveProjection(45.0, 4.0 / 3.0, 0.1, 100.0);
 		// Or, for an ortho camera
 		//var projection = FastMatrix4.orthogonalProjection(-10.0, 10.0, -10.0, 10.0, 0.0, 100.0); // In world coordinates
 		
 		// Camera matrix
-		var view = FastMatrix4.lookAt(new FastVector3(0, 0, 3), // Camera is at (4, 3, 3), in World Space
-								  new FastVector3(0, 0, 0), // and looks at the origin
-								  new FastVector3(0, 1, 0) // Head is up (set to (0, -1, 0) to look upside-down)
-		);
+		//var view = FastMatrix4.lookAt(new FastVector3(0, 0, 3), // Camera is at (4, 3, 3), in World Space
+		//						  new FastVector3(0, 0, 0), // and looks at the origin
+		//						  new FastVector3(0, 1, 0) // Head is up (set to (0, -1, 0) to look upside-down)
+		//);
 		
 		//---------------------------------------------------------
 		
 		// Model matrix : an identity matrix (model will be at the origin)
-		var model = FastMatrix4.identity();
+		// var model = FastMatrix4.identity();
 		// Our ModelViewProjection : multiplication of our 3 matrices
 		// Remember, matrix multiplication is the other way around
 		mvp = FastMatrix4.identity();
-		mvp = mvp.multmat(projection);
-		mvp = mvp.multmat(view);
-		mvp = mvp.multmat(model);
+		mvp = mvp.multmat(Camera.projection);
+		mvp = mvp.multmat(Camera.view);
+		mvp = mvp.multmat(FastMatrix4.identity());
 		
 		//---------------------------------------------------------
 		
@@ -196,6 +187,13 @@ class Drawning
 		indexBuffer.unlock();
 		
 	}
+	
+	public function update(){
+		mvp = FastMatrix4.identity();
+		mvp = mvp.multmat(Camera.projection);
+		mvp = mvp.multmat(Camera.view);
+		mvp = mvp.multmat(FastMatrix4.identity());
+	}
 	/*var vbData:haxe.io.Float32Array;
 	function GenvbData(){
 	 vbData = vertexBuffer.lock();
@@ -214,6 +212,21 @@ class Drawning
 		}
 		vertexBuffer.unlock();
 	}*/
+	
+		function CreatePipeline(s:VertexStructure)
+		{
+		// Compile pipeline state
+		// Shaders are located in 'Sources/Shaders' directory
+        // and Kha includes them automatically
+		pipeline = new PipelineState();
+		pipeline.inputLayout = [s];
+		pipeline.vertexShader = Shaders.simple_vert;
+		pipeline.fragmentShader = Shaders.simple_frag;
+        pipeline.depthWrite = true;					// Set depth mode
+        pipeline.depthMode = CompareMode.Always;
+		pipeline.blendDestination = BlendingFactor.DestinationAlpha;
+		pipeline.compile();
+		}
 	
 	public function render(g:Graphics) {
 				g.setVertexBuffer(vertexBuffer);

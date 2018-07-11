@@ -66,11 +66,11 @@ class Base {
 		
 	}
 	private function loadingFinished(): Void {
-		
+		camera = new Camera(0, 0);
 		spritedraw = new SpriteDraw();
 		
 		Sprites = new Array<Sprite>();
-		for (i in 0...10)
+		for (i in 0...1000000)
 		{
 			Sprites.push(new Sprite(new Vector3(i * 0.1, i * 0.1, 0), Assets.images.Light13));
 		}
@@ -87,7 +87,7 @@ class Base {
 
 		timer = new Timer();
 		uiController = new UiController();
-		camera = new Camera(0, 0);
+		
 		Sector = new Array<Sectors>();
 		for ( j in 0...100)
 		{
@@ -118,6 +118,7 @@ class Base {
 		//if (MouseControl.btnLeft) trace('md');
 		previousRealTime = realTime;
 		uiController.update();
+		drawning.update();
 		timer.update();
 		camera.update(controls, timer.deltaTime);
 		galxy.update();
