@@ -35,10 +35,11 @@ class Base {
 	//private var pipeline: PipelineState;
 	//private var star:Star;
 	private var backbuffer: Image;
+	public static var set3d:Set3d;
 	//public static var stars: Array<Star>;
 	//public static var Sector:Array<Array<Sectors>>;
 	
-	public static var AllSprites:Array<Sprite>;
+	//public static var AllSprites:Array<Sprite>;
 	
 	public static var Sector:Array<Sectors>;
 	//public var Sprites:Array<Sprite>;
@@ -56,10 +57,10 @@ class Base {
 	
 	public static var myMouse:MouseControl;
 	
-	public var drawning:Drawning;
+	//public static var drawning:Drawning;
 	//public var spritedraw:SpriteDraw;
 	public function new() {
-		trace("111");
+		//trace("111");
 		
 		//Assets.loadEverything()
 		Assets.loadEverything(loadingFinished);
@@ -72,11 +73,12 @@ class Base {
 	}
 	private function loadingFinished(): Void {
 		trace("Start load");
+		set3d = new Set3d();
 		camera = new Camera(0, 0);
 		
-		drawning = new Drawning();
+		//drawning = new Drawning();
 		//spritedraw = new SpriteDraw();
-		AllSprites = new Array<Sprite>();
+		//AllSprites = new Array<Sprite>();
 		//Sprites = new Array<Sprite>();
 		/*for (i in 0...200000)
 		{
@@ -111,12 +113,12 @@ class Base {
 		controls = new Controls();
 		
 		MyXml = new XmlControl();
-		galxy = new Galaxy(200000, 2, 0.25, 0);
-		drawning.update();
+		galxy = new Galaxy(12000, 2, 0.25, 0);
+		//drawning.update();
 		previousRealTime = 0.0;
         realTime         = 0.0;
 		font = Assets.fonts.kenpixel_mini_square;
-trace("End load");
+//trace("End load");
 		//trace('000');
 	}
 
@@ -144,8 +146,9 @@ trace("End load");
 		//trace("End update");
         
 	}
-
+//var drawning:Drawning = new Drawning();
 	public function render(frame:Framebuffer) {
+		//trace("Zoom:"+Camera.zoom);
 		// A graphics object which lets us perform 3D operations
 		var g = frame.g4;
 
@@ -154,14 +157,10 @@ trace("End load");
 
         // Clear screen
 		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
-		if (drawning != null){
-			//trace("11111111");
-		drawning.render(g);
-		}
-		/*for (sprt in sprite)
-		{
-		sprt.render(g);
-		}*/
+		g.setPipeline(Base.set3d.pipeline);
+		g.setMatrix(Base.set3d.mvpID, Camera.Matrix);
+		//trace(Base.set3d.mvpID);
+		galxy.render(g);
 
 		// End rendering
 		g.end();
