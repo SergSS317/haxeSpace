@@ -106,7 +106,7 @@ class Drawning
 		// Get a handle for texture sample
 		textureID = pipeline.getTextureUnit("Light9");
 		// Texture
-		image = Assets.images.Light9;
+		image = Assets.images.star3;
 		
 		CreateVertexBuffer();
 		CreateIndexBuffer();
