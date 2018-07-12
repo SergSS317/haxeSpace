@@ -7,7 +7,7 @@ class Main {
 
   public static function main() {
 	  //Assets.;
-	  trace("start");
+	  
     System.init({ title: "Base", width: 800, height: 600 }, init);
   }
 
