@@ -4,7 +4,6 @@ package;
 import kha.Framebuffer;
 import kha.math.FastVector4;
 import kha.math.Vector2;
-import kha.math.Vector3;
 import kha.math.Vector4;
 //import kha.graphics4.PipelineState;
 import kha.graphics4.Graphics;
@@ -14,7 +13,6 @@ import kha.Image;
 import kha.Color;
 import kha.Assets;
 class Star {
-	public var Sprt:Sprite;
 	public var image: Image;		//сама картинка звезды
 	public var flare: Image;		//спрайт светимости
 	public var UnderFlare: Image;	//спрайт цвета по краям звезды
@@ -47,19 +45,27 @@ class Star {
 
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
 		this.color = color;
+<<<<<<< HEAD
 		//StarRect.Recalc(x - Size / 2, y - Size / 2, Size, Size);
 		//trace("star3:"+this.image+"   -   "+Assets.images.star3);
 		Sprt = new Sprite(this.image, new Vector3(x, y, 0), new Vector3(size, size, size));
+=======
+		StarRect.Recalc(x - Size / 2, y - Size / 2, Size, Size);
+>>>>>>> parent of d346ac3... to 3d
 		//tempScaleFlare=(Light*1)/1.3;
 		TotalCount++;
 		//Base.galxy.AllStars.push(this);
 	}
 
+<<<<<<< HEAD
 	public function getStarSize():Float { return Sprt.Size.x; }
 	
 	public function update(): Void {//CalcDrawPosition(); 
 		
 	}
+=======
+	public function update(): Void { CalcDrawPosition(); }
+>>>>>>> parent of d346ac3... to 3d
 
 	public function render(g:Graphics): Void 
 	{
