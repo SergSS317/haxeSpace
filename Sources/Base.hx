@@ -37,8 +37,11 @@ class Base {
 	private var backbuffer: Image;
 	//public static var stars: Array<Star>;
 	//public static var Sector:Array<Array<Sectors>>;
+	
+	public static var AllSprites:Array<Sprite>;
+	
 	public static var Sector:Array<Sectors>;
-	public var Sprites:Array<Sprite>;
+	//public var Sprites:Array<Sprite>;
 	private var controls: Controls;
 	
 	private var uiController: UiController;
@@ -54,11 +57,13 @@ class Base {
 	public static var myMouse:MouseControl;
 	
 	public var drawning:Drawning;
-	public var spritedraw:SpriteDraw;
+	//public var spritedraw:SpriteDraw;
 	public function new() {
-		Scheduler.addTimeTask(update, 0, 1 / 60);
+		trace("111");
+		
 		//Assets.loadEverything()
 		Assets.loadEverything(loadingFinished);
+		//Scheduler.addTimeTask(update, 0, 1 / 60);
 		//trace(Assets.fonts);
 		
 		
@@ -66,20 +71,20 @@ class Base {
 		
 	}
 	private function loadingFinished(): Void {
+		trace("Start load");
 		camera = new Camera(0, 0);
-		spritedraw = new SpriteDraw();
-		
-		Sprites = new Array<Sprite>();
-		for (i in 0...1000000)
-		{
-			Sprites.push(new Sprite(new Vector3(i * 0.1, i * 0.1, 0), Assets.images.Light13));
-		}
-		for (sprt in Sprites)
-		{
-			spritedraw.GenVertices(sprt);
-		}
 		
 		drawning = new Drawning();
+		//spritedraw = new SpriteDraw();
+		AllSprites = new Array<Sprite>();
+		//Sprites = new Array<Sprite>();
+		/*for (i in 0...200000)
+		{
+			AllSprites.push(new Sprite(Assets.images.Light13,new Vector3(i * 0.1, i * 0.1, 0),new Vector3(1,1,1)));
+		}*/
+
+		
+		
 		
 		myMouse = new MouseControl();
 		Scheduler.addTimeTask(update, 0, 1 / 60);
@@ -97,7 +102,7 @@ class Base {
 			}
 		}
 
-		trace(Sector.length);
+		//trace(Sector.length);
 		
 		
 		
@@ -107,25 +112,36 @@ class Base {
 		
 		MyXml = new XmlControl();
 		galxy = new Galaxy(200000, 2, 0.25, 0);
+		drawning.update();
 		previousRealTime = 0.0;
         realTime         = 0.0;
 		font = Assets.fonts.kenpixel_mini_square;
-
+trace("End load");
 		//trace('000');
 	}
 
 	function update(): Void {
 		//if (MouseControl.btnLeft) trace('md');
+		//trace("Start update");
 		previousRealTime = realTime;
 		uiController.update();
-		drawning.update();
+		/*for (sprite in AllSprites)
+		{
+			sprite.update();
+		}*/
+		//trace("sprt2="+AllSprites.length);
+		//trace("AllSprites="+AllSprites);
+		
+		//drawning.update();
+		
 		timer.update();
 		camera.update(controls, timer.deltaTime);
 		galxy.update();
 		/*for ( star in  stars)
 		{
 			star.update();
-		} */      
+		} */   
+		//trace("End update");
         
 	}
 
@@ -138,7 +154,10 @@ class Base {
 
         // Clear screen
 		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
+		if (drawning != null){
+			//trace("11111111");
 		drawning.render(g);
+		}
 		/*for (sprt in sprite)
 		{
 		sprt.render(g);

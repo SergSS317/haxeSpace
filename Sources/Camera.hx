@@ -16,6 +16,7 @@ class Camera
 	var MapSize = 330000000000;
 	public static var Position:Vector3;
 	
+	public static var Matrix:FastMatrix4;
 	
 	
 	public static var x: Float;
@@ -36,7 +37,7 @@ class Camera
 	public function new(_x: Int, _y: Int) {
 		x = _x;
 		y = _y;
-		maxzoom = 4000.0;
+		maxzoom = 400000.0;
 		minzoom = 0.1;
 		//zoomspeed = minzoom;
 		//zoom = minzoom;
@@ -49,6 +50,7 @@ class Camera
 	public static var view:FastMatrix4;
 	public function TransformUpdate()
 	{
+
 		//Transform = new FastMatrix3(	Camera.zoom, 	0, 				Camera.aX,
 		//										0,				Camera.zoom,	Camera.aY,
 		//										0,				0,				1);
@@ -63,10 +65,16 @@ class Camera
 								  new FastVector3(x, y, 0), // and looks at the origin
 								  new FastVector3(0, 1, 0) // Head is up (set to (0, -1, 0) to look upside-down)
 		);
+		
+		Matrix = FastMatrix4.identity();
+		Matrix = Matrix.multmat(projection);
+		Matrix = Matrix.multmat(view);
+		Matrix = Matrix.multmat(FastMatrix4.identity());
 		//trace("x="+x+"   y="+y+"   zoom="+zoom);
 		//trace('2222222222');
 	}
-	
+
+		
 	
 	//var deltamap = MapSize * zoom;//*1000000000000000;
 public function update(controls: Controls, deltaTime: Float) {

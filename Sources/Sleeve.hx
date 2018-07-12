@@ -45,15 +45,18 @@ class Sleeve
 		var t = (StarsInSlave) * 0.00016;//угол поворота(шаг между звездами)0.00008
 		var rnd:Float = 0.0;
 	
-		rnd = Random.RndIter3(1.04, 0, SeedSleeve, StarsInSlave);
-		//rnd = Random.RndIter2(0.519, -0.519, SeedSleeve, StarsInSlave);
+		//rnd = Random.RndIter3(1.04, 0, SeedSleeve, StarsInSlave);
+		rnd = Random.RndIter2(0.519, -0.519, SeedSleeve, StarsInSlave);
 		//trace(rnd);
 		//xStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
 		//yStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
 		//xStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd*rnd+t);
 		//yStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd*rnd+t);
-		xStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		yStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		xStarPosition = 100.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		yStarPosition = 100.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		
+		//last xStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		//last yStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
 		StarsInSlave++;
 		PastStar( xStarPosition, yStarPosition);
 	}
@@ -71,7 +74,7 @@ class Sleeve
 	{
 		var removedStar = stars[stars.length-1];
 		stars.remove(removedStar);
-		Base.galxy.AllStars.remove(removedStar);
+		//Base.galxy.AllStars.remove(removedStar);
 		StarsInSlave--;
 		Star.TotalCount--;
 	}
@@ -104,14 +107,18 @@ class Sleeve
 	}
 	
 	public function update(): Void {
-			for ( star in  stars)
+		/*	for ( star in  stars)
 		{
 			star.update();
-		} 
+		} */
 	}
 	
-	public function render(g: Graphics): Void {  
-	//отрисовка светимости
+	public function render(g: Graphics): Void {
+
+		
+		
+		
+		/* //отрисовка светимости
 		if(Camera.zoom<3){
 			for ( star in  stars)
 			{
@@ -120,7 +127,7 @@ class Sleeve
 				g.color = star.color;
 				g.drawScaledImage(star.flare, star.FlareRect.x, star.FlareRect.y, star.FlareRect.w, star.FlareRect.h);
 			}
-		}
+		}*/
 		if(Camera.zoom>0.001){
 		//отрисовка цвета звезд
 			/*for ( star in  stars)
@@ -131,11 +138,11 @@ class Sleeve
 			
 			//отрисовка самой звезды
 			//g.color = Color.White;
-			for ( star in  stars)
+			/*for ( star in  stars)
 			{
 				g.color = star.color;
 				g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			}
+			}*/
 		}
 	}
 }

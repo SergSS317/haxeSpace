@@ -11,7 +11,7 @@ import kha.graphics2.Graphics;
 //import ;
 class Galaxy
 {
-	public var AllStars:Array<Star>=new Array<Star>();
+	//public var AllStars:Array<Star>=new Array<Star>();
 	public var Sleeves:Array<Sleeve>=new Array<Sleeve>();
 	public var StarCount:Int;		//колько нужно сгенерить звезд
 	public var GalaxySleeve:Int;	//число необходмых рукавов
@@ -23,11 +23,11 @@ class Galaxy
 		this.StarCount = starCount;
 		this.GalaxySleeve = galaxySleeve;
 		this.SpeenPower = speenPower;
-		this.AllStars = new Array<Star>();
+		//this.AllStars = new Array<Star>();
 		//Seed = 123456789;
 		Seed = 123456789;
 		//trace(":::"+Seed);
-		//GenerateGalaxy();!!!!!!!!!!!!!!!!!!!1
+		GenerateGalaxy();//!!!!!!!!!!!!!!!!!!!1
 	}
 	
 	function GenerateGalaxy()
