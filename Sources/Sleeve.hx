@@ -4,7 +4,7 @@ package;
  * ...
  * @author ...
  */
-import kha.graphics4.Graphics;
+import kha.graphics2.Graphics;
 import kha.Color;
 class Sleeve 
 {
@@ -115,14 +115,11 @@ class Sleeve
 	
 	public function render(g: Graphics): Void {
 
-		//trace("Sleeve:"+stars.length);
-		for (star in stars)
-		{
-			star.render(g);
-		}
+		
+		
 		
 		/* //отрисовка светимости
-		if(Camera.zoomt3){
+		if(Camera.zoom<3){
 			for ( star in  stars)
 			{
 				
@@ -131,7 +128,7 @@ class Sleeve
 				g.drawScaledImage(star.flare, star.FlareRect.x, star.FlareRect.y, star.FlareRect.w, star.FlareRect.h);
 			}
 		}*/
-		//if(Camera.zoom>0.001){
+		if(Camera.zoom>0.001){
 		//отрисовка цвета звезд
 			/*for ( star in  stars)
 			{
@@ -146,6 +143,6 @@ class Sleeve
 				g.color = star.color;
 				g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
 			}*/
-		//}
+		}
 	}
 }
