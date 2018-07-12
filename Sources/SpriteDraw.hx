@@ -12,8 +12,6 @@ class SpriteDraw
 		reset();
 	}
 	
-	
-	
 	public function reset()
 	{
 		vertices = new Array<Float>();
@@ -25,12 +23,12 @@ class SpriteDraw
 	public static var colors:Array<Float>;
 	public function GenVertices(_sprite:Sprite)
 	{
-		vertices.push( -1.0 +_sprite.Position.x); vertices.push( -1.0 +_sprite.Position.y); vertices.push(0.0);
-		vertices.push( -1.0 +_sprite.Position.x); vertices.push(  1.0 +_sprite.Position.y); vertices.push(0.0);
-		vertices.push(  1.0 +_sprite.Position.x); vertices.push(  1.0 +_sprite.Position.y); vertices.push(0.0);
-		vertices.push( -1.0 +_sprite.Position.x); vertices.push( -1.0 +_sprite.Position.y); vertices.push(0.0);
-		vertices.push(  1.0 +_sprite.Position.x); vertices.push( -1.0 +_sprite.Position.y); vertices.push(0.0);
-		vertices.push(  1.0 +_sprite.Position.x); vertices.push(  1.0 +_sprite.Position.y); vertices.push(0.0);
+		vertices.push( -1.0 +_sprite.position.x); vertices.push( -1.0 +_sprite.position.y); vertices.push(0.0);
+		vertices.push( -1.0 +_sprite.position.x); vertices.push(  1.0 +_sprite.position.y); vertices.push(0.0);
+		vertices.push(  1.0 +_sprite.position.x); vertices.push(  1.0 +_sprite.position.y); vertices.push(0.0);
+		vertices.push( -1.0 +_sprite.position.x); vertices.push( -1.0 +_sprite.position.y); vertices.push(0.0);
+		vertices.push(  1.0 +_sprite.position.x); vertices.push( -1.0 +_sprite.position.y); vertices.push(0.0);
+		vertices.push(  1.0 +_sprite.position.x); vertices.push(  1.0 +_sprite.position.y); vertices.push(0.0);
 		
 		uvs.push(0.0); uvs.push(0.0);
 		uvs.push(0.0); uvs.push(1.0);
