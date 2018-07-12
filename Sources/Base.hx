@@ -38,14 +38,11 @@ class Base {
 	public static var set3d:Set3d;
 	//public static var stars: Array<Star>;
 	//public static var Sector:Array<Array<Sectors>>;
-<<<<<<< HEAD
 	
 	//public static var AllSprites:Array<Sprite>;
 	
-=======
->>>>>>> parent of d346ac3... to 3d
 	public static var Sector:Array<Sectors>;
-	public var Sprites:Array<Sprite>;
+	//public var Sprites:Array<Sprite>;
 	private var controls: Controls;
 	
 	private var uiController: UiController;
@@ -60,20 +57,14 @@ class Base {
 	
 	public static var myMouse:MouseControl;
 	
-<<<<<<< HEAD
 	//public static var drawning:Drawning;
 	//public var spritedraw:SpriteDraw;
 	public function new() {
 		//trace("111");
 		
-=======
-	public var drawning:Drawning;
-	public var spritedraw:SpriteDraw;
-	public function new() {
-		Scheduler.addTimeTask(update, 0, 1 / 60);
->>>>>>> parent of d346ac3... to 3d
 		//Assets.loadEverything()
 		Assets.loadEverything(loadingFinished);
+		//Scheduler.addTimeTask(update, 0, 1 / 60);
 		//trace(Assets.fonts);
 		
 		
@@ -81,33 +72,21 @@ class Base {
 		
 	}
 	private function loadingFinished(): Void {
-<<<<<<< HEAD
 		trace("Start load");
 		set3d = new Set3d();
-=======
->>>>>>> parent of d346ac3... to 3d
 		camera = new Camera(0, 0);
-		spritedraw = new SpriteDraw();
 		
-<<<<<<< HEAD
 		//drawning = new Drawning();
 		//spritedraw = new SpriteDraw();
 		//AllSprites = new Array<Sprite>();
 		//Sprites = new Array<Sprite>();
 		/*for (i in 0...200000)
-=======
-		Sprites = new Array<Sprite>();
-		for (i in 0...1000000)
->>>>>>> parent of d346ac3... to 3d
 		{
-			Sprites.push(new Sprite(new Vector3(i * 0.1, i * 0.1, 0), Assets.images.Light13));
-		}
-		for (sprt in Sprites)
-		{
-			spritedraw.GenVertices(sprt);
-		}
+			AllSprites.push(new Sprite(Assets.images.Light13,new Vector3(i * 0.1, i * 0.1, 0),new Vector3(1,1,1)));
+		}*/
+
 		
-		drawning = new Drawning();
+		
 		
 		myMouse = new MouseControl();
 		Scheduler.addTimeTask(update, 0, 1 / 60);
@@ -125,7 +104,7 @@ class Base {
 			}
 		}
 
-		trace(Sector.length);
+		//trace(Sector.length);
 		
 		
 		
@@ -134,35 +113,37 @@ class Base {
 		controls = new Controls();
 		
 		MyXml = new XmlControl();
-<<<<<<< HEAD
 		galxy = new Galaxy(12000, 2, 0.25, 0);
 		//drawning.update();
 		previousRealTime = 0.0;
         realTime         = 0.0;
 		font = Assets.fonts.kenpixel_mini_square;
 //trace("End load");
-=======
-		galxy = new Galaxy(200000, 2, 0.25, 0);
-		previousRealTime = 0.0;
-        realTime         = 0.0;
-		font = Assets.fonts.kenpixel_mini_square;
-
->>>>>>> parent of d346ac3... to 3d
 		//trace('000');
 	}
 
 	function update(): Void {
 		//if (MouseControl.btnLeft) trace('md');
+		//trace("Start update");
 		previousRealTime = realTime;
 		uiController.update();
-		drawning.update();
+		/*for (sprite in AllSprites)
+		{
+			sprite.update();
+		}*/
+		//trace("sprt2="+AllSprites.length);
+		//trace("AllSprites="+AllSprites);
+		
+		//drawning.update();
+		
 		timer.update();
 		camera.update(controls, timer.deltaTime);
 		galxy.update();
 		/*for ( star in  stars)
 		{
 			star.update();
-		} */      
+		} */   
+		//trace("End update");
         
 	}
 //var drawning:Drawning = new Drawning();
@@ -176,18 +157,10 @@ class Base {
 
         // Clear screen
 		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
-<<<<<<< HEAD
 		g.setPipeline(Base.set3d.pipeline);
 		g.setMatrix(Base.set3d.mvpID, Camera.Matrix);
 		//trace(Base.set3d.mvpID);
 		galxy.render(g);
-=======
-		drawning.render(g);
-		/*for (sprt in sprite)
-		{
-		sprt.render(g);
-		}*/
->>>>>>> parent of d346ac3... to 3d
 
 		// End rendering
 		g.end();
