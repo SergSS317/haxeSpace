@@ -27,7 +27,7 @@ class Galaxy
 		//Seed = 123456789;
 		Seed = 123456789;
 		//trace(":::"+Seed);
-		//GenerateGalaxy();!!!!!!!!!!!!!!!!!!!1
+		GenerateGalaxy();//!!!!!!!!!!!!!!!!!!!1
 	}
 	
 	function GenerateGalaxy()
