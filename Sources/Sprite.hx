@@ -3,31 +3,23 @@ import kha.Assets;
 import kha.Image;
 import kha.graphics4.Graphics;
 import kha.math.Vector3;
-<<<<<<< HEAD
 import kha.Color;
 import kha.graphics4.TextureUnit;
-=======
-
->>>>>>> parent of d346ac3... to 3d
 /**
  * ...
  * @author ...
  */
-class Sprite 
+ //import Entity;
+class Sprite extends Entity 
 {
 
-<<<<<<< HEAD
 	
 	//public var position:Vector3 = new Vector3(0, 0, 0);
-=======
-	public var position:Vector3 = new Vector3(0, 0, 0);
->>>>>>> parent of d346ac3... to 3d
 	public var img:Image;
-	public function new(_position:Vector3, _image:Image) 
+	public override function new( _image:Image, _position:Vector3, _size:Vector3) 
 	{
-		this.position = _position;
+		this.Position = _position;
 		this.img = _image;
-<<<<<<< HEAD
 		this.color = Color.White;
 		//this.Size = _size;
 		//Base.AllSprites.push(this);
@@ -49,9 +41,7 @@ class Sprite
 	{
 		super.update();
 	}*/
-=======
-		
-	}
->>>>>>> parent of d346ac3... to 3d
 	
+	
+
 }
