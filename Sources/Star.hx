@@ -14,9 +14,11 @@ import kha.Image;
 import kha.Color;
 import kha.Assets;
 class Star {
-	public var Sprt:Sprite;
-	public var image: Image;		//сама картинка звезды
-	public var flare: Image;		//спрайт светимости
+	public var Sprt:Sprite;			//для отрисовки
+	public var SprtFlare:Sprite;			//для отрисовки
+	
+	//public var image: Image;		//сама картинка звезды
+	//public var flare: Image;		//спрайт светимости
 	public var UnderFlare: Image;	//спрайт цвета по краям звезды
 	public var color:Color;			//цвет звезды
 	public var FlareColor:Color;			//цвет звезды
@@ -30,7 +32,7 @@ class Star {
 	public var StarRect:Rect = new Rect(0, 0, 0, 0);	//центрирование звезды
 	public var FlareRect:Rect = new Rect(0, 0, 0, 0);		//центрирование спрайта светимости
 	
-	var scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
+	
 	
 	var tx = 0.0;
 	var ty = 0.0;
@@ -38,8 +40,7 @@ class Star {
 	public static var TotalCount:Int = 0;					//счетчик звезд
 	
 	public function new(x: Float, y: Float, color:Color, size:Float, light:Float ) {
-		this.image = Assets.images.star3;
-		this.flare = Assets.images.Light13;
+
 		this.UnderFlare = Assets.images.UnderFlare;
 		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed)*0.4;
 		this.x = x;
@@ -47,24 +48,30 @@ class Star {
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
 		this.color = color;
 		StarRect.Recalc(x - Size / 2, y - Size / 2, Size, Size);
-		Sprt = new Sprite(this.image, new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1));
-		//tempScaleFlare=(Light*1)/1.3;
+
+		var star_uvs:Array<Float> = [0, 0,  0, 1,  0.5,1,  0,0,  0.5,0,  0.5,1];
+		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1,1,  0.5,0,  1,0,  1,1];
+		Sprt = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),star_uvs );
+		SprtFlare = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),flare_uvs);
+
 		TotalCount++;
 	}
 
-	public function update(): Void {//CalcDrawPosition(); 
-		
+	public function update(): Void {
+		//CalcDrawPosition(); 
 	}
 
-	public function render(g: Graphics): Void {  }
+	//public function render(g: Graphics):Void {  }
+	//var tempScaleFlare:Float = 1.0;
 	
-	var tempScaleFlare:Float = 1.0;
-	
+	var scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
+	var Alphaflare:Float = 1.0;
 	function CalcDrawPosition(): Void {
-		//if (Camera.ZoomChanged)
-		//{
-			scaleflare = Light / Camera.zoom*5;// tempScaleFlare / Camera.zoom;
-			FlareRect.Recalc(x - scaleflare / 2, y - scaleflare / 2, scaleflare, scaleflare);
-		//}
+			scaleflare = Light * Camera.zoom/100;// tempScaleFlare / Camera.zoom;
+			SprtFlare.Size = new Vector3(scaleflare, scaleflare, 0);
+			Alphaflare = 5 * Camera.zoom / Camera.maxzoom;
+			if (Alphaflare > 1.0) Alphaflare = 1.0;
+			SprtFlare.color.A = Alphaflare;
+
 	}	
 }

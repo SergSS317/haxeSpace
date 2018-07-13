@@ -27,7 +27,7 @@ class Galaxy
 		//Seed = 123456789;
 		Seed = 123456789;
 		//trace(":::"+Seed);
-		GenerateGalaxy();//!!!!!!!!!!!!!!!!!!!1
+		GenerateGalaxy();
 	}
 	
 	function GenerateGalaxy()
@@ -53,13 +53,13 @@ class Galaxy
 			sleeve.RemoveStars(Math.round( Count/Sleeves.length));
 		}
 	}
-	public function render(g: Graphics): Void {
+	/*public function render(g: Graphics): Void {
 		for (sleeve in Sleeves)
 		{
 			sleeve.render(g);
 		}
 		
-	}
+	}*/
 
 	public function update(): Void {
 		for ( sleeve in Sleeves)

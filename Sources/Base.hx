@@ -47,6 +47,8 @@ class Base {
 	private var uiController: UiController;
 	
 	private var camera: Camera;
+	private var set3d:Set3d;
+	
 	private var timer: Timer;
 	private var MyXml:XmlControl;
 	public static var galxy:Galaxy;
@@ -59,29 +61,18 @@ class Base {
 	public var drawning:Drawning;
 	//public var spritedraw:SpriteDraw;
 	public function new() {
-		trace("111");
-		
-		//Assets.loadEverything()
 		Assets.loadEverything(loadingFinished);
 		//Scheduler.addTimeTask(update, 0, 1 / 60);
-		//trace(Assets.fonts);
-		
-		
 		//System.notifyOnRender(render);
-		
 	}
 	private function loadingFinished(): Void {
 		trace("Start load");
+		MyXml = new XmlControl();
 		camera = new Camera(0, 0);
+		set3d = new Set3d();
+		drawning = new Drawning(Assets.images.ImgData);
 		
-		drawning = new Drawning();
-		//spritedraw = new SpriteDraw();
 		AllSprites = new Array<Sprite>();
-		//Sprites = new Array<Sprite>();
-		/*for (i in 0...200000)
-		{
-			AllSprites.push(new Sprite(Assets.images.Light13,new Vector3(i * 0.1, i * 0.1, 0),new Vector3(1,1,1)));
-		}*/
 
 		
 		
@@ -110,8 +101,9 @@ class Base {
 		
 		controls = new Controls();
 		
-		MyXml = new XmlControl();
-		galxy = new Galaxy(200000, 2, 0.25, 0);
+		
+		galxy = new Galaxy(50000, 2, 0.25, 0);
+		trace("AllSprites:"+AllSprites.length);
 		drawning.update();
 		previousRealTime = 0.0;
         realTime         = 0.0;
@@ -121,31 +113,20 @@ trace("End load");
 	}
 
 	function update(): Void {
-		//if (MouseControl.btnLeft) trace('md');
 		//trace("Start update");
 		previousRealTime = realTime;
 		uiController.update();
-		/*for (sprite in AllSprites)
-		{
-			sprite.update();
-		}*/
-		//trace("sprt2="+AllSprites.length);
-		//trace("AllSprites="+AllSprites);
-		
-		//drawning.update();
-		
 		timer.update();
 		camera.update(controls, timer.deltaTime);
+		
 		galxy.update();
-		/*for ( star in  stars)
-		{
-			star.update();
-		} */   
+		drawning.update();
 		//trace("End update");
         
 	}
 
 	public function render(frame:Framebuffer) {
+		
 		// A graphics object which lets us perform 3D operations
 		var g = frame.g4;
 
@@ -154,35 +135,12 @@ trace("End load");
 
         // Clear screen
 		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
-		if (drawning != null){
-			//trace("11111111");
-		drawning.render(g);
-		}
-		/*for (sprt in sprite)
-		{
-		sprt.render(g);
-		}*/
+		if (drawning != null){ drawning.render(g); }
 
 		// End rendering
 		g.end();
     }
-	/*
-	public function render(framebuffer: Framebuffer): Void {
-		var g = backbuffer.g2;
-		g.begin();
-		g.transformation = Camera.Transform;
-		//g.drawScaledImage(Assets.images.cloud, -500000,-500000,1000000,1000000);
-		galxy.render(g);
-		g.drawScaledImage(Assets.images.BlackHole2, -20000000000, -20000000000, 40000000000, 40000000000);
-		uiController.render(g);
-	g.end();	
-		    // draw our backbuffer onto the active framebuffer
-    framebuffer.g2.begin();
-		Scaler.scale( backbuffer, framebuffer, System.screenRotation);
-    framebuffer.g2.end();
-		
-	}
-	*/
+
 	private function reset() {
 		timer.reset();
 	}

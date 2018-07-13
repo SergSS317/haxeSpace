@@ -84,6 +84,7 @@ class Sleeve
 		var Chance:Float = Math.abs(Math.sin(x))*XmlControl.StarPrototipe.ChanceCounter;
 		for ( i in 0...XmlControl.starPrototypes.length)
 		{
+			//trace("Chanses:"+);
 			if (Chance > XmlControl.starPrototypes[i].stChanceMin && Chance < XmlControl.starPrototypes[i].stChanceMax)
 			{
 				stars.push(new Star(x, y, XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight));
@@ -92,57 +93,13 @@ class Sleeve
 				//trace("NoChance! Chance: "+Chance);
 			}
 		}
-		/*
-		var Chance:Float = Random.Rnd2(Math.floor(XmlControl.StarPrototipe.ChanceCounter), 0, Galaxy.Seed);
-		for ( i in 0...XmlControl.starPrototypes.length)
-		{
-			if (Chance > XmlControl.starPrototypes[i].stChanceMin && Chance < XmlControl.starPrototypes[i].stChanceMax)
-			{
-				stars.push(new Star(x, y, XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight));
-			}
-			else{
-				//trace("NoChance! Chance: "+Chance);
-			}
-		}*/
 	}
 	
 	public function update(): Void {
-		/*	for ( star in  stars)
+		for ( star in  stars)
 		{
 			star.update();
-		} */
+		} 
 	}
 	
-	public function render(g: Graphics): Void {
-
-		
-		
-		
-		/* //отрисовка светимости
-		if(Camera.zoom<3){
-			for ( star in  stars)
-			{
-				
-				//g.color = star.FlareColor;
-				g.color = star.color;
-				g.drawScaledImage(star.flare, star.FlareRect.x, star.FlareRect.y, star.FlareRect.w, star.FlareRect.h);
-			}
-		}*/
-		if(Camera.zoom>0.001){
-		//отрисовка цвета звезд
-			/*for ( star in  stars)
-			{
-				g.color = star.color;
-				g.drawScaledImage(star.UnderFlare, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			}*/
-			
-			//отрисовка самой звезды
-			//g.color = Color.White;
-			/*for ( star in  stars)
-			{
-				g.color = star.color;
-				g.drawScaledImage(star.image, star.StarRect.x, star.StarRect.y, star.StarRect.w, star.StarRect.h);
-			}*/
-		}
-	}
 }

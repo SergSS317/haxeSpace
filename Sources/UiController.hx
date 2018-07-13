@@ -58,6 +58,10 @@ class UiController
 	var fps:Float = 0;
 
 	public function update(): Void {
+		realTime = Scheduler.realTime();
+		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
+		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
+		trace("tfps: "+tfps + "   Zoom: "+Camera.zoom);
 		previousRealTime = realTime;
 		MoveCam();
 		//if(MouseControl.btnLeft)
@@ -92,7 +96,7 @@ class UiController
 		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
 		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
 		g.drawString("FPS: " + tfps + " ;", 10, 30);
-		
+		trace("tfps: "+tfps);
 		//g.drawString("FPS: " + realTime , 10 - camera.aX, 70 - camera.aY);
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	

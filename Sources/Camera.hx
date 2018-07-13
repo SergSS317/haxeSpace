@@ -42,7 +42,7 @@ class Camera
 		//zoomspeed = minzoom;
 		//zoom = minzoom;
 		zoomspeed = 1;
-		zoom = 2;
+		zoom = 200;
 		//ZoomChanged = true;
 		TransformUpdate();
 	}
