@@ -102,7 +102,7 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(20000, 2, 0.25, 0);
+		galxy = new Galaxy(10, 2, 0.25, 0);
 		trace("AllSprites:"+AllSprites.length);
 		drawning.update();
 		previousRealTime = 0.0;
@@ -139,6 +139,7 @@ trace("End load");
 
 		// End rendering
 		g.end();
+		
     }
 
 	private function reset() {
