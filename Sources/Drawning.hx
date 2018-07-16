@@ -62,20 +62,20 @@ class Drawning
 		//update();
 		
 	}*/
-	//var a:Int;
+	var a:Int;
 	public function update(){
 	
 		
-		//a++;
-		//if(a<10){
+		a++;
+		if(a<10){
 	/*for (sprt in Base.AllSprites)
 	{
 		sprt.update();
 	}*/
-	//UdateVertex = true;
-	//UdateIndex = true;
+	UdateVertex = true;
+	UdateIndex = true;
 	PreRender();
-		//}
+		}
 	//trace("sprt:"+Base.AllSprites.length+"   vert:"+vertices.length+"   uvs:"+uvs.length);
 	//	trace("Drawning start update");
 	/*
@@ -161,8 +161,8 @@ if(a < 100){
 		//trace("Base.AllSprites:"+Base.AllSprites.length+"   vertices:"+vertices.length);
 		//trace("Drawning end update");
 	}
-	//public static var UdateIndex:Bool = false;
-	//public static var UdateVertex:Bool=false;
+	public static var UdateIndex:Bool = false;
+	public static var UdateVertex:Bool=false;
 	function PreRender()
 	{
 		//trace("Base.AllSprites:"+vertices.length);
@@ -207,7 +207,6 @@ if(a < 100){
 			vbData.set(i * Set3d.structureLength + 6, colors[i * 4 + 1]);
 			vbData.set(i * Set3d.structureLength + 7, colors[i * 4 + 2]);
 			vbData.set(i * Set3d.structureLength + 8, colors[i * 4 + 3]);
-			//vbData.set(i * Set3d.structureLength + 9, Camera.zoom);
 		}
 		vertexBuffer.unlock();
 		}
