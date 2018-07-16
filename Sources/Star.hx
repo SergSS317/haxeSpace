@@ -51,7 +51,8 @@ class Star {
 
 		var star_uvs:Array<Float> = [0, 0,  0, 1,  0.5,1,  0,0,  0.5,0,  0.5,1];
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1,1,  0.5,0,  1,0,  1,1];
-		Sprt = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),star_uvs );
+		Sprt = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1), star_uvs );
+		Sprt.isStaic = true;
 		SprtFlare = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),flare_uvs);
 
 		TotalCount++;
@@ -67,13 +68,17 @@ class Star {
 	var scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
 	var Alphaflare:Float = 1.0;
 	function CalcDrawPosition(): Void {
-			scaleflare = Light * Camera.zoom/100;// tempScaleFlare / Camera.zoom;
+		
+			scaleflare = Light * Camera.zoom / 1000;// tempScaleFlare / Camera.zoom;
+			if (scaleflare > 100) scaleflare = 100;
 			SprtFlare.Size = new Vector3(scaleflare, scaleflare, 0);
-			Alphaflare = 5 * Camera.zoom / Camera.maxzoom;
+			Alphaflare = 1000 * Camera.zoom / Camera.maxzoom;
 			if (Alphaflare > 1.0) Alphaflare = 1.0;
 			SprtFlare.color.A = Alphaflare;
+			//SprtFlare.color.A = 1.0;
 			//SprtFlare.UpdateColor();
-			//SprtFlare.update();
+			SprtFlare.isStaic = false;
+			SprtFlare.update();
 
 	}	
 }
