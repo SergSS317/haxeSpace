@@ -61,7 +61,7 @@ class UiController
 		realTime = Scheduler.realTime();
 		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
 		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
-		trace("tfps: "+tfps + "   Zoom: "+Camera.zoom);
+		//trace("tfps: "+tfps + "   Zoom: "+Camera.zoom);
 		previousRealTime = realTime;
 		MoveCam();
 		//if(MouseControl.btnLeft)

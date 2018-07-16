@@ -20,6 +20,7 @@ class Set3d
 	public static var EntityId:Int=0;
 	public function new() 
 	{
+		
 		CreateStructure();
 		CreatePipeline(structure);
 		
@@ -49,7 +50,7 @@ class Set3d
         pipeline.depthMode = CompareMode.Always;
 		pipeline.blendDestination = BlendingFactor.DestinationAlpha;
 		pipeline.compile();
-				// Get a handle for our "MVP" uniform
+		// Get a handle for our "MVP" uniform
 		mvpID = pipeline.getConstantLocation("MVP");
 	}
 	
