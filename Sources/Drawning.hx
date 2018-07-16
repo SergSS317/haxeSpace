@@ -53,12 +53,12 @@ class Drawning
 		imageData = _imageData;
 		// Create vertex buffer
 		vertexBuffer = new VertexBuffer( 
-			Std.int(480000), // Vertex count - 3 floats per vertex
+			Std.int(466032), // Vertex count - 3 floats per vertex
 			Set3d.structure, // Vertex structure
 			Usage.DynamicUsage // Vertex data will stay the same
 		);
 
-		CreateIndexBuffer(480000);
+		CreateIndexBuffer(466032);
 		//loadingFinished(_imageData:Image);
 	}
 	
@@ -205,6 +205,52 @@ if(a < 100){
 		//---------------------------------------------------------
 		//GenvbData();
 		var vbData = vertexBuffer.lock();
+		
+		if (updVert)
+			{
+				for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
+				if (vertices[i * 3] != null)
+			{
+				vbData.set(i * Set3d.structureLength, vertices[i * 3]);
+				vbData.set(i * Set3d.structureLength + 1, vertices[i * 3 + 1]);
+				vbData.set(i * Set3d.structureLength + 2, vertices[i * 3 + 2]);
+			}else{
+				vbData.set(i * Set3d.structureLength, 0);
+				vbData.set(i * Set3d.structureLength + 1, 0);
+				vbData.set(i * Set3d.structureLength + 2, 0);
+			}
+			}
+		}
+		
+		if (upduv){
+			for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
+			if(uvs[i * 2]!=null){
+				vbData.set(i * Set3d.structureLength + 3, uvs[i * 2]);
+				vbData.set(i * Set3d.structureLength + 4, uvs[i * 2 + 1]);
+			}else{
+				vbData.set(i * Set3d.structureLength + 3, 0);
+				vbData.set(i * Set3d.structureLength + 4, 0);
+			}
+			}
+		}
+		
+		if (updcolor){
+			for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
+			if (colors[i * 4] != null){
+				vbData.set(i * Set3d.structureLength + 5, colors[i * 4]);
+				vbData.set(i * Set3d.structureLength + 6, colors[i * 4 + 1]);
+				vbData.set(i * Set3d.structureLength + 7, colors[i * 4 + 2]);
+				vbData.set(i * Set3d.structureLength + 8, colors[i * 4 + 3]);
+			}else{
+				vbData.set(i * Set3d.structureLength + 5, 0);
+				vbData.set(i * Set3d.structureLength + 6, 0);
+				vbData.set(i * Set3d.structureLength + 7, 0);
+				vbData.set(i * Set3d.structureLength + 8, 0);
+			}
+			}
+		}
+		/*
+		
 		for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
 			//vbData.set(i * structureLength, vertices[i * 3]+Position.x);
 			//vbData.set(i * structureLength + 1, vertices[i * 3 + 1]+Position.y);
@@ -245,7 +291,7 @@ if(a < 100){
 			}
 
 			//vbData.set(i * Set3d.structureLength + 9, Camera.zoom);
-		}
+		}*/
 		vertexBuffer.unlock();
 		UdateUV = false;
 		UdateColor = false;
@@ -331,6 +377,7 @@ if(a < 100){
 	
 		// Draw!
 		g.drawIndexedVertices();
+		//g.drawIndexedVertices( 1, -1);
 //			var temp2:Float = Scheduler.time();
 	
 //	trace("delta: "+(temp2-temp));
