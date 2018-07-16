@@ -18,7 +18,14 @@ void main() {
 	
 	vec4 texcolor = texture(myTextureSampler, vUV) * color;
 	texcolor *= color.a;
-
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	fragColor = texcolor;
 	//fragColor = texture(myTextureSampler, vUV)*color;

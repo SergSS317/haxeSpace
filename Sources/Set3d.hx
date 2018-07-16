@@ -33,7 +33,6 @@ class Set3d
         structure.add("pos", VertexData.Float3);
         structure.add("uv", VertexData.Float2);
 		structure.add("color", VertexData.Float4);
-		//structure.add("Cam", VertexData.Float1);
         // Save length - we store position and uv data
         structureLength = 9;
 	}
