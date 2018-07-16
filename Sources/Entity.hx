@@ -15,8 +15,6 @@ class Entity
 	public var uvs:Array<Float>;
 	public var colors:Array<Float>;
 	var id:Int;
-	public var isStaic:Bool=false;
-	var updates:Bool=false;
 	public function new(_position:Vector3, _color:Color, _size:Vector3, _uvs:Array<Float>) 
 	{
 		//vertices = new Array<Float>();
@@ -36,7 +34,7 @@ class Entity
 		//UpdateVert();
 		AddVert();
 		AddColor();
-	//	Drawning.UdateIndex = true;
+		Drawning.UdateIndex = true;
 	}
 
 	
@@ -44,13 +42,8 @@ class Entity
 	var vert:Array<Float>;
 	public function update()
 	{
-		if (!isStaic)
-		{
-			UpdateVert();
-			UpdateColor();
-			updates = true;
-		}
-		
+		UpdateVert();
+		UpdateColor();
 	}
 	
 	public function AddVert()
@@ -110,7 +103,6 @@ class Entity
 		//if (old_pos != Position || old_size != Size)
 		//{
 		//trace("i`m hire");
-		//trace("Size="+Size);
 		Drawning.vertices[id * 18 + 0] =-Size.x + Position.x;
 		Drawning.vertices[id * 18 + 1] =-Size.y + Position.y;
 		Drawning.vertices[id * 18 + 2] = 0;
