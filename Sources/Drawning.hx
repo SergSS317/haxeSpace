@@ -6,7 +6,7 @@ import kha.math.Vector2;
 import kha.System;
 import kha.Framebuffer;
 import kha.Color;
-
+import kha.Scheduler;
 import kha.Assets;
 import kha.Image;
 import kha.System;
@@ -64,11 +64,15 @@ class Drawning
 	}*/
 	var a:Int;
 	public function update(){
+	
+		
 		a++;
 	for (sprt in Base.AllSprites)
 	{
 		sprt.update();
 	}
+	PreRender();
+	
 	//trace("sprt:"+Base.AllSprites.length+"   vert:"+vertices.length+"   uvs:"+uvs.length);
 	//	trace("Drawning start update");
 	/*
@@ -150,7 +154,7 @@ if(a < 100){
 		}*/
 		
 		//trace("Base.AllSprites:"+vertices.length);
-		PreRender();
+		
 		//trace("Base.AllSprites:"+Base.AllSprites.length+"   vertices:"+vertices.length);
 		//trace("Drawning end update");
 	}
@@ -159,6 +163,7 @@ if(a < 100){
 	{
 		//trace("Base.AllSprites:"+vertices.length);
 		// Get a handle for texture sample
+		
 		textureID = Set3d.pipeline.getTextureUnit("Light9");
 		// Texture
 		
@@ -221,22 +226,26 @@ if(a < 100){
 		}
 		
 	public function render(g:Graphics) {
-		
+//		var temp:Float = Scheduler.time();
 		//trace("start Drawning render: "+vertices.length);
-				g.setVertexBuffer(vertexBuffer);
+		g.setVertexBuffer(vertexBuffer);
 		g.setIndexBuffer(indexBuffer);
 
 		// Bind state we want to draw with
-		g.setPipeline(Set3d.pipeline);
 
+			g.setPipeline(Set3d.pipeline);
+		
 		// Set our transformation to the currently bound shader, in the "MVP" uniform
 		g.setMatrix(Set3d.mvpID, Camera.Matrix);
 //trace("Base.AllSprites:"+Base.AllSprites.length+"   vertices:"+vertices.length);
 		// Set texture
 		g.setTexture(textureID, imageData);
 		//g.setTextureParameters(textureID, kha.graphics4.TextureAddressing.Clamp, kha.graphics4.TextureAddressing.Clamp, kha.graphics4.TextureFilter.LinearFilter, kha.graphics4.TextureFilter.LinearFilter, kha.graphics4.MipMapFilter.NoMipFilter);
-
+	
 		// Draw!
 		g.drawIndexedVertices();
+//			var temp2:Float = Scheduler.time();
+	
+//	trace("delta: "+(temp2-temp));
 	}
 }
