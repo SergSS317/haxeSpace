@@ -111,6 +111,7 @@ class Entity
 		//{
 		//trace("i`m hire");
 		//trace("Size="+Size);
+		//trace("22222");
 		Drawning.vertices[id * 18 + 0] =-Size.x + Position.x;
 		Drawning.vertices[id * 18 + 1] =-Size.y + Position.y;
 		Drawning.vertices[id * 18 + 2] = 0;
