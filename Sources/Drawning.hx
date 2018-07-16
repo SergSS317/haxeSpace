@@ -67,15 +67,12 @@ class Drawning
 	
 		
 		a++;
-		if(a<10){
-	/*for (sprt in Base.AllSprites)
+	for (sprt in Base.AllSprites)
 	{
 		sprt.update();
-	}*/
-	UdateVertex = true;
-	UdateIndex = true;
+	}
 	PreRender();
-		}
+	
 	//trace("sprt:"+Base.AllSprites.length+"   vert:"+vertices.length+"   uvs:"+uvs.length);
 	//	trace("Drawning start update");
 	/*
@@ -161,8 +158,7 @@ if(a < 100){
 		//trace("Base.AllSprites:"+Base.AllSprites.length+"   vertices:"+vertices.length);
 		//trace("Drawning end update");
 	}
-	public static var UdateIndex:Bool = false;
-	public static var UdateVertex:Bool=false;
+	
 	function PreRender()
 	{
 		//trace("Base.AllSprites:"+vertices.length);
@@ -171,19 +167,16 @@ if(a < 100){
 		textureID = Set3d.pipeline.getTextureUnit("Light9");
 		// Texture
 		
-		 CreateVertexBuffer();
-		//if(UdateVertex) CreateVertexBuffer();
-		//UdateVertex = false;
-		//if (UdateIndex) 
+		
+		CreateVertexBuffer();
 		CreateIndexBuffer();
-		//UdateIndex = false;
 	}
 	
 
 	
 
 		
-	public function CreateVertexBuffer()
+		function CreateVertexBuffer()
 		{
 			//---------------------------------------------------------
 		// Create vertex buffer

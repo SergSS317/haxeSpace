@@ -34,7 +34,7 @@ class Entity
 		//UpdateVert();
 		AddVert();
 		AddColor();
-		Drawning.UdateIndex = true;
+		
 	}
 
 	
@@ -95,51 +95,8 @@ class Entity
 		
 	}
 	
-	//var old_size:Vector3;
-	//var old_pos:Vector3;
-	
 	public function UpdateVert()
 	{
-		//if (old_pos != Position || old_size != Size)
-		//{
-		//trace("i`m hire");
-		Drawning.vertices[id * 18 + 0] =-Size.x + Position.x;
-		Drawning.vertices[id * 18 + 1] =-Size.y + Position.y;
-		Drawning.vertices[id * 18 + 2] = 0;
-		
-		Drawning.vertices[id * 18 + 3] =-Size.x + Position.x;
-		Drawning.vertices[id * 18 + 4] = Size.y + Position.y;
-		Drawning.vertices[id * 18 + 5] = 0;
-		
-		Drawning.vertices[id * 18 + 6] = Size.x + Position.x;
-		Drawning.vertices[id * 18 + 7] = Size.y + Position.y;
-		Drawning.vertices[id * 18 + 8] = 0;
-		
-		Drawning.vertices[id * 18 + 9] =-Size.x + Position.x;
-		Drawning.vertices[id * 18 + 10] =-Size.y + Position.y;
-		Drawning.vertices[id * 18 + 11] = 0;
-		
-		Drawning.vertices[id * 18 + 12] = Size.x + Position.x;
-		Drawning.vertices[id * 18 + 13] =-Size.y + Position.y;
-		Drawning.vertices[id * 18 + 14] = 0;
-		
-		Drawning.vertices[id * 18 + 15] = Size.x + Position.x;
-		Drawning.vertices[id * 18 + 16] = Size.y + Position.y;
-		Drawning.vertices[id * 18 + 17] = 0;
-		//Base.drawning.CreateVertexBuffer();
-		//Drawning.UdateVertex = true;
-		//}
-		//old_pos = Position;
-		//old_size = Size;	
-		//trace(id+" -> vertices:"+vertices);
-	}
-	
-	
-	/*public function UpdateVert()
-	{
-		if (old_pos != Position || old_size != Size)
-		{
-		//trace("i`m hire");
 		Drawning.vertices[id * 18 + 0] =-1.0 * Size.x + Position.x;
 		Drawning.vertices[id * 18 + 1] =-1.0 * Size.y + Position.y;
 		Drawning.vertices[id * 18 + 2] = 0;
@@ -163,45 +120,40 @@ class Entity
 		Drawning.vertices[id * 18 + 15] = 1.0 * Size.x + Position.x;
 		Drawning.vertices[id * 18 + 16] = 1.0 * Size.y + Position.y;
 		Drawning.vertices[id * 18 + 17] = 0;
-		//Base.drawning.CreateVertexBuffer();
-		Drawning.UdateVertex = true;
-		}
-		old_pos = Position;
-		old_size = Size;	
 		//trace(id+" -> vertices:"+vertices);
-	}*/
+	}
 
 	public function UpdateColor()
 	{
-		Drawning.colors[id * 24 + 0] = color.R;
-		Drawning.colors[id * 24 + 1] = color.G;
-		Drawning.colors[id * 24 + 2] = color.B;
-		Drawning.colors[id * 24 + 3] = color.A;
+		Drawning.colors[id * 24 + 0] = 1.0 * color.R;
+		Drawning.colors[id * 24 + 1] = 1.0 * color.G;
+		Drawning.colors[id * 24 + 2] = 1.0 * color.B;
+		Drawning.colors[id * 24 + 3] = 1.0 * color.A;
 		
-		Drawning.colors[id * 24 + 4] = color.R;
-		Drawning.colors[id * 24 + 5] = color.G;
-		Drawning.colors[id * 24 + 6] = color.B;
-		Drawning.colors[id * 24 + 7] = color.A;
+		Drawning.colors[id * 24 + 4] = 1.0 * color.R;
+		Drawning.colors[id * 24 + 5] = 1.0 * color.G;
+		Drawning.colors[id * 24 + 6] = 1.0 * color.B;
+		Drawning.colors[id * 24 + 7] = 1.0 * color.A;
 		
-		Drawning.colors[id * 24 + 8] = color.R;
-		Drawning.colors[id * 24 + 9] = color.G;
-		Drawning.colors[id * 24 + 10] = color.B;
-		Drawning.colors[id * 24 + 11] = color.A;
+		Drawning.colors[id * 24 + 8] = 1.0 * color.R;
+		Drawning.colors[id * 24 + 9] = 1.0 * color.G;
+		Drawning.colors[id * 24 + 10] = 1.0 * color.B;
+		Drawning.colors[id * 24 + 11] = 1.0 * color.A;
 		
-		Drawning.colors[id * 24 + 12] = color.R;
-		Drawning.colors[id * 24 + 13] = color.G;
-		Drawning.colors[id * 24 + 14] = color.B;
-		Drawning.colors[id * 24 + 15] = color.A;
+		Drawning.colors[id * 24 + 12] = 1.0 * color.R;
+		Drawning.colors[id * 24 + 13] = 1.0 * color.G;
+		Drawning.colors[id * 24 + 14] = 1.0 * color.B;
+		Drawning.colors[id * 24 + 15] = 1.0 * color.A;
 		
-		Drawning.colors[id * 24 + 16] = color.R;
-		Drawning.colors[id * 24 + 17] = color.G;
-		Drawning.colors[id * 24 + 18] = color.B;
-		Drawning.colors[id * 24 + 19] = color.A;
+		Drawning.colors[id * 24 + 16] = 1.0 * color.R;
+		Drawning.colors[id * 24 + 17] = 1.0 * color.G;
+		Drawning.colors[id * 24 + 18] = 1.0 * color.B;
+		Drawning.colors[id * 24 + 19] = 1.0 * color.A;
 		
-		Drawning.colors[id * 24 + 20] = color.R;
-		Drawning.colors[id * 24 + 21] = color.G;
-		Drawning.colors[id * 24 + 22] = color.B;
-		Drawning.colors[id * 24 + 23] = color.A;
+		Drawning.colors[id * 24 + 20] = 1.0 * color.R;
+		Drawning.colors[id * 24 + 21] = 1.0 * color.G;
+		Drawning.colors[id * 24 + 22] = 1.0 * color.B;
+		Drawning.colors[id * 24 + 23] = 1.0 * color.A;
 	}
 	
 	

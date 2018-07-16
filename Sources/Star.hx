@@ -72,8 +72,6 @@ class Star {
 			Alphaflare = 5 * Camera.zoom / Camera.maxzoom;
 			if (Alphaflare > 1.0) Alphaflare = 1.0;
 			SprtFlare.color.A = Alphaflare;
-			//SprtFlare.UpdateColor();
-			//SprtFlare.update();
 
 	}	
 }
