@@ -102,11 +102,8 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(200000, 2, 0.25, 0);
-		trace("AllSprites:" + AllSprites.length);
-		Drawning.UdateColor = true;
-		Drawning.UdateUV = true;
-		Drawning.UdateVertex = true;
+		galxy = new Galaxy(40000, 2, 0.25, 0);
+		trace("AllSprites:"+AllSprites.length);
 		drawning.update();
 		previousRealTime = 0.0;
         realTime         = 0.0;
@@ -122,7 +119,7 @@ trace("End load");
 		timer.update();
 		camera.update(controls, timer.deltaTime);
 		
-		//galxy.update();
+		galxy.update();
 		drawning.update();
 		//trace("End update");
         
