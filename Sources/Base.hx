@@ -58,7 +58,7 @@ class Base {
 	
 	public static var myMouse:MouseControl;
 	
-	public var drawning:Drawning;
+	public static var drawning:Drawning;
 	//public var spritedraw:SpriteDraw;
 	public function new() {
 		Assets.loadEverything(loadingFinished);
@@ -102,7 +102,7 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(20000, 2, 0.25, 0);
+		galxy = new Galaxy(200000, 2, 0.25, 0);
 		trace("AllSprites:"+AllSprites.length);
 		drawning.update();
 		previousRealTime = 0.0;
