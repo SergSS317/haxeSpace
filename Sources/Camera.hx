@@ -117,6 +117,7 @@ public function update(controls: Controls, deltaTime: Float) {
 		}
 		//trace('zoom:'+zoom);
     }
+	if (zoom < minzoom) zoom = minzoom;
 	/*var deltamap = MapSize;
 	if (x <-deltamap) x =-deltamap;
 	if (x > deltamap) x = deltamap;
