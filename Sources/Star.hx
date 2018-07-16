@@ -58,7 +58,7 @@ class Star {
 	}
 
 	public function update(): Void {
-		CalcDrawPosition(); 
+		//CalcDrawPosition(); 
 	}
 
 	//public function render(g: Graphics):Void {  }
