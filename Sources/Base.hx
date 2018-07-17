@@ -102,7 +102,7 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(40000, 2, 0.25, 0);
+		galxy = new Galaxy(200000, 2, 0.25, 0);
 		trace("AllSprites:" + AllSprites.length);
 		Drawning.UdateColor = true;
 		Drawning.UdateUV = true;

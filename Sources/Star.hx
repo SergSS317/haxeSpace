@@ -53,8 +53,8 @@ class Star {
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1,1,  0.5,0,  1,0,  1,1];
 		Sprt = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1), star_uvs );
 		Sprt.isStaic = true;
-		//SprtFlare = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),flare_uvs);
-		//SprtFlare.isStaic = true;
+		SprtFlare = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),flare_uvs);
+		SprtFlare.isStaic = true;
 		TotalCount++;
 	}
 
@@ -73,14 +73,14 @@ class Star {
 			
 			scaleflare = Light * Camera.zoom / 1000;// tempScaleFlare / Camera.zoom;
 			if (scaleflare > 100) scaleflare = 100;
-		//	SprtFlare.Size = new Vector3(scaleflare, scaleflare, 0);
+			SprtFlare.Size = new Vector3(scaleflare, scaleflare, 0);
 			Alphaflare = 1000 * Camera.zoom / Camera.maxzoom;
 			if (Alphaflare > 1.0) Alphaflare = 1.0;
-		//	SprtFlare.color.A = Alphaflare;
+			SprtFlare.color.A = Alphaflare;
 			//SprtFlare.color.A = 1.0;
 			//SprtFlare.UpdateColor();
 			
-	//if(old_scaleflare!=scaleflare){SprtFlare.isStaic = false; SprtFlare.update();} else SprtFlare.isStaic = true;
+	if(old_scaleflare!=scaleflare){SprtFlare.isStaic = false; SprtFlare.update();} else SprtFlare.isStaic = true;
 			old_scaleflare = scaleflare;
 
 	}	

@@ -19,8 +19,7 @@ class Entity
 	var updates:Bool=false;
 	public function new(_position:Vector3, _color:Color, _size:Vector3, _uvs:Array<Float>) 
 	{
-		vertices = new Array<Float>();
-		uvs = new Array<Float>();
+		//vertices = new Array<Float>();
 		id=++Set3d.EntityId;
 		/*if (_uvs != null)
 		{
@@ -57,22 +56,19 @@ class Entity
 	public function AddVert()
 	{
 		for(i in 0...18)
-		vertices.push(0.0);
-		//Drawning.vertices.push(0.0);
+		Drawning.vertices.push(0.0);
 	}
 	
 	public function AddColor()
 	{
 		for(i in 0...24)
-		colors.push(0.0);
-		//Drawning.colors.push(0.0);
+		Drawning.colors.push(0.0);
 	}
 	
 	public function AddUV(_uvs:Array<Float>)
 	{
 		for(i in 0...12)
-		uvs.push(0.0);
-		//Drawning.uvs.push(0.0);
+		Drawning.uvs.push(0.0);
 		
 		if (_uvs != null)
 		{
@@ -85,25 +81,8 @@ class Entity
 	
 	public function UpdateUVS()
 	{
-		uvs[0] = uvs[0];
-		uvs[1] = uvs[1];
 		
-		uvs[2] = uvs[2];
-		uvs[3] = uvs[3];
-		
-		uvs[4] = uvs[4];
-		uvs[5] = uvs[5];
-		
-		uvs[6] = uvs[6];
-		uvs[7] = uvs[7];
-		
-		uvs[8] = uvs[8];
-		uvs[9] = uvs[9];
-		
-		uvs[10] = uvs[10];
-		uvs[11] = uvs[11];
-		
-		/*Drawning.uvs[id * 12 + 0] = uvs[0];
+		Drawning.uvs[id * 12 + 0] = uvs[0];
 		Drawning.uvs[id * 12 + 1] = uvs[1];
 		
 		Drawning.uvs[id * 12 + 2] = uvs[2];
@@ -119,7 +98,7 @@ class Entity
 		Drawning.uvs[id * 12 + 9] = uvs[9];
 		
 		Drawning.uvs[id * 12 + 10] = uvs[10];
-		Drawning.uvs[id * 12 + 11] = uvs[11];*/
+		Drawning.uvs[id * 12 + 11] = uvs[11];
 		
 	}
 	
@@ -128,36 +107,12 @@ class Entity
 	
 	public function UpdateVert()
 	{
-		
 		//if (old_pos != Position || old_size != Size)
 		//{
 		//trace("i`m hire");
 		//trace("Size="+Size);
 		//trace("22222");
-		vertices[0] =-Size.x + Position.x;
-		vertices[1] =-Size.y + Position.y;
-		vertices[2] = 0;
-		
-		vertices[3] =-Size.x + Position.x;
-		vertices[4] = Size.y + Position.y;
-		vertices[5] = 0;
-		
-		vertices[6] = Size.x + Position.x;
-		vertices[7] = Size.y + Position.y;
-		vertices[8] = 0;
-		
-		vertices[9] =-Size.x + Position.x;
-		vertices[10] =-Size.y + Position.y;
-		vertices[11] = 0;
-		
-		vertices[12] = Size.x + Position.x;
-		vertices[13] =-Size.y + Position.y;
-		vertices[14] = 0;
-		
-		vertices[15] = Size.x + Position.x;
-		vertices[16] = Size.y + Position.y;
-		vertices[17] = 0;
-		/*Drawning.vertices[id * 18 + 0] =-Size.x + Position.x;
+		Drawning.vertices[id * 18 + 0] =-Size.x + Position.x;
 		Drawning.vertices[id * 18 + 1] =-Size.y + Position.y;
 		Drawning.vertices[id * 18 + 2] = 0;
 		
@@ -179,7 +134,7 @@ class Entity
 		
 		Drawning.vertices[id * 18 + 15] = Size.x + Position.x;
 		Drawning.vertices[id * 18 + 16] = Size.y + Position.y;
-		Drawning.vertices[id * 18 + 17] = 0;*/
+		Drawning.vertices[id * 18 + 17] = 0;
 		//Base.drawning.CreateVertexBuffer();
 		//Drawning.UdateVertex = true;
 		//}
@@ -227,37 +182,7 @@ class Entity
 
 	public function UpdateColor()
 	{
-		colors[0] = color.R;
-		colors[1] = color.G;
-		colors[2] = color.B;
-		colors[3] = color.A;
-		
-		colors[4] = color.R;
-		colors[5] = color.G;
-		colors[6] = color.B;
-		colors[7] = color.A;
-		
-		colors[8] = color.R;
-		colors[9] = color.G;
-		colors[10] = color.B;
-		colors[11] = color.A;
-		
-		colors[12] = color.R;
-		colors[13] = color.G;
-		colors[14] = color.B;
-		colors[15] = color.A;
-		
-		colors[16] = color.R;
-		colors[17] = color.G;
-		colors[18] = color.B;
-		colors[19] = color.A;
-		
-		colors[20] = color.R;
-		colors[21] = color.G;
-		colors[22] = color.B;
-		colors[23] = color.A;
-		
-		/*Drawning.colors[id * 24 + 0] = color.R;
+		Drawning.colors[id * 24 + 0] = color.R;
 		Drawning.colors[id * 24 + 1] = color.G;
 		Drawning.colors[id * 24 + 2] = color.B;
 		Drawning.colors[id * 24 + 3] = color.A;
@@ -285,7 +210,7 @@ class Entity
 		Drawning.colors[id * 24 + 20] = color.R;
 		Drawning.colors[id * 24 + 21] = color.G;
 		Drawning.colors[id * 24 + 22] = color.B;
-		Drawning.colors[id * 24 + 23] = color.A;*/
+		Drawning.colors[id * 24 + 23] = color.A;
 	}
 	
 	

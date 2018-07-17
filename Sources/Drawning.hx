@@ -37,6 +37,9 @@ class Drawning
 	var vertexBuffer:VertexBuffer;
 	var indexBuffer:IndexBuffer;
 	
+	//var mvp:FastMatrix4;
+	
+
 	var textureID:TextureUnit;
     var imageData:Image;
 	
@@ -50,67 +53,176 @@ class Drawning
 		imageData = _imageData;
 		// Create vertex buffer
 		vertexBuffer = new VertexBuffer( 
-			Std.int(1200000), // Vertex count - 3 floats per vertex
+			Std.int(466032), // Vertex count - 3 floats per vertex
 			Set3d.structure, // Vertex structure
 			Usage.DynamicUsage // Vertex data will stay the same
 		);
 
-		CreateIndexBuffer(1200000);
+		CreateIndexBuffer(466032);
+		//loadingFinished(_imageData:Image);
 	}
 	
-	public function update()
+
+	
+	/*function loadingFinished() {
+		
+		//CreateStructure();
+		//CreatePipeline(structure);
+		//update();
+		
+	}*/
+	//var a:Int;
+	public function update(){
+	
+		
+		//a++;
+		//if(a<10){
+	/*for (sprt in Base.AllSprites)
 	{
-		textureID = Set3d.pipeline.getTextureUnit("Light9");
-		// Texture
-		CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
+		sprt.update();
+	}*/
+	//UdateVertex = true;
+	//UdateIndex = true;
+	PreRender();
+		//}
+	//trace("sprt:"+Base.AllSprites.length+"   vert:"+vertices.length+"   uvs:"+uvs.length);
+	//	trace("Drawning start update");
+	/*
+if(a < 100000){
+	colors = new Array<Float>();
+	for (sprt in Base.AllSprites)
+	{
+		for (i in 0...sprt.colors.length )
+		{
+			colors.push(sprt.colors[i]);
+		}
 	}
+}
+
+if(a < 1000000){
+	vertices = new Array<Float>();
+	for (sprt in Base.AllSprites)
+	{
+		for (i in 0...sprt.vertices.length )
+		{
+			vertices.push(sprt.vertices[i]);
+		}
+	}
+}
+
+if(a < 100){
+	uvs = new Array<Float>();
+	for (sprt in Base.AllSprites)
+	{
+		for (i in 0...sprt.uvs.length )
+		{
+			uvs.push(sprt.uvs[i]);
+		}
+	}
+}*/
 	
+		
+		
+		//trace("111: "+Base.AllSprites.length);
+//trace("--------------");
+
+		
+			
+			
+			
+			/*uvs = uvs.concat(sprt.uvs);
+			colors = colors.concat(sprt.colors);
+			vertices = vertices.concat(sprt.vertices);*/
+//trace("vertices: "+vertices.length);
+			/*var tuvs = uvs.concat(sprt.uvs);
+			uvs = tuvs;
+			
+			var tcolors = colors.concat(sprt.colors);
+			colors = tcolors;
+			
+			var tvertices = vertices.concat(sprt.vertices);
+			vertices = tvertices;*/
+			
+			
+			
+			
+			
+			
+		
+
+		//trace(uvs.length);
+		/*for (sprt in Base.AllSprites){
+			for (i in 0...sprt.colors.length )
+			{
+				colors.push(sprt.colors[i]);
+			}
+		}
+		
+		for (sprt in Base.AllSprites){
+			for (i in 0...sprt.vertices.length )
+			{
+				vertices.push(sprt.vertices[i]);
+			}
+		}*/
+		
+		//trace("Base.AllSprites:"+vertices.length);
+		
+		//trace("Base.AllSprites:"+Base.AllSprites.length+"   vertices:"+vertices.length);
+		//trace("Drawning end update");
+	}
 	public static var UdateUV:Bool = false;
 	public static var UdateColor:Bool = false;
 	public static var UdateVertex:Bool=false;
+	function PreRender()
+	{
+		//trace("Base.AllSprites:"+vertices.length);
+		// Get a handle for texture sample
+		
+		textureID = Set3d.pipeline.getTextureUnit("Light9");
+		// Texture
+		
+		 CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
+		//if(UdateVertex) CreateVertexBuffer();
+		//UdateVertex = false;
+		//if (UdateIndex) 
+		
+		//CreateIndexBuffer();
+		//UdateIndex = false;
+	}
+	
 
+	
+
+		
 	public function CreateVertexBuffer(updVert:Bool,upduv:Bool,updcolor:Bool)
 		{
+			//---------------------------------------------------------
+			/*	vertexBuffer = new VertexBuffer(
+			Std.int(vertices.length / 3), // Vertex count - 3 floats per vertex
+			Set3d.structure, // Vertex structure
+			Usage.DynamicUsage // Vertex data will stay the same
+		);*/
+		//---------------------------------------------------------
+		//GenvbData();
 		var vbData = vertexBuffer.lock();
-		var eee = 9;
-		//if (updVert)
-		//{
-			//for (i in 0...Std.int(vbData.length / Set3d.structureLength)) 
-			
-			
-			for (i in 0...Std.int(Base.AllSprites.length-1)) 
-			{
-				//trace("Base.AllSprites.vert ("+i+") "+Base.AllSprites[i].vertices.length);
-				for (j in 0...6)
-				{
-				vbData.set((i * 6 + j) * eee + 0, Base.AllSprites[i].vertices[j*3+0]);
-				vbData.set((i * 6 + j) * eee + 1, Base.AllSprites[i].vertices[j*3+1]);
-				vbData.set((i * 6 + j) * eee + 2, Base.AllSprites[i].vertices[j*3+2]);
-				
-				vbData.set((i * 6 + j) * eee + 3, Base.AllSprites[i].uvs[j*2+0]);
-				vbData.set((i * 6 + j) * eee + 4, Base.AllSprites[i].uvs[j*2+1]);
-				
-				vbData.set((i * 6 + j) * eee + 5, Base.AllSprites[i].colors[j*4+0]);
-				vbData.set((i * 6 + j) * eee + 6, Base.AllSprites[i].colors[j*4+1]);
-				vbData.set((i * 6 + j) * eee + 7, Base.AllSprites[i].colors[j*4+2]);
-				vbData.set((i * 6 + j) * eee + 8, Base.AllSprites[i].colors[j*4+3]);
-				}
-				/*if (vertices[i * 3] != null)
-				{
-					
-				
-					vbData.set(i * Set3d.structureLength, vertices[i * 3]);
-					vbData.set(i * Set3d.structureLength + 1, vertices[i * 3 + 1]);
-					vbData.set(i * Set3d.structureLength + 2, vertices[i * 3 + 2]);
-				}else{
-					vbData.set(i * Set3d.structureLength, 0);
-					vbData.set(i * Set3d.structureLength + 1, 0);
-					vbData.set(i * Set3d.structureLength + 2, 0);
-				}*/
-			}
-		//}
 		
-		/*if (upduv){
+		if (updVert)
+			{
+				for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
+				if (vertices[i * 3] != null)
+			{
+				vbData.set(i * Set3d.structureLength, vertices[i * 3]);
+				vbData.set(i * Set3d.structureLength + 1, vertices[i * 3 + 1]);
+				vbData.set(i * Set3d.structureLength + 2, vertices[i * 3 + 2]);
+			}else{
+				vbData.set(i * Set3d.structureLength, 0);
+				vbData.set(i * Set3d.structureLength + 1, 0);
+				vbData.set(i * Set3d.structureLength + 2, 0);
+			}
+			}
+		}
+		
+		if (upduv){
 			for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
 			if(uvs[i * 2]!=null){
 				vbData.set(i * Set3d.structureLength + 3, uvs[i * 2]);
@@ -136,8 +248,50 @@ class Drawning
 				vbData.set(i * Set3d.structureLength + 8, 0);
 			}
 			}
-		}*/
+		}
+		/*
 		
+		for (i in 0...Std.int(vbData.length / Set3d.structureLength)) {
+			//vbData.set(i * structureLength, vertices[i * 3]+Position.x);
+			//vbData.set(i * structureLength + 1, vertices[i * 3 + 1]+Position.y);
+			if (updVert)
+			{
+			if (vertices[i * 3] != null)
+			{
+				vbData.set(i * Set3d.structureLength, vertices[i * 3]);
+				vbData.set(i * Set3d.structureLength + 1, vertices[i * 3 + 1]);
+				vbData.set(i * Set3d.structureLength + 2, vertices[i * 3 + 2]);
+			}else{
+				vbData.set(i * Set3d.structureLength, 0);
+				vbData.set(i * Set3d.structureLength + 1, 0);
+				vbData.set(i * Set3d.structureLength + 2, 0);
+			}
+			}
+			if(upduv){
+			if(uvs[i * 2]!=null){
+				vbData.set(i * Set3d.structureLength + 3, uvs[i * 2]);
+				vbData.set(i * Set3d.structureLength + 4, uvs[i * 2 + 1]);
+			}else{
+				vbData.set(i * Set3d.structureLength + 3, 0);
+				vbData.set(i * Set3d.structureLength + 4, 0);
+			}
+			}
+			if(updcolor){
+			if (colors[i * 4] != null){
+				vbData.set(i * Set3d.structureLength + 5, colors[i * 4]);
+				vbData.set(i * Set3d.structureLength + 6, colors[i * 4 + 1]);
+				vbData.set(i * Set3d.structureLength + 7, colors[i * 4 + 2]);
+				vbData.set(i * Set3d.structureLength + 8, colors[i * 4 + 3]);
+			}else{
+				vbData.set(i * Set3d.structureLength + 5, 0);
+				vbData.set(i * Set3d.structureLength + 6, 0);
+				vbData.set(i * Set3d.structureLength + 7, 0);
+				vbData.set(i * Set3d.structureLength + 8, 0);
+			}
+			}
+
+			//vbData.set(i * Set3d.structureLength + 9, Camera.zoom);
+		}*/
 		vertexBuffer.unlock();
 		UdateUV = false;
 		UdateColor = false;
@@ -160,12 +314,14 @@ class Drawning
 		vertexBuffer.unlock();*/
 		}
 		
-	function CreateIndexBuffer(count:Int)
-	{
+				function CreateIndexBuffer(count:Int){
 		// A 'trick' to create indices for a non-indexed vertex data
+		//trace("indices:"+vertices.length);
 		var indices:Array<Int> = [];
-		for (i in 0...Std.int(count)) { indices.push(i); }
-
+		for (i in 0...Std.int(count)) {
+			indices.push(i);
+		}
+//trace("indic: "+indices.length);
 		// Create index buffer
 		indexBuffer = new IndexBuffer(
 			indices.length, // Number of indices for our cube
@@ -174,20 +330,56 @@ class Drawning
 		
 		// Copy indices to index buffer
 		var iData = indexBuffer.lock();
-		for (i in 0...iData.length) { iData[i] = indices[i]; }
+		for (i in 0...iData.length) {
+			iData[i] = indices[i];
+		}
 		indexBuffer.unlock();
-	}
+		}
+		
+		/*function CreateIndexBuffer(){
+		// A 'trick' to create indices for a non-indexed vertex data
+		//trace("indices:"+vertices.length);
+		var indices:Array<Int> = [];
+		for (i in 0...Std.int(vertices.length / 3)) {
+			indices.push(i);
+		}
+//trace("indic: "+indices.length);
+		// Create index buffer
+		indexBuffer = new IndexBuffer(
+			indices.length, // Number of indices for our cube
+			Usage.StaticUsage // Index data will stay the same
+		);
+		
+		// Copy indices to index buffer
+		var iData = indexBuffer.lock();
+		for (i in 0...iData.length) {
+			iData[i] = indices[i];
+		}
+		indexBuffer.unlock();
+		}*/
 		
 	public function render(g:Graphics) {
+//		var temp:Float = Scheduler.time();
+		//trace("start Drawning render: "+vertices.length);
 		g.setVertexBuffer(vertexBuffer);
 		g.setIndexBuffer(indexBuffer);
 
-		g.setPipeline(Set3d.pipeline);
-		g.setMatrix(Set3d.mvpID, Camera.Matrix); // Set our transformation to the currently bound shader, in the "MVP" uniform
-		g.setTexture(textureID, imageData); // Set texture
+		// Bind state we want to draw with
+
+			g.setPipeline(Set3d.pipeline);
+		
+		// Set our transformation to the currently bound shader, in the "MVP" uniform
+		g.setMatrix(Set3d.mvpID, Camera.Matrix);
+//trace("Base.AllSprites:"+Base.AllSprites.length+"   vertices:"+vertices.length);
+		// Set texture
+		g.setTexture(textureID, imageData);
 		//g.setTextureParameters(textureID, kha.graphics4.TextureAddressing.Clamp, kha.graphics4.TextureAddressing.Clamp, kha.graphics4.TextureFilter.LinearFilter, kha.graphics4.TextureFilter.LinearFilter, kha.graphics4.MipMapFilter.NoMipFilter);
 	
-		g.drawIndexedVertices(); // Draw!
-
+		// Draw!
+		g.drawIndexedVertices();
+		//g.drawIndexedVertices( 1, -1);
+//			var temp2:Float = Scheduler.time();
+	
+//	trace("delta: "+(temp2-temp));
 	}
 }
