@@ -15,7 +15,7 @@ class Camera
 {
 	var MapSize = 330000000000;
 	public static var Position:Vector3;
-	
+	public static var ZoomKoef:Float;
 	public static var Matrix:FastMatrix4;
 	
 	
@@ -37,12 +37,12 @@ class Camera
 	public function new(_x: Int, _y: Int) {
 		x = _x;
 		y = _y;
-		maxzoom = 400000.0;
+		maxzoom = 1000000.0;
 		minzoom = 0.1;
 		//zoomspeed = minzoom;
 		//zoom = minzoom;
 		zoomspeed = 1;
-		zoom = 200;
+		zoom = 10000;
 		//ZoomChanged = true;
 		TransformUpdate();
 	}
@@ -56,7 +56,7 @@ class Camera
 		//										0,				0,				1);
 
 		// Projection matrix: 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-		projection = FastMatrix4.perspectiveProjection(45.0, 4.0 / 3.0, minzoom+0.1, maxzoom-1);
+		projection = FastMatrix4.perspectiveProjection(45.0, 4.0 / 3.0, minzoom-0.01, maxzoom-1);
 		// Or, for an ortho camera
 		//var projection = FastMatrix4.orthogonalProjection(-10.0, 10.0, -10.0, 10.0, 0.0, 100.0); // In world coordinates
 		
@@ -70,6 +70,9 @@ class Camera
 		Matrix = Matrix.multmat(projection);
 		Matrix = Matrix.multmat(view);
 		Matrix = Matrix.multmat(FastMatrix4.identity());
+		
+		
+		
 		//trace("x="+x+"   y="+y+"   zoom="+zoom);
 		//trace('2222222222');
 	}
@@ -118,6 +121,7 @@ public function update(controls: Controls, deltaTime: Float) {
 		//trace('zoom:'+zoom);
     }
 	if (zoom < minzoom) zoom = minzoom;
+	ZoomKoef = zoom / maxzoom;
 	/*var deltamap = MapSize;
 	if (x <-deltamap) x =-deltamap;
 	if (x > deltamap) x = deltamap;

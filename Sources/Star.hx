@@ -14,14 +14,14 @@ import kha.Image;
 import kha.Color;
 import kha.Assets;
 class Star {
-	public var Sprt:Sprite;			//для отрисовки
-	public var SprtFlare:Sprite;			//для отрисовки
+	public var Sprt:Entity;			//для отрисовки
+	public var SprtFlare:Entity;			//для отрисовки
 	
 	//public var image: Image;		//сама картинка звезды
 	//public var flare: Image;		//спрайт светимости
-	public var UnderFlare: Image;	//спрайт цвета по краям звезды
-	public var color:Color;			//цвет звезды
-	public var FlareColor:Color;			//цвет звезды
+	//public var UnderFlare: Image;	//спрайт цвета по краям звезды
+	//public var color:Color;			//цвет звезды
+//public var FlareColor:Color;			//цвет звезды
 	
 	public var Light:Float;			//светимость
 	public var Size:Float;			//размер
@@ -29,58 +29,75 @@ class Star {
 	public var x: Float;
 	public var y: Float;
 
-	public var StarRect:Rect = new Rect(0, 0, 0, 0);	//центрирование звезды
-	public var FlareRect:Rect = new Rect(0, 0, 0, 0);		//центрирование спрайта светимости
+	//public var StarRect:Rect = new Rect(0, 0, 0, 0);	//центрирование звезды
+	//public var FlareRect:Rect = new Rect(0, 0, 0, 0);		//центрирование спрайта светимости
 	
 	
 	
-	var tx = 0.0;
-	var ty = 0.0;
+	//var tx = 0.0;
+	//var ty = 0.0;
 
 	public static var TotalCount:Int = 0;					//счетчик звезд
 	
 	public function new(x: Float, y: Float, color:Color, size:Float, light:Float ) {
 
-		this.UnderFlare = Assets.images.UnderFlare;
+		//this.UnderFlare = Assets.images.UnderFlare;
 		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed)*0.4;
 		this.x = x;
 		this.y = y;
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
-		this.color = color;
-		StarRect.Recalc(x - Size / 2, y - Size / 2, Size, Size);
+		//this.color = color;
+		//StarRect.Recalc(x - Size / 2, y - Size / 2, Size, Size);
 
 		var star_uvs:Array<Float> = [0, 0,  0, 1,  0.5,1,  0,0,  0.5,0,  0.5,1];
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1,1,  0.5,0,  1,0,  1,1];
-		Sprt = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1), star_uvs );
+		Sprt = new Entity( new Vector3(this.x, this.y, 0), color, 1.1, Base.drawning, star_uvs  );
 		Sprt.isStaic = true;
-		SprtFlare = new Sprite( new Vector3(this.x, this.y, 0), new Vector3(1.1, 1.1, 1.1),flare_uvs);
-		SprtFlare.isStaic = true;
+		SprtFlare = new Entity( new Vector3(this.x, this.y, 0), color, 1.1, Base.drawning2, flare_uvs);//Base.drawning2
+		//SprtFlare.isStaic = true;
 		TotalCount++;
+		
+		tempLight = Light;
 	}
 
 	public function update(): Void {
-		//CalcDrawPosition(); 
+		CalcDrawPosition(); 
 		//trace("11111");
 	}
 
 	//public function render(g: Graphics):Void {  }
 	//var tempScaleFlare:Float = 1.0;
 	
-	var scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
+	public var scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
 	var old_scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
 	var Alphaflare:Float = 1.0;
+	
+	var tempLight:Float;
 	function CalcDrawPosition(): Void {
+		var ttt = Math.log(Camera.zoom * tempLight);
+		ttt *= ttt;
+		if (ttt < 1) ttt = 0; 
+		scaleflare = ttt;
+		
+		//scaleflare = Math.log( 10000*tempLight / Camera.zoom);
+		//trace("scaleflare:"+scaleflare);
+			//scaleflare = tempLight * Camera.zoom;// tempScaleFlare / Camera.zoom;
+			//if (scaleflare > 1000) scaleflare = 1000;
+			SprtFlare.Size=scaleflare;//new Vector3(scaleflare, scaleflare, 0);
+			//SprtFlare.Size.y = scaleflare;
 			
-			scaleflare = Light * Camera.zoom / 1000;// tempScaleFlare / Camera.zoom;
-			if (scaleflare > 100) scaleflare = 100;
-			SprtFlare.Size = new Vector3(scaleflare, scaleflare, 0);
-			Alphaflare = 1000 * Camera.zoom / Camera.maxzoom;
+			/*Alphaflare = 1000 * Camera.ZoomKoef;
 			if (Alphaflare > 1.0) Alphaflare = 1.0;
-			SprtFlare.color.A = Alphaflare;
+			SprtFlare.color.A = Alphaflare;*/
+			
+			
+			
 			//SprtFlare.color.A = 1.0;
 			//SprtFlare.UpdateColor();
 			
-	if(old_scaleflare!=scaleflare){SprtFlare.isStaic = false; SprtFlare.update();} else SprtFlare.isStaic = true;
+	if (old_scaleflare != scaleflare){ SprtFlare.update(); SprtFlare.isStaic = false;}else SprtFlare.isStaic = true;
+	//SprtFlare.isStaic = false;
+	
 			old_scaleflare = scaleflare;
 
 	}	

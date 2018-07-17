@@ -58,11 +58,7 @@ class UiController
 	var fps:Float = 0;
 
 	public function update(): Void {
-		realTime = Scheduler.realTime();
-		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
-		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
-		//trace("tfps: "+tfps + "   Zoom: "+Camera.zoom);
-		previousRealTime = realTime;
+
 		MoveCam();
 		//if(MouseControl.btnLeft)
 		//onMouseDown(0, MouseControl.x, MouseControl.y);
@@ -92,11 +88,17 @@ class UiController
 		g.fontSize = 20;
 		g.color = Color.White;
 		g.drawString("Stars count: " + Star.TotalCount+" ;", 10, 10);
+		
+		
+		//fps = Math.round( 1.0 / ( realTime - previousRealTime ) * 10.0) / 10.0;
+		
+		//if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
 		realTime = Scheduler.realTime();
-		fps = Math.round( 1.0 / ( realTime - previousRealTime )*10.0)/10.0;
-		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
+		fps = Math.round( 1.0 / ( realTime - previousRealTime ));		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
+		previousRealTime = realTime;
 		g.drawString("FPS: " + tfps + " ;", 10, 30);
-		trace("tfps: "+tfps);
+		
+		//trace("tfps: "+tfps);
 		//g.drawString("FPS: " + realTime , 10 - camera.aX, 70 - camera.aY);
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
@@ -107,7 +109,8 @@ class UiController
 		RemoveStars1000_btn.render(g);
 		RemoveStars10000_btn.render(g);
 		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
-		g.drawString("cX: " + Camera.aX+"   cY: "+Camera.aY, 10, 90);	
+		g.drawString("cX: " + Camera.aX + "   cY: " + Camera.aY, 10, 90);	
+		//g.drawString("-> " + Camera.aX+"   cY: "+Camera.aY, 10, 100);
 		//trace("Test");
   //  g.end();
 
