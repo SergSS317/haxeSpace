@@ -25,10 +25,10 @@ class Sleeve
 		this.SpeenRotate = speenRotate;
 		this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
 		StarsInSlave = 0;
-		AddStars(starCount);
+		//AddStars(starCount);
 	}
 
-	public function AddStars( count:Int)
+	/*public function AddStars( count:Int)
 	{
 		trace("SeedSleeve: " + SeedSleeve+"   StarsInSlave: " + StarsInSlave);
 		for ( i in 0...count)
@@ -36,10 +36,11 @@ class Sleeve
 			AddStar();
 		}
 		StarCount += count;
-	}
+	}*/
 	
-	function AddStar()
+	public function AddStar()
 	{
+		StarCount ++;
 		var xStarPosition = 0.0;
 		var yStarPosition = 0.0;
 		var t = (StarsInSlave) * 0.00016;//угол поворота(шаг между звездами)0.00008
@@ -47,33 +48,41 @@ class Sleeve
 	
 		rnd = Random.RndIter3(1.04, 0, SeedSleeve, StarsInSlave);
 		//rnd = Random.RndIter2(0.519, -0.519, SeedSleeve, StarsInSlave);
-		//trace(rnd);
-		//xStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		//yStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
-		//xStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd*rnd+t);
-		//yStarPosition = StarsInSlave * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd*rnd+t);
-		xStarPosition = 5000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		yStarPosition = 5000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
-		
-		//last xStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		//last yStarPosition = 5000000000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+
+		xStarPosition = 50000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		yStarPosition = 50000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+
 		StarsInSlave++;
 		PastStar( xStarPosition, yStarPosition);
 	}
 	
-	public function RemoveStars( count:Int)
+	/*public function RemoveStars( count:Int)
 	{
+		stars.reverse();
 		for ( i in 0...count)
 		{
 			RemoveStar();
 		}
+		stars.reverse();
 		StarCount -= count;
-	}
+	}*/
 	
-	function RemoveStar()
+		public function RemoveStar()
 	{
-		var removedStar = stars[stars.length-1];
-		stars.remove(removedStar);
+		trace("-remove star");
+		
+		stars.reverse();
+		var s = stars[0];
+		s.destroy();
+		stars.shift();
+		
+		stars.reverse();
+		
+		/*
+		var removedStar = stars[stars.length - 1];
+		stars.shift();
+		*/
+		//stars.remove(removedStar);
 		//Base.galxy.AllStars.remove(removedStar);
 		StarsInSlave--;
 		Star.TotalCount--;

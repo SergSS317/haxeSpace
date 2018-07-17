@@ -36,14 +36,17 @@ class Entity
 	
 	var col:Array<Float>;
 	var vert:Array<Float>;
+	var old_size:Float;
 	public function update()
 	{
 		if (!isStaic)
 		{
+			if(old_size!=Size && Size>0.01)
 			UpdateVert();
 			//UpdateColor();
 			//updates = true;
 		}
+		old_size = Size;
 	}
 	
 	public function AddVert()
@@ -69,6 +72,14 @@ class Entity
 			uvs = [0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1];
 		}
 		UpdateUVS();
+	}
+	
+	public function remove()
+	{
+		//tmp = id * 12;
+		for (i in 0...12) drawbufs.uvs[id * 12 + i] = null;
+		for (i in 0...24) drawbufs.colors[id * 24 + i] = null;
+		for (i in 0...18) drawbufs.vertices[id * 18 + i] = null;
 	}
 	
 	public function UpdateUVS()

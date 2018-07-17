@@ -37,7 +37,7 @@ class Camera
 	public function new(_x: Int, _y: Int) {
 		x = _x;
 		y = _y;
-		maxzoom = 1000000.0;
+		maxzoom = 10000000.0;
 		minzoom = 0.1;
 		//zoomspeed = minzoom;
 		//zoom = minzoom;

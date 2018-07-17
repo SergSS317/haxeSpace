@@ -40,8 +40,8 @@ class Drawning
 	var vertexBuffer:VertexBuffer;
 	var indexBuffer:IndexBuffer;
 	
-	var textureID:TextureUnit;
-    public var imageData:Image;
+	//var textureID:TextureUnit;
+    var imageData:Image;
 	
 	
 	public var vertices:Array<Float>= new Array<Float>();
@@ -59,7 +59,7 @@ class Drawning
 		);
 
 		CreateIndexBuffer(1200000);
-		textureID = Set3d.pipeline.getTextureUnit("Light9");
+		//textureID = Set3d.pipeline.getTextureUnit("Light9");
 	}
 	
 	public function update()
@@ -169,7 +169,7 @@ class Drawning
 		// Set our transformation to the currently bound shader, in the "MVP" uniform
 		g.setMatrix(Set3d.mvpID, Camera.Matrix);
 		// Set texture
-		g.setTexture(textureID, imageData);
+		g.setTexture(Set3d.pipeline.getTextureUnit("Light9"), imageData);
 		//g.setTextureParameters(textureID, kha.graphics4.TextureAddressing.Clamp, kha.graphics4.TextureAddressing.Clamp, kha.graphics4.TextureFilter.LinearFilter, kha.graphics4.TextureFilter.LinearFilter, kha.graphics4.MipMapFilter.NoMipFilter);
 	
 		// Draw!

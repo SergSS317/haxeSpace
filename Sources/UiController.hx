@@ -83,7 +83,14 @@ class UiController
 
     // clear and draw to our backbuffer
     //g.begin();
-	g.transformation = FastMatrix3.scale(1,1);
+	g.transformation = FastMatrix3.scale(1, 1);
+		AddStars1000_btn.render(g);
+		AddStars10000_btn.render(g);
+		
+		
+		RemoveStars1000_btn.render(g);
+		RemoveStars10000_btn.render(g);
+		
 		g.font = font;
 		g.fontSize = 20;
 		g.color = Color.White;
@@ -104,12 +111,10 @@ class UiController
 		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
 		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 70);
 		//g.drawString("Zoom: " + Camera.zoom + " ;   "+Camera.deltamap+"   x="+Camera.x+"   y="+Camera.y, 10, 70);
-		AddStars1000_btn.render(g);
-		AddStars10000_btn.render(g);
-		RemoveStars1000_btn.render(g);
-		RemoveStars10000_btn.render(g);
+
+
 		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
-		g.drawString("cX: " + Camera.aX + "   cY: " + Camera.aY, 10, 90);	
+		//g.drawString("cX: " + Camera.aX + "   cY: " + Camera.aY, 10, 90);	
 		//g.drawString("-> " + Camera.aX+"   cY: "+Camera.aY, 10, 100);
 		//trace("Test");
   //  g.end();

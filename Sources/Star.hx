@@ -54,10 +54,10 @@ class Star {
 		Sprt = new Entity( new Vector3(this.x, this.y, 0), color, 1.1, Base.drawning, star_uvs  );
 		Sprt.isStaic = true;
 		SprtFlare = new Entity( new Vector3(this.x, this.y, 0), color, 1.1, Base.drawning2, flare_uvs);//Base.drawning2
-		//SprtFlare.isStaic = true;
+		SprtFlare.isStaic = false;
 		TotalCount++;
 		
-		tempLight = Light;
+		tempLight = Light/5000;
 	}
 
 	public function update(): Void {
@@ -65,25 +65,42 @@ class Star {
 		//trace("11111");
 	}
 
+	public function destroy()
+	{
+		trace("Star Destroy");
+		Sprt.remove();
+		SprtFlare.remove();
+		
+		/*var drawbufs = Base.drawning;
+		
+		for (i in 0...18) drawbufs.vertices.push(0.0);
+		for(i in 0...12) drawbufs.uvs.push(0.0);
+		for (i in 0...24) drawbufs.colors.push(0.0);
+		drawbufs2 = Base.drawning;
+		for (i in 0...18) drawbufs.vertices.push(0.0);
+		for(i in 0...12) drawbufs.uvs.push(0.0);
+		for(i in 0...24) drawbufs.colors.push(0.0);*/
+	}
 	//public function render(g: Graphics):Void {  }
 	//var tempScaleFlare:Float = 1.0;
 	
 	public var scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
-	var old_scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
+	//var old_scaleflare:Float = 0.0;//рассчетный размер для светимости зависящий от zoom
 	var Alphaflare:Float = 1.0;
 	
 	var tempLight:Float;
 	function CalcDrawPosition(): Void {
-		var ttt = Math.log(Camera.zoom * tempLight);
-		ttt *= ttt;
-		if (ttt < 1) ttt = 0; 
-		scaleflare = ttt;
+		//var ttt = Math.log(Camera.zoom * tempLight);
+		////ttt *= ttt;
+		//if (ttt < 1) ttt = 0; 
+		//scaleflare = ttt;
 		
 		//scaleflare = Math.log( 10000*tempLight / Camera.zoom);
 		//trace("scaleflare:"+scaleflare);
-			//scaleflare = tempLight * Camera.zoom;// tempScaleFlare / Camera.zoom;
+		//scaleflare = Math.log(tempLight + 1) * Math.log(Camera.zoom + 1);// * (Camera.zoom / 1000) / (tempLight / 1000);
+			scaleflare = tempLight * Camera.zoom;// tempScaleFlare / Camera.zoom;
 			//if (scaleflare > 1000) scaleflare = 1000;
-			SprtFlare.Size=scaleflare;//new Vector3(scaleflare, scaleflare, 0);
+			//new Vector3(scaleflare, scaleflare, 0);
 			//SprtFlare.Size.y = scaleflare;
 			
 			/*Alphaflare = 1000 * Camera.ZoomKoef;
@@ -94,11 +111,17 @@ class Star {
 			
 			//SprtFlare.color.A = 1.0;
 			//SprtFlare.UpdateColor();
+			SprtFlare.Size = scaleflare;
 			
-	if (old_scaleflare != scaleflare){ SprtFlare.update(); SprtFlare.isStaic = false;}else SprtFlare.isStaic = true;
+			Sprt.update();
+			
+			SprtFlare.update(); 
+			//SprtFlare.isStaic = false;
+	//if (old_scaleflare != scaleflare){ SprtFlare.update(); SprtFlare.isStaic = false;}else SprtFlare.isStaic = true;
 	//SprtFlare.isStaic = false;
-	
-			old_scaleflare = scaleflare;
+	//SprtFlare.update(); SprtFlare.isStaic = false;
+			//old_scaleflare = scaleflare;
+			
 
 	}	
 }

@@ -73,11 +73,11 @@ class Base {
 		MyXml = new XmlControl();
 		camera = new Camera(0, 0);
 		set3d = new Set3d();
-		AllSprites = new Array<Entity>();
+	//	AllSprites = new Array<Entity>();
 		
 		drawning = new Drawning(Assets.images.ImgData);
 		drawning2 = new Drawning(Assets.images.ImgData);
-		drawningOther = new Drawning(Assets.images.ImgData);
+		drawningOther = new Drawning(Assets.images.fon);
 
 		myMouse = new MouseControl();
 		
@@ -104,8 +104,8 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(20000, 2, 0.25, 0);
-		trace("AllSprites:" + AllSprites.length);
+		galxy = new Galaxy(100000, 2, 0.25, 0);
+//		trace("AllSprites:" + AllSprites.length);
 		
 		drawning.UdateColor = true;
 		drawning.UdateUV = true;
@@ -118,8 +118,8 @@ class Base {
 		drawning2.update();
 		
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1, 1,  0.5, 0,  1, 0,  1, 1];
-		drawningOther.imageData = Assets.images.fon;
-		SprtBG = new Entity( new Vector3(0, 0, 0), Color.Purple, 500000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
+		//drawningOther.imageData = Assets.images.fon;
+		SprtBG = new Entity( new Vector3(0, 0, 0), Color.Purple, 5000000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
 		SprtBG.isStaic = true;
 		drawningOther.UdateColor = true;
 		drawningOther.UdateUV = true;
@@ -132,17 +132,18 @@ class Base {
 		font = Assets.fonts.kenpixel_mini_square;
 trace("End load");
 
-	Scheduler.addTimeTask(update, 0, 1 / 30);
+	Scheduler.addTimeTask(update, 0, 1 / 10);
+
 		//trace('000');
 	}
 
 	function update(): Void {
 		//trace("Start update");
-		previousRealTime = realTime;
-		uiController.update();
+		//previousRealTime = realTime;
+		
 		timer.update();
 		camera.update(controls, timer.deltaTime);
-		
+		uiController.update();
 		galxy.update();
 		//drawning.UdateVertex = true;
 		drawning2.update();

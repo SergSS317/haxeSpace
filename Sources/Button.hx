@@ -24,6 +24,7 @@ class Button {
     this.color = color;
 	this.Text_btn = Text;
 	font = Assets.fonts.kenpixel_mini_square;
+	trace(""+Text);
   }
 
   public function update(){
@@ -36,9 +37,10 @@ class Button {
     g.fillRect(x, y, width, height);
 	
 		g.font = font;
-		g.fontSize = 20;
+		g.fontSize = 15;
 		g.color = Color.White;
-		g.drawString(Text_btn, x+10, y);
+		g.drawString(Text_btn, x + 10, y);
+		
   }
   
   public function onMouseDown(button:Int, xPos:Int, yPos:Int){
