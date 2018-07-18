@@ -28,7 +28,7 @@ import kha.graphics4.Usage;
 import kha.graphics4.ConstantLocation;
 import kha.graphics4.CompareMode;
 import kha.graphics4.CullMode;
-  
+									
   
 class Base {
 	//private var image: Image;
@@ -37,7 +37,7 @@ class Base {
 	//private var backbuffer: Image;
 	//public static var stars: Array<Star>;
 	//public static var Sector:Array<Array<Sectors>>;
-	
+										
 	public static var AllSprites:Array<Entity>;
 	
 	public static var Sector:Array<Sectors>;
@@ -69,12 +69,13 @@ class Base {
 	}
 	public var SprtBG:Entity;			//для отрисовки
 	private function loadingFinished(): Void {
+		
 		trace("Start load");
 		MyXml = new XmlControl();
 		camera = new Camera(0, 0);
 		set3d = new Set3d();
 	//	AllSprites = new Array<Entity>();
-		
+
 		drawning = new Drawning(Assets.images.ImgData);
 		drawning2 = new Drawning(Assets.images.ImgData);
 		drawningOther = new Drawning(Assets.images.fon);
@@ -132,7 +133,7 @@ class Base {
 		font = Assets.fonts.kenpixel_mini_square;
 trace("End load");
 
-	Scheduler.addTimeTask(update, 0, 1 / 10);
+	Scheduler.addTimeTask(update, 0, 1 / 30);
 
 		//trace('000');
 	}

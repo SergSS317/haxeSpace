@@ -47,9 +47,11 @@ class Set3d
 		pipeline.inputLayout = [s];
 		pipeline.vertexShader = Shaders.simple_vert;
 		pipeline.fragmentShader = Shaders.simple_frag;
-        pipeline.depthWrite = true;					// Set depth mode
-        pipeline.depthMode = CompareMode.Always;
+        pipeline.depthWrite = false;					// Set depth mode
+       // pipeline.depthMode = CompareMode.Always;
+		pipeline.depthMode = CompareMode.Less;
 		pipeline.blendDestination = BlendingFactor.DestinationAlpha;
+		
 		pipeline.compile();
 		// Get a handle for our "MVP" uniform
 		mvpID = pipeline.getConstantLocation("MVP");

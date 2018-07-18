@@ -33,6 +33,7 @@ class Camera
 	//public static var zoomspeed:Float = 0.000001;
 	public static var ScaleFlare:Float = 0.0;
 	
+	
 	public static var Transform:FastMatrix3;
 	public function new(_x: Int, _y: Int) {
 		x = _x;
@@ -70,7 +71,7 @@ class Camera
 		Matrix = Matrix.multmat(projection);
 		Matrix = Matrix.multmat(view);
 		Matrix = Matrix.multmat(FastMatrix4.identity());
-		
+		trace("cam:"+x);
 		
 		
 		//trace("x="+x+"   y="+y+"   zoom="+zoom);
@@ -122,22 +123,7 @@ public function update(controls: Controls, deltaTime: Float) {
     }
 	if (zoom < minzoom) zoom = minzoom;
 	ZoomKoef = zoom / maxzoom;
-	/*var deltamap = MapSize;
-	if (x <-deltamap) x =-deltamap;
-	if (x > deltamap) x = deltamap;
-	if (y <-deltamap) y = -deltamap;
-	if (y > deltamap) y = deltamap;*/
-	/*if (ZoomChanged)
-	{
-		if (zoom < minzoom) zoom = minzoom;//максимальное отдаление
-		else if (zoom > maxzoom) zoom = maxzoom;
-		//ScaleFlare = 1 / Math.exp(zoom) * 25;
-	}*/
-/*
-		aX = (MapSize*0.01)*x* zoom+800/2;
-		aY= (MapSize*0.01)*y* zoom+600/2;*/
-		/*aX = x * zoom+800/2;
-		aY = y * zoom + 600 / 2;*/
+
 		TransformUpdate();
   }
 }

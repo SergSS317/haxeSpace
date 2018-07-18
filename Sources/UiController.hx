@@ -54,7 +54,7 @@ class UiController
 	}
 	
 	
-	var tfps: Float = 0;
+	var tfps: Float = 60;
 	var fps:Float = 0;
 
 	public function update(): Void {
@@ -101,7 +101,7 @@ class UiController
 		
 		//if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
 		realTime = Scheduler.realTime();
-		fps = Math.round( 1.0 / ( realTime - previousRealTime ));		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
+		fps = Math.round( (1.0 / ( realTime - previousRealTime )+tfps)/2);		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
 		previousRealTime = realTime;
 		g.drawString("FPS: " + tfps + " ;", 10, 30);
 		

@@ -8,40 +8,44 @@ import kha.math.Vector3;
  */
 class Entity 
 {
-	public var Position:Vector3;
-	public var Size:Float;
-	public var color:Color;
-	public var vertices:Array<Float>;
-	public var uvs:Array<Float>;
-	public var colors:Array<Float>;
+	var Position:Vector3;
+	var Size:Float;
+	///<summary>If is false - update function not work. </summary>
+	public var isStaic:Bool = false;
+	
+	var color:Color;
+	var uvs:Array<Float>;
 	var id:Int;
-	public var isStaic:Bool=false;
-	//var updates:Bool = false;
 	var drawbufs:Drawning;
-	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>) 
+	
+	var tmp:Int = 0;
+	var old_size:Float;
+	
+	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>,_staic:Bool=true) 
 	{
-		drawbufs = _drawbufs;
-		id =++drawbufs.EntityId;
-
-		colors = new Array<Float>();
-		Position = _position;
-		color = _color;
+		this.drawbufs = _drawbufs;
+		this.id =++drawbufs.EntityId;
+		this.Position = _position;
+		this.color = _color;
 		this.Size = _size;
+		this.isStaic = _staic;
 		AddUV(_uvs);
 		AddVert();
 		AddColor();
-		
 	}
-
 	
-	var col:Array<Float>;
-	var vert:Array<Float>;
-	var old_size:Float;
-	public function update()
+	///<summary>Set and recalc position in drawbufs </summary>
+	public function SetPosition(_position:Vector3):Void { Position = _position; UpdateVert(); }
+	
+	///<summary>Set and recalc size in drawbufs </summary>
+	public function SetSize(_size:Float):Void { Size = _size; UpdateVert(); }
+
+	///<summary>update... </summary>
+	public function update():Void
 	{
 		if (!isStaic)
 		{
-			if(old_size!=Size && Size>0.01)
+		//	if(old_size!=Size && Size>0.01)
 			UpdateVert();
 			//UpdateColor();
 			//updates = true;
@@ -49,19 +53,19 @@ class Entity
 		old_size = Size;
 	}
 	
-	public function AddVert()
+	function AddVert():Void
 	{
 		for (i in 0...18) drawbufs.vertices.push(0.0);
 		UpdateVert();
 	}
 	
-	public function AddColor()
+	function AddColor():Void
 	{
 		for(i in 0...24) drawbufs.colors.push(0.0);
 		UpdateColor();
 	}
 	
-	public function AddUV(_uvs:Array<Float>)
+	function AddUV(_uvs:Array<Float>):Void
 	{
 		for(i in 0...12) drawbufs.uvs.push(0.0);
 		
@@ -74,15 +78,19 @@ class Entity
 		UpdateUVS();
 	}
 	
-	public function remove()
+	///<summary>Remove all vertices, colors and uvs from drawbufs (set null)</summary>
+	public function removeAllBufs():Void
 	{
-		//tmp = id * 12;
 		for (i in 0...12) drawbufs.uvs[id * 12 + i] = null;
 		for (i in 0...24) drawbufs.colors[id * 24 + i] = null;
 		for (i in 0...18) drawbufs.vertices[id * 18 + i] = null;
+		UpdateVert();
+		UpdateColor();
+		UpdateUVS();
 	}
 	
-	public function UpdateUVS()
+	///<summary>Update uvs in drawbufs</summary>
+	public function UpdateUVS():Void
 	{
 		tmp = id * 12;
 		drawbufs.uvs[tmp + 0] = uvs[0];
@@ -105,8 +113,9 @@ class Entity
 		
 		drawbufs.UdateUV = true;
 	}
-	var tmp:Int = 0;
-	public function UpdateVert()
+	
+	///<summary>Update vertices in drawbufs</summary>
+	public function UpdateVert():Void
 	{
 		tmp = id * 18;
 		drawbufs.vertices[tmp + 0] =-Size + Position.x;
@@ -135,8 +144,9 @@ class Entity
 		
 		drawbufs.UdateVertex = true;
 	}
-
-	public function UpdateColor()
+	
+	///<summary>Update colors in drawbufs</summary>
+	public function UpdateColor():Void
 	{
 		tmp = id * 24;
 		drawbufs.colors[tmp + 0] = color.R;

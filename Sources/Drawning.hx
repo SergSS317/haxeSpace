@@ -47,24 +47,24 @@ class Drawning
 	public var vertices:Array<Float>= new Array<Float>();
 	public var uvs:Array<Float> = new Array<Float>();
 	public var colors:Array<Float> = new Array<Float>();
-		
+		//1200000
 	public function new(_imageData:Image) 
 	{
 		imageData = _imageData;
 		// Create vertex buffer
 		vertexBuffer = new VertexBuffer( 
-			Std.int(1200000), // Vertex count - 3 floats per vertex
+			Std.int(120000), // Vertex count - 3 floats per vertex
 			Set3d.structure, // Vertex structure
 			Usage.DynamicUsage // Vertex data will stay the same
 		);
 
-		CreateIndexBuffer(1200000);
+		CreateIndexBuffer(120000);
 		//textureID = Set3d.pipeline.getTextureUnit("Light9");
 	}
 	
 	public function update()
 	{
-		CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
+		//CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
 	}
 	
 	public var UdateUV:Bool = false;
@@ -163,6 +163,7 @@ class Drawning
 	{
 		CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
 		g.setVertexBuffer(vertexBuffer);
+		
 		g.setIndexBuffer(indexBuffer);
 		// Bind state we want to draw with
 		g.setPipeline(Set3d.pipeline);
