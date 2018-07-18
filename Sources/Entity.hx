@@ -24,7 +24,8 @@ class Entity
 	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>,_staic:Bool=true) 
 	{
 		this.drawbufs = _drawbufs;
-		this.id =++drawbufs.EntityId;
+		//this.id =++drawbufs.EntityId;
+		this.id =drawbufs.GetFreeId();
 		this.Position = _position;
 		this.color = _color;
 		this.Size = _size;
@@ -33,6 +34,8 @@ class Entity
 		AddVert();
 		AddColor();
 	}
+	
+
 	
 	///<summary>Set and recalc position in drawbufs </summary>
 	public function SetPosition(_position:Vector3):Void { Position = _position; UpdateVert(); }
@@ -81,12 +84,22 @@ class Entity
 	///<summary>Remove all vertices, colors and uvs from drawbufs (set null)</summary>
 	public function removeAllBufs():Void
 	{
-		for (i in 0...12) drawbufs.uvs[id * 12 + i] = null;
+	//	trace(drawbufs.id+" en1:"+drawbufs.vertices.length);
+		drawbufs.uvs.splice(id*12, 12);
+		drawbufs.colors.splice(id*24, 24);
+		drawbufs.vertices.splice(id * 18, 18);
+	/*	drawbufs.UdateUV = true;
+		drawbufs.UdateVertex = true;
+		drawbufs.UdateColor = true;*/
+		drawbufs.FreeId(id);
+	//	trace(drawbufs.id+" en2:"+drawbufs.vertices.length);
+		//trace("it`s work("+id+")");
+		/*for (i in 0...12) drawbufs.uvs[id * 12 + i] = null;
 		for (i in 0...24) drawbufs.colors[id * 24 + i] = null;
 		for (i in 0...18) drawbufs.vertices[id * 18 + i] = null;
 		UpdateVert();
 		UpdateColor();
-		UpdateUVS();
+		UpdateUVS();*/
 	}
 	
 	///<summary>Update uvs in drawbufs</summary>

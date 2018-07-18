@@ -68,12 +68,12 @@ class UiController
 	//var tempCamX:Int;
 	function MoveCam()
 	{
-		if (MouseControl.btnLeft){
+		/*if (MouseControl.btnLeft){
 			Camera.x+= 300;
 			//tempCamX = MouseControl.x;
 			//tempCamX = MouseControl.x;
 	
-		}
+		}*/
 	}
 
 	public function render(g: Graphics): Void {

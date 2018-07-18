@@ -25,15 +25,17 @@ class Sleeve
 		StarsInSleeve = 0;
 	}
 
-	/*public function AddStars( count:Int)
+	public function AddStars( count:Int)
 	{
-		trace("SeedSleeve: " + SeedSleeve+"   StarsInSlave: " + StarsInSlave);
+		
+
 		for ( i in 0...count)
 		{
 			AddStar();
 		}
-		StarCount += count;
-	}*/
+		trace("Add in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
+		//StarCount += count;
+	}
 	
 	//рассчет позиции звезды с вызовом ее создания
 	public function AddStar():Void			
@@ -54,17 +56,29 @@ class Sleeve
 		PastStar( xStarPosition, yStarPosition);
 	}
 	
-	//удаление последней звезды
-	public function RemoveStar():Void
+	public function RemoveStars(count:Int)
 	{
-	//	trace("-remove star");
+		
+		for (i in 0...count)
+		{
+			RemoveStar();
+		}
+		trace("remove in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
+	}
+	//удаление последней звезды
+	function RemoveStar():Void
+	{
+		
+		//trace("-remove star");
 		var e = stars.length;
 		//if (stars[e-1]==null) trace("st - null");
 		//trace("stars.length: "+e);
-		stars[e].destroy();
+		//trace(e);
+		//trace(stars[e-1]);
+		stars[e-1].destroy();
 		//while (e-->0)
 		//{
-			stars.splice(e, 1);
+			stars.splice(e-1, 1);
 		//}
 		/*stars.splice()
 		stars.reverse();
@@ -90,6 +104,7 @@ class Sleeve
 	
 	public function update(): Void 
 	{
+		
 		for ( star in  stars)
 		{
 			star.update();

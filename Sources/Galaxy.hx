@@ -42,33 +42,38 @@ class Galaxy
 	public function AddStars(Count:Int){
 		//trace("Add " + Count);
 		//trace("Add " + Math.round(Count / Sleeves.length));
-		for (i in 0...Math.round(Count / Sleeves.length))
+		/*for (i in 0...Math.round(Count / Sleeves.length))
 		{
 			for (sleeve in Sleeves)
 			{
 				sleeve.AddStar();
 			}
-		}
-		/*for (sleeve in Sleeves)
+		}*/
+		for (sleeve in Sleeves)
 		{
 			//trace("Add "+ Math.round( Count/Sleeves.length)+" stars!");
 			sleeve.AddStars(Math.round( Count/Sleeves.length));
-		}*/
+		}
 	}
 	
 	public function RemoveStars(Count:Int)
 	{
 		trace("Remove stars");
-		for (i in 0...Math.round(Count / Sleeves.length))
+		/*for (i in 0...Math.round(Count / Sleeves.length))
 		{
 			for (sleeve in Sleeves)
 			{
 				sleeve.RemoveStar();
 			}
-			Base.drawning.EntityId -= Count;
-			Base.drawning2.EntityId -= Count;
+		//	Base.drawning.EntityId -= Count;
+		//	Base.drawning2.EntityId -= Count;
+		}*/
+		Sleeves.reverse();
+		for (sleeve in Sleeves)
+		{
+			sleeve.RemoveStars(Math.round( Count/Sleeves.length));
 		}
-		
+		Sleeves.reverse();
 		/*for (sleeve in Sleeves)
 		{
 			trace("Remove "+ Math.round( Count/Sleeves.length)+" stars!");

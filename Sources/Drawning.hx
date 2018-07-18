@@ -1,6 +1,7 @@
 package;
 //import haxe.io.Float32Array;
 //import haxe.io.Float32Array;
+
 import kha.FastFloat;
 //import kha.arrays.Float32Array;
 import kha.graphics1.Graphics4;
@@ -36,34 +37,63 @@ import kha.math.FastVector3;
  */
 class Drawning 
 {
-	public var EntityId:Int = 0;
+	//public var EntityId:Int = 0;
 	var vertexBuffer:VertexBuffer;
 	var indexBuffer:IndexBuffer;
 	
 	//var textureID:TextureUnit;
     var imageData:Image;
-	
-	
+	public static var idtmp:Int = 0;
+	public var id:Int;
 	public var vertices:Array<Float>= new Array<Float>();
 	public var uvs:Array<Float> = new Array<Float>();
 	public var colors:Array<Float> = new Array<Float>();
+		public var IdIndex:Array<Bool>=new Array<Bool>();
 		//1200000
 	public function new(_imageData:Image) 
 	{
 		imageData = _imageData;
+		id =++idtmp;
 		// Create vertex buffer
-		vertexBuffer = new VertexBuffer( 
-			Std.int(120000), // Vertex count - 3 floats per vertex
+
+		//textureID = Set3d.pipeline.getTextureUnit("Light9");
+	}
+	var old_verLen:Int = 0;
+	public function temp()
+	{
+		
+		if (old_verLen != vertices.length)
+		{
+			//trace("temp");
+		old_verLen = vertices.length;
+				vertexBuffer = new VertexBuffer( 
+			Std.int(vertices.length/3), // Vertex count - 3 floats per vertex
 			Set3d.structure, // Vertex structure
 			Usage.DynamicUsage // Vertex data will stay the same
 		);
 
-		CreateIndexBuffer(120000);
-		//textureID = Set3d.pipeline.getTextureUnit("Light9");
+		CreateIndexBuffer(Std.int(vertices.length / 3));
+		UdateUV = true;
+		UdateColor = true;
+		UdateVertex = true;
+		}
+	}
+	public function GetFreeId():Int
+	{
+		for (i in 0...IdIndex.length){
+			if (IdIndex[i] == null || IdIndex[i] == false) {IdIndex[i] = true; return i; }
+		}
+		return IdIndex.push(true)-1;
+	}
+	
+	public function FreeId(id:Int):Void
+	{
+		IdIndex[id] = null;
 	}
 	
 	public function update()
 	{
+		
 		//CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
 	}
 	
@@ -74,15 +104,16 @@ class Drawning
 		
 	public function CreateVertexBuffer(updVert:Bool,upduv:Bool,updcolor:Bool)
 	{
+		
 		var tmp1:Int = 0;
 		var tmp2:Int = 0;
 		var vbData;
 		
 		if (updVert)
 		{
-			
+		//	trace(id+" i`m hire!"+vertices.length);
 			vbData = vertexBuffer.lock();//vbData.length / Set3d.structureLength
-			//trace("i`m hire!"+vbData.length);
+			
 			for (i in 0...Std.int(vbData.length / Set3d.structureLength))
 			{
 				tmp1 = i * Set3d.structureLength;
@@ -161,6 +192,7 @@ class Drawning
 		
 	public function render(g:Graphics) 
 	{
+		temp();
 		CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
 		g.setVertexBuffer(vertexBuffer);
 		

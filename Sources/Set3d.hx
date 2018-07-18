@@ -17,14 +17,16 @@ class Set3d
 	public static var structureLength:Int;
 	public static var pipeline:PipelineState;
 	public static var mvpID:ConstantLocation;
-	public static var EntityId:Int=0;
+	//public static var EntityId:Int = 0;
+
 	public function new() 
 	{
-		
 		CreateStructure();
 		CreatePipeline(structure);
 		
 	}
+	
+
 	
 	function CreateStructure()
 	{

@@ -105,7 +105,7 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(100000, 2, 0.25, 0);
+		galxy = new Galaxy(5000, 2, 0.25, 0);
 //		trace("AllSprites:" + AllSprites.length);
 		
 		drawning.UdateColor = true;

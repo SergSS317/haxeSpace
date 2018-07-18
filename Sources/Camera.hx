@@ -71,7 +71,7 @@ class Camera
 		Matrix = Matrix.multmat(projection);
 		Matrix = Matrix.multmat(view);
 		Matrix = Matrix.multmat(FastMatrix4.identity());
-		trace("cam:"+x);
+		//trace("cam:"+x);
 		
 		
 		//trace("x="+x+"   y="+y+"   zoom="+zoom);
