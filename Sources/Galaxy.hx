@@ -49,25 +49,25 @@ class Galaxy
 				sleeve.AddStar();
 			}
 		}*/
-		/*
+		trace("Add Stars: "+Count);
 		for (i in 0...Math.round(Count / Sleeves.length))
 		{
 			for (sleeve in Sleeves)
 			{
 				sleeve.AddStar();
 			}
-		}*/
+		}
 		
-		for (sleeve in Sleeves)
+		/*for (sleeve in Sleeves)
 		{
 			//trace("Add "+ Math.round( Count/Sleeves.length)+" stars!");
 			sleeve.AddStars(Math.round( Count/Sleeves.length));
-		}
+		}*/
 	}
 	
 	public function RemoveStars(Count:Int)
 	{
-		trace("Remove stars");
+		trace("Remove stars: "+Count);
 		/*for (i in 0...Math.round(Count / Sleeves.length))
 		{
 			for (sleeve in Sleeves)
@@ -79,12 +79,13 @@ class Galaxy
 		}*/
 		Sleeves.reverse();
 		
-		
-		for (sleeve in Sleeves)
+		for (i in 0...Math.round(Count / Sleeves.length))
 		{
-			sleeve.RemoveStars2(Math.round( Count/Sleeves.length));
-		} 
-		
+			for (sleeve in Sleeves)
+			{
+				sleeve.RemoveStar2();
+			} 
+		}
 		
 		Sleeves.reverse();
 		/*for (sleeve in Sleeves)
