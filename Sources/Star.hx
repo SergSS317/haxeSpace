@@ -32,9 +32,19 @@ class Star {
 
 	public function destroy():Void
 	{
-		//trace("destroy");
-		Sprt.removeAllBufs();
-		SprtFlare.removeAllBufs();
+
+	/*	Base.drawning.uvs.splice(Sprt.id * 12, 12);
+		Base.drawning.colors.splice(Sprt.id*24, 24);
+		Base.drawning.vertices.splice(Sprt.id * 18, 18);*/
+		Base.drawning.FreeId(Sprt.id);
+//trace("destroy -->"+Base.drawning.vertices.length+" - " +Sprt.id);
+	/*	Base.drawning2.uvs.splice(SprtFlare.id*12, 12);
+		Base.drawning2.colors.splice(SprtFlare.id*24, 24);
+		Base.drawning2.vertices.splice(SprtFlare.id * 18, 18);*/
+		Base.drawning2.FreeId(SprtFlare.id);
+		
+		/*Sprt.removeAllBufs();
+		SprtFlare.removeAllBufs();*/
 		TotalCount--;
 	}
 

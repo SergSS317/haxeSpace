@@ -33,7 +33,7 @@ class Sleeve
 		{
 			AddStar();
 		}
-		trace("Add in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
+		//trace("Add in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
 		//StarCount += count;
 	}
 	
@@ -65,27 +65,63 @@ class Sleeve
 		}
 		trace("remove in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
 	}
+	
+	public function RemoveStars2(count:Int)
+	{
+		var e = stars.length;
+		//trace("Removes: "+count+" from "+e);
+		//trace("drawbufs.l: " + Base.drawning.vertices.length + " - " + stars.length);
+		
+		while (e-->stars.length-count)
+		{
+		//	trace("e-->"+e);
+			stars[e].destroy();
+			
+		}
+	//	trace("Befor: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
+		Base.drawning.uvs.splice((e+1) * 12, count * 12);
+		Base.drawning.colors.splice((e+1) *24, count * 24);
+		Base.drawning.vertices.splice((e+1) * 18, count * 18);
+		Base.drawning2.uvs.splice((e+1) * 12, count * 12);
+		Base.drawning2.colors.splice((e+1) *24, count * 24);
+		Base.drawning2.vertices.splice((e+1) * 18, count * 18);
+	//	trace("After: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
+		/*for (i in e-count-1...count-1){
+			stars[i].destroy();
+		}*/
+		//trace("(" + SeedSleeve+")-->" + (e+1));
+		
+		stars.splice(e+1, count);
+		StarsInSleeve-=count;
+		
+		trace("drawbufs.l: "+Base.drawning.vertices.length+" - "+stars.length+" / "+StarsInSleeve);
+	}
+	
 	//удаление последней звезды
 	function RemoveStar():Void
 	{
+		var e = stars.length;
+		stars[e-1].destroy();
+		stars.splice(e-1, 1);
+		StarsInSleeve--;
+		
 		
 		//trace("-remove star");
-		var e = stars.length;
+		
 		//if (stars[e-1]==null) trace("st - null");
 		//trace("stars.length: "+e);
 		//trace(e);
 		//trace(stars[e-1]);
-		stars[e-1].destroy();
+		
 		//while (e-->0)
 		//{
-			stars.splice(e-1, 1);
+			
 		//}
 		/*stars.splice()
 		stars.reverse();
 		stars.shift().destroy();
 		stars.reverse();*/
-
-		StarsInSleeve--;
+		
 	//	Star.TotalCount--;
 	}
 	

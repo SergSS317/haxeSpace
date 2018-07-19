@@ -15,7 +15,7 @@ class Entity
 	
 	var color:Color;
 	var uvs:Array<Float>;
-	var id:Int;
+	public var id:Int;
 	var drawbufs:Drawning;
 	
 	var tmp:Int = 0;

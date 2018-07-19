@@ -49,6 +49,15 @@ class Galaxy
 				sleeve.AddStar();
 			}
 		}*/
+		/*
+		for (i in 0...Math.round(Count / Sleeves.length))
+		{
+			for (sleeve in Sleeves)
+			{
+				sleeve.AddStar();
+			}
+		}*/
+		
 		for (sleeve in Sleeves)
 		{
 			//trace("Add "+ Math.round( Count/Sleeves.length)+" stars!");
@@ -69,10 +78,14 @@ class Galaxy
 		//	Base.drawning2.EntityId -= Count;
 		}*/
 		Sleeves.reverse();
+		
+		
 		for (sleeve in Sleeves)
 		{
-			sleeve.RemoveStars(Math.round( Count/Sleeves.length));
-		}
+			sleeve.RemoveStars2(Math.round( Count/Sleeves.length));
+		} 
+		
+		
 		Sleeves.reverse();
 		/*for (sleeve in Sleeves)
 		{
