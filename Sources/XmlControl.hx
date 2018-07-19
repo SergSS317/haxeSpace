@@ -41,15 +41,29 @@ class StarPrototipe
 	}
 }
 
-
+class GalaxySettings
+{
+	public var starCount:Int;
+	public var galaxySleeve:Int;
+	public var speenPower:Float;
+	public var Seed:Int;
+	public function new(_starCount:Int, _galaxySleeve:Int, _speenPower:Float, _Seed:Int)
+	{
+		starCount = _starCount;
+		galaxySleeve = _galaxySleeve;
+		speenPower = _speenPower;
+		Seed = _Seed;
+	}
+}
 
 class XmlControl 
 {
 	public static var starPrototypes:Array<StarPrototipe>;
-	
+	public static var galaxySettings:GalaxySettings;
 	
 	public function new() 
 	{
+		
 		starPrototypes = new Array<StarPrototipe>();
 		StarPrototipe.ChanceCounter = 0;
 		var cont = Assets.blobs.settings_xml.toString();
@@ -57,6 +71,9 @@ class XmlControl
 		var f = new haxe.xml.Fast(Xml.parse(cont));
 		var stars = f.node.settings.nodes.star;
 		//var tmpColor:Color;
+				var glx = f.node.settings.node.galaxy;
+		galaxySettings = new GalaxySettings(Std.parseInt(glx.att.StarCount),Std.parseInt(glx.att.SleeveCount),Std.parseFloat(glx.att.SpeenPower),Std.parseInt(glx.att.seed));
+
 		for (star in stars){
 			//trace(star.node.color.att.red+","+star.node.color.att.green+","+star.node.color.att.blue);
 			//tmpColor=Color.fromBytes( Std.parseInt(star.node.color.att.red),Std.parseInt(star.node.color.att.green),Std.parseInt(star.node.color.att.blue),255)
@@ -68,6 +85,12 @@ class XmlControl
 													Std.parseFloat(star.att.chance)));
 
 		}
+		
+		
+		/*galaxySettings.starCount = Std.parseInt(glx.att.StarCount);
+		galaxySettings.galaxySleeve = Std.parseInt(glx.att.SleeveCount);
+		galaxySettings.speenPower = Std.parseFloat(glx.att.SpeenPower);
+		galaxySettings.Seed = Std.parseInt(glx.att.seed);*/
 		//trace(starPrototypes);
 	}
 	/*

@@ -131,15 +131,15 @@ class UiController
 	}
 	
 	public function AddStars1000(){
-		Base.galxy.AddStars(1000);
+		Base.galaxy.AddStars(1000);
 	}
 	public function AddStars10000(){
-		Base.galxy.AddStars(10000);
+		Base.galaxy.AddStars(10000);
 	}
 	public function RemoveStars1000(){
-		Base.galxy.RemoveStars(1000);
+		Base.galaxy.RemoveStars(1000);
 	}
 	public function RemoveStars10000(){
-		Base.galxy.RemoveStars(10000);
+		Base.galaxy.RemoveStars(10000);
 	}
 }

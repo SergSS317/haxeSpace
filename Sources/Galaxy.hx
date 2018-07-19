@@ -8,6 +8,8 @@ package;
 import kha.Color;
 import kha.graphics4.Graphics;
 
+
+
 //import ;
 class Galaxy
 {
@@ -18,15 +20,15 @@ class Galaxy
 	public var SpeenPower:Float;	//сила спина
 	public static var Seed:Int;		//зерно мира
 	
-	public function new(starCount:Int, galaxySleeve:Int, speenPower:Float, seed:Int)
+	public function new(starCount:Int, galaxySleeve:Int, speenPower:Float, _seed:Int)
 	{
 		this.StarCount = starCount;
 		this.GalaxySleeve = galaxySleeve;
 		this.SpeenPower = speenPower;
-		//this.AllStars = new Array<Star>();
+		
+		Seed = _seed;
 		//Seed = 123456789;
-		Seed = 123456789;
-		//trace(":::"+Seed);
+		
 		GenerateGalaxy();
 	}
 	

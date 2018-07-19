@@ -28,7 +28,7 @@ import kha.graphics4.Usage;
 import kha.graphics4.ConstantLocation;
 import kha.graphics4.CompareMode;
 import kha.graphics4.CullMode;
-									
+								
   
 class Base {
 	//private var image: Image;
@@ -51,7 +51,7 @@ class Base {
 	
 	private var timer: Timer;
 	private var MyXml:XmlControl;
-	public static var galxy:Galaxy;
+	public static var galaxy:Galaxy;
 	public var font:Font;
 	 public var previousRealTime:Float;
     public var realTime:Float;
@@ -74,6 +74,7 @@ class Base {
 		MyXml = new XmlControl();
 		camera = new Camera(0, 0);
 		set3d = new Set3d();
+
 	//	AllSprites = new Array<Entity>();
 
 //		drawning = new Drawning(Assets.images.ImgData);
@@ -103,9 +104,10 @@ class Base {
 		//stars = new Array<Star>();
 		
 		controls = new Controls();
-		
-		
-		galxy = new Galaxy(100000, 2, 0.25, 0);
+	trace("6");	
+		galaxy = new Galaxy(XmlControl.galaxySettings.starCount, XmlControl.galaxySettings.galaxySleeve, XmlControl.galaxySettings.speenPower, XmlControl.galaxySettings.Seed);
+	//	galaxy = new Galaxy(100000, 2, 0.25, 123456789);
+		trace("!!!!!!>>>>>"+galaxy);
 //		trace("AllSprites:" + AllSprites.length);
 		
 //		drawning.UdateColor = true;
@@ -145,7 +147,7 @@ trace("End load");
 		timer.update();
 		camera.update(controls, timer.deltaTime);
 		uiController.update();
-		galxy.update();
+		galaxy.update();
 		//drawning.UdateVertex = true;
 //		drawning2.update();
 		//drawning.update();
@@ -165,7 +167,7 @@ trace("End load");
         // Clear screen
 		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
 		if (drawningOther != null){ drawningOther.render(g); }
-		galxy.render(g);
+		if (galaxy != null)galaxy.render(g);
 	//	if (drawning2 != null){ drawning2.render(g); }
 	//	if (drawning != null){ drawning.render(g); }
 		//trace("->>>>>>>>" + drawning.vertices[0]);
