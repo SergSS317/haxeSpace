@@ -4,9 +4,10 @@ package;
  * ...
  * @author ...
  */
-import kha.graphics2.Graphics;
+import kha.graphics4.Graphics;
 import kha.Color;
 import kha.math.Vector3;
+import kha.Assets;
 class Sleeve 
 {
 	var SpeenPower:Float = 0;			//спин
@@ -15,6 +16,8 @@ class Sleeve
 	var SeedSleeve:Int;					//сид генерации данного рукава
 	public var stars: Array<Star>;		//список звезд рукава
 	
+	public var drawning:Drawning;
+	public var drawning2:Drawning;
 	
 	public function new(starCount:Int, speenPower:Float, speenRotate:Float) 
 	{
@@ -23,6 +26,18 @@ class Sleeve
 		this.SpeenRotate = speenRotate;
 		this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
 		StarsInSleeve = 0;
+		
+		drawning = new Drawning(Assets.images.ImgData);
+		drawning.UdateColor = true;
+		drawning.UdateUV = true;
+		drawning.UdateVertex = true;
+		drawning.update();
+		
+		drawning2 = new Drawning(Assets.images.ImgData);
+		drawning2.UdateColor = true;
+		drawning2.UdateUV = true;
+		drawning2.UdateVertex = true;
+		drawning2.update();
 	}
 
 	public function AddStars( count:Int)
@@ -69,96 +84,55 @@ class Sleeve
 	public function RemoveStar2()
 	{
 		var e = stars.length;
-		stars[e-1].destroy();
+		destroyStarBuf(stars[e-1]);
+		//stars[e-1].destroy();
 		stars.splice(e-1, 1);
+		Star.TotalCount--;
 		StarsInSleeve--;
-		//trace("Removes: "+StarsInSleeve+" / "+stars.length+" - "+e);
-		/*var e = stars.length;
-		//trace("Removes: "+count+" from "+e);
-		//trace("drawbufs.l: " + Base.drawning.vertices.length + " - " + stars.length);
-		
-		while (e-->stars.length-count)
-		{
-		//	trace("e-->"+e);
-			stars[e].destroy();
-			
-		}
-	//	trace("Befor: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
-		Base.drawning.uvs.splice((e+1) * 12, count * 12);
-		Base.drawning.colors.splice((e+1) *24, count * 24);
-		Base.drawning.vertices.splice((e+1) * 18, count * 18);
-		Base.drawning2.uvs.splice((e+1) * 12, count * 12);
-		Base.drawning2.colors.splice((e+1) *24, count * 24);
-		Base.drawning2.vertices.splice((e+1) * 18, count * 18);
-	//	trace("After: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
-		//for (i in e-count-1...count-1){
-		//	stars[i].destroy();
-		//}
-		//trace("(" + SeedSleeve+")-->" + (e+1));
-		
-		stars.splice(e+1, count);
-		StarsInSleeve-=count;
-		
-		trace("drawbufs.l: "+Base.drawning.vertices.length+" - "+stars.length+" / "+StarsInSleeve);*/
+	}
+	
+	public function destroyStarBuf(_star:Star)
+	{
+		drawning.uvs.splice(_star.Sprt.id * 12, 12);
+		drawning.colors.splice(_star.Sprt.id*24, 24);
+		drawning.vertices.splice(_star.Sprt.id * 18, 18);
+		drawning.FreeId(_star.Sprt.id);
+//trace("destroy -->"+Base.drawning.vertices.length+" - " +Sprt.id);
+		drawning2.uvs.splice(_star.SprtFlare.id*12, 12);
+		drawning2.colors.splice(_star.SprtFlare.id*24, 24);
+		drawning2.vertices.splice(_star.SprtFlare.id * 18, 18);
+		drawning2.FreeId(_star.SprtFlare.id);
 	}
 	
 	public function RemoveStars2(count:Int)
 	{
 		var e = stars.length;
-		//trace("Removes: "+count+" from "+e);
-		//trace("drawbufs.l: " + Base.drawning.vertices.length + " - " + stars.length);
 		
 		while (e-->stars.length-count)
 		{
-		//	trace("e-->"+e);
-			stars[e].destroy();
-			
+	//		stars[e].destroy();
 		}
 	//	trace("Befor: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
-		Base.drawning.uvs.splice((e+1) * 12, count * 12);
-		Base.drawning.colors.splice((e+1) *24, count * 24);
-		Base.drawning.vertices.splice((e+1) * 18, count * 18);
-		Base.drawning2.uvs.splice((e+1) * 12, count * 12);
-		Base.drawning2.colors.splice((e+1) *24, count * 24);
-		Base.drawning2.vertices.splice((e+1) * 18, count * 18);
-	//	trace("After: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
-		/*for (i in e-count-1...count-1){
-			stars[i].destroy();
-		}*/
-		//trace("(" + SeedSleeve+")-->" + (e+1));
+		drawning.uvs.splice((e+1) * 12, count * 12);
+		drawning.colors.splice((e+1) *24, count * 24);
+		drawning.vertices.splice((e+1) * 18, count * 18);
+		drawning2.uvs.splice((e+1) * 12, count * 12);
+		drawning2.colors.splice((e+1) *24, count * 24);
+		drawning2.vertices.splice((e+1) * 18, count * 18);
 		
 		stars.splice(e+1, count);
 		StarsInSleeve-=count;
 		
-		trace("drawbufs.l: "+Base.drawning.vertices.length+" - "+stars.length+" / "+StarsInSleeve);
+		trace("drawbufs.l: "+drawning.vertices.length+" - "+stars.length+" / "+StarsInSleeve);
 	}
 	
 	//удаление последней звезды
 	function RemoveStar():Void
 	{
 		var e = stars.length;
-		stars[e-1].destroy();
+	//	stars[e-1].destroy();
 		stars.splice(e-1, 1);
 		StarsInSleeve--;
-		
-		
-		//trace("-remove star");
-		
-		//if (stars[e-1]==null) trace("st - null");
-		//trace("stars.length: "+e);
-		//trace(e);
-		//trace(stars[e-1]);
-		
-		//while (e-->0)
-		//{
-			
-		//}
-		/*stars.splice()
-		stars.reverse();
-		stars.shift().destroy();
-		stars.reverse();*/
-		
-	//	Star.TotalCount--;
 	}
 	
 	//создание звезды и ее установка в координаты учитывая шансы
@@ -169,7 +143,7 @@ class Sleeve
 		{
 			if (Chance > XmlControl.starPrototypes[i].stChanceMin && Chance < XmlControl.starPrototypes[i].stChanceMax)
 			{
-				stars.push(new Star(new Vector3(x,y,0), XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight));
+				stars.push(new Star(new Vector3(x,y,0), XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight,drawning,drawning2));
 			}
 		}
 	}
@@ -181,6 +155,12 @@ class Sleeve
 		{
 			star.update();
 		} 
+		drawning2.update();
 	}
 	
+	public function render(g:Graphics)
+	{
+		if (drawning != null){ drawning.render(g); }
+		if (drawning2 != null){ drawning2.render(g); }
+	}
 }

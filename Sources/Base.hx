@@ -58,8 +58,8 @@ class Base {
 	
 	public static var myMouse:MouseControl;
 	
-	public static var drawning:Drawning;
-	public static var drawning2:Drawning;
+//	public static var drawning:Drawning;
+//	public static var drawning2:Drawning;
 	public static var drawningOther:Drawning;
 	//public var spritedraw:SpriteDraw;
 	public function new() {
@@ -76,8 +76,8 @@ class Base {
 		set3d = new Set3d();
 	//	AllSprites = new Array<Entity>();
 
-		drawning = new Drawning(Assets.images.ImgData);
-		drawning2 = new Drawning(Assets.images.ImgData);
+//		drawning = new Drawning(Assets.images.ImgData);
+//		drawning2 = new Drawning(Assets.images.ImgData);
 		drawningOther = new Drawning(Assets.images.fon);
 
 		myMouse = new MouseControl();
@@ -105,23 +105,23 @@ class Base {
 		controls = new Controls();
 		
 		
-		galxy = new Galaxy(10000, 2, 0.25, 0);
+		galxy = new Galaxy(100000, 2, 0.25, 0);
 //		trace("AllSprites:" + AllSprites.length);
 		
-		drawning.UdateColor = true;
-		drawning.UdateUV = true;
-		drawning.UdateVertex = true;
-		drawning.update();
+//		drawning.UdateColor = true;
+//		drawning.UdateUV = true;
+//		drawning.UdateVertex = true;
+//		drawning.update();
 		
-		drawning2.UdateColor = true;
-		drawning2.UdateUV = true;
-		drawning2.UdateVertex = true;
-		drawning2.update();
+//		drawning2.UdateColor = true;
+//		drawning2.UdateUV = true;
+//		drawning2.UdateVertex = true;
+//		drawning2.update();
 		
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1, 1,  0.5, 0,  1, 0,  1, 1];
 		//drawningOther.imageData = Assets.images.fon;
 		SprtBG = new Entity( new Vector3(0, 0, 0), Color.Purple, 5000000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
-		SprtBG.isStaic = true;
+		SprtBG.isStatic = true;
 		drawningOther.UdateColor = true;
 		drawningOther.UdateUV = true;
 		drawningOther.UdateVertex = true;
@@ -147,7 +147,7 @@ trace("End load");
 		uiController.update();
 		galxy.update();
 		//drawning.UdateVertex = true;
-		drawning2.update();
+//		drawning2.update();
 		//drawning.update();
 		//trace("End update: "+AllSprites[1].Size);
         
@@ -165,9 +165,9 @@ trace("End load");
         // Clear screen
 		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
 		if (drawningOther != null){ drawningOther.render(g); }
-		
-		if (drawning2 != null){ drawning2.render(g); }
-		if (drawning != null){ drawning.render(g); }
+		galxy.render(g);
+	//	if (drawning2 != null){ drawning2.render(g); }
+	//	if (drawning != null){ drawning.render(g); }
 		//trace("->>>>>>>>" + drawning.vertices[0]);
 		
 		if (uiController != null)uiController.render(frame.g2);

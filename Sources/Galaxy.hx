@@ -6,7 +6,7 @@ package;
  */
 //import 
 import kha.Color;
-import kha.graphics2.Graphics;
+import kha.graphics4.Graphics;
 
 //import ;
 class Galaxy
@@ -106,6 +106,15 @@ class Galaxy
 		for ( sleeve in Sleeves)
 		{
 			sleeve.update();
+		}
+	}
+	
+	
+	public function render(g:Graphics)
+	{
+		for ( sleeve in Sleeves)
+		{
+			sleeve.render(g);
 		}
 	}
 }

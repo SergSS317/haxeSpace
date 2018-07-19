@@ -11,7 +11,7 @@ class Entity
 	var Position:Vector3;
 	var Size:Float;
 	///<summary>If is false - update function not work. </summary>
-	public var isStaic:Bool = false;
+	public var isStatic:Bool = false;
 	
 	var color:Color;
 	var uvs:Array<Float>;
@@ -21,16 +21,16 @@ class Entity
 	var tmp:Int = 0;
 	var old_size:Float;
 	
-	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>,_staic:Bool=true) 
+	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>,_static:Bool=true) 
 	{
 		this.drawbufs = _drawbufs;
-		//this.id =++drawbufs.EntityId;
+
 		this.id =drawbufs.GetFreeId();
 		this.Position = _position;
 		this.color = _color;
 		this.Size = _size;
-		this.isStaic = _staic;
-		AddUV(_uvs);
+		this.isStatic = _static;
+		AddUVS(_uvs);
 		AddVert();
 		AddColor();
 	}
@@ -46,7 +46,7 @@ class Entity
 	///<summary>update... </summary>
 	public function update():Void
 	{
-		if (!isStaic)
+		if (!isStatic)
 		{
 		//	if(old_size!=Size && Size>0.01)
 			UpdateVert();
@@ -56,19 +56,19 @@ class Entity
 		old_size = Size;
 	}
 	
-	function AddVert():Void
+	/*function AddVert():Void
 	{
 		for (i in 0...18) drawbufs.vertices.push(0.0);
 		UpdateVert();
-	}
+	}*/
 	
-	function AddColor():Void
+	/*function AddColor():Void
 	{
 		for(i in 0...24) drawbufs.colors.push(0.0);
 		UpdateColor();
-	}
+	}*/
 	
-	function AddUV(_uvs:Array<Float>):Void
+	/*function AddUV(_uvs:Array<Float>):Void
 	{
 		for(i in 0...12) drawbufs.uvs.push(0.0);
 		
@@ -79,7 +79,7 @@ class Entity
 			uvs = [0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1];
 		}
 		UpdateUVS();
-	}
+	}*/
 	
 	///<summary>Remove all vertices, colors and uvs from drawbufs (set null)</summary>
 	public function removeAllBufs():Void
@@ -193,5 +193,71 @@ class Entity
 		drawbufs.colors[tmp + 23] = color.A;
 		
 		drawbufs.UdateColor = true;
+	}
+	
+	public function AddColor():Void
+	{
+		for (i in 0...6)
+		{
+			drawbufs.colors.push(color.R);
+			drawbufs.colors.push(color.G);
+			drawbufs.colors.push(color.B);
+			drawbufs.colors.push(color.A);
+		}		
+		drawbufs.UdateColor = true;
+	}
+	
+	public function AddVert():Void
+	{
+		tmp = id * 18;
+		drawbufs.vertices.push(-Size + Position.x);
+		drawbufs.vertices.push(-Size + Position.y);
+		drawbufs.vertices.push( 0);
+		
+		drawbufs.vertices.push(-Size + Position.x);
+		drawbufs.vertices.push( Size + Position.y);
+		drawbufs.vertices.push( 0);
+		
+		drawbufs.vertices.push( Size + Position.x);
+		drawbufs.vertices.push( Size + Position.y);
+		drawbufs.vertices.push( 0);
+		
+		drawbufs.vertices.push(-Size + Position.x);
+		drawbufs.vertices.push(-Size + Position.y);
+		drawbufs.vertices.push( 0);
+		
+		drawbufs.vertices.push( Size + Position.x);
+		drawbufs.vertices.push(-Size + Position.y);
+		drawbufs.vertices.push( 0);
+		
+		drawbufs.vertices.push( Size + Position.x);
+		drawbufs.vertices.push( Size + Position.y);
+		drawbufs.vertices.push( 0);
+		
+		drawbufs.UdateVertex = true;
+	}
+	
+	public function AddUVS(_uvs:Array<Float>):Void
+	{
+		tmp = id * 12;
+		drawbufs.uvs.push( _uvs[0]);
+		drawbufs.uvs.push( _uvs[1]);
+		
+		drawbufs.uvs.push( _uvs[2]);
+		drawbufs.uvs.push( _uvs[3]);
+		
+		drawbufs.uvs.push( _uvs[4]);
+		drawbufs.uvs.push( _uvs[5]);
+		
+		drawbufs.uvs.push( _uvs[6]);
+		drawbufs.uvs.push( _uvs[7]);
+		
+		drawbufs.uvs.push( _uvs[8]);
+		drawbufs.uvs.push( _uvs[9]);
+		
+		drawbufs.uvs.push( _uvs[10]);
+		drawbufs.uvs.push( _uvs[11]);
+		
+		drawbufs.UdateUV = true;
 	}
 }
