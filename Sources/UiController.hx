@@ -28,8 +28,9 @@ class UiController
     public var realTime:Float;
 	public var AddStars1000_btn:Button;
 	public var AddStars10000_btn:Button;
-	public var RemoveStars1000_btn:Button;
-	public var RemoveStars10000_btn:Button;
+	//public var CameraRotate_btn:Button;
+	//public var RemoveStars1000_btn:Button;
+	//public var RemoveStars10000_btn:Button;
 
 	
 	public function new() 
@@ -45,11 +46,14 @@ class UiController
 		AddStars10000_btn.onClick = AddStars10000;
 		AddStars1000_btn = new Button(120, 512, 100, 32, Color.Blue,"+1k stars");
 		AddStars1000_btn.onClick = AddStars1000;
+		
+	//	CameraRotate_btn = new Button(230, 512, 100, 32, Color.Blue, "Rotate");
+	//	CameraRotate_btn.onClick = CameraRotate;
 
-		RemoveStars1000_btn = new Button(230, 512, 100, 32, Color.Blue,"-1k stars");
-		RemoveStars1000_btn.onClick = RemoveStars1000;
-		RemoveStars10000_btn = new Button(340, 512, 100, 32, Color.Blue,"-10k stars");
-		RemoveStars10000_btn.onClick = RemoveStars10000;
+	//	RemoveStars1000_btn = new Button(230, 512, 100, 32, Color.Blue,"-1k stars");
+	//	RemoveStars1000_btn.onClick = RemoveStars1000;
+	//	RemoveStars10000_btn = new Button(340, 512, 100, 32, Color.Blue,"-10k stars");
+	//	RemoveStars10000_btn.onClick = RemoveStars10000;
 		Mouse.get().notify(onMouseDown, null, null, null);
 	}
 	
@@ -86,10 +90,10 @@ class UiController
 	g.transformation = FastMatrix3.scale(1, 1);
 		AddStars1000_btn.render(g);
 		AddStars10000_btn.render(g);
+	//	CameraRotate_btn.render(g);
 		
-		
-		RemoveStars1000_btn.render(g);
-		RemoveStars10000_btn.render(g);
+	//	RemoveStars1000_btn.render(g);
+	//	RemoveStars10000_btn.render(g);
 		
 		g.font = font;
 		g.fontSize = 20;
@@ -108,8 +112,8 @@ class UiController
 		//trace("tfps: "+tfps);
 		//g.drawString("FPS: " + realTime , 10 - camera.aX, 70 - camera.aY);
 		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
-		g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
-		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 70);
+	//	g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
+		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 50);
 		//g.drawString("Zoom: " + Camera.zoom + " ;   "+Camera.deltamap+"   x="+Camera.x+"   y="+Camera.y, 10, 70);
 
 
@@ -126,8 +130,9 @@ class UiController
 	  //trace('MD');
 		AddStars1000_btn.onMouseDown(button, x, y);
 		AddStars10000_btn.onMouseDown(button, x, y);
-		RemoveStars1000_btn.onMouseDown(button, x, y);
-		RemoveStars10000_btn.onMouseDown(button, x, y);
+	//	CameraRotate_btn.onMouseDown(button, x, y);
+	//	RemoveStars1000_btn.onMouseDown(button, x, y);
+	//	RemoveStars10000_btn.onMouseDown(button, x, y);
 	}
 	
 	public function AddStars1000(){
@@ -136,10 +141,15 @@ class UiController
 	public function AddStars10000(){
 		Base.galaxy.AddStars(10000);
 	}
-	public function RemoveStars1000(){
+	
+	/*public function CameraRotate()
+	{
+		Camera.IsRotating = !Camera.IsRotating;
+	}*/
+	/*public function RemoveStars1000(){
 		Base.galaxy.RemoveStars(1000);
 	}
 	public function RemoveStars10000(){
 		Base.galaxy.RemoveStars(10000);
-	}
+	}*/
 }

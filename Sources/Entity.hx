@@ -8,8 +8,8 @@ import kha.math.Vector3;
  */
 class Entity 
 {
-	var Position:Vector3;
-	var Size:Float;
+	public var Position:Vector3;
+	public var Size:Float;
 	///<summary>If is false - update function not work. </summary>
 	public var isStatic:Bool = false;
 	
@@ -23,25 +23,31 @@ class Entity
 	
 	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>,_static:Bool=true) 
 	{
+		//trace("new entity");
 		this.drawbufs = _drawbufs;
 
-		this.id =drawbufs.GetFreeId();
+//		this.id =drawbufs.GetFreeId();
+		this.id = drawbufs.IdEntity++;
 		this.Position = _position;
 		this.color = _color;
 		this.Size = _size;
 		this.isStatic = _static;
-		AddUVS(_uvs);
-		AddVert();
-		AddColor();
+		AddUV(_uvs);
+		UpdateUVS();
+		UpdateVert();
+		UpdateColor();
+		//AddUVS(_uvs);
+		//AddVert();
+		//AddColor();
 	}
 	
 
 	
 	///<summary>Set and recalc position in drawbufs </summary>
-	public function SetPosition(_position:Vector3):Void { Position = _position; UpdateVert(); }
+	//public function SetPosition(_position:Vector3):Void { Position = _position; UpdateVert(); }
 	
 	///<summary>Set and recalc size in drawbufs </summary>
-	public function SetSize(_size:Float):Void { Size = _size; UpdateVert(); }
+	//public function SetSize(_size:Float):Void { Size = _size; UpdateVert(); }
 
 	///<summary>update... </summary>
 	public function update():Void
@@ -68,9 +74,9 @@ class Entity
 		UpdateColor();
 	}*/
 	
-	/*function AddUV(_uvs:Array<Float>):Void
+	function AddUV(_uvs:Array<Float>):Void
 	{
-		for(i in 0...12) drawbufs.uvs.push(0.0);
+		//for(i in 0...12) drawbufs.uvs.push(0.0);
 		
 		if (_uvs != null)
 		{
@@ -78,20 +84,19 @@ class Entity
 		}else{
 			uvs = [0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1];
 		}
-		UpdateUVS();
-	}*/
+	}
 	
 	///<summary>Remove all vertices, colors and uvs from drawbufs (set null)</summary>
-	public function removeAllBufs():Void
-	{
+//	public function removeAllBufs():Void
+//	{
 	//	trace(drawbufs.id+" en1:"+drawbufs.vertices.length);
-		drawbufs.uvs.splice(id*12, 12);
-		drawbufs.colors.splice(id*24, 24);
-		drawbufs.vertices.splice(id * 18, 18);
+//		drawbufs.uvs.splice(id*12, 12);
+//		drawbufs.colors.splice(id*24, 24);
+//		drawbufs.vertices.splice(id * 18, 18);
 	/*	drawbufs.UdateUV = true;
 		drawbufs.UdateVertex = true;
 		drawbufs.UdateColor = true;*/
-		drawbufs.FreeId(id);
+//		drawbufs.FreeId(id);
 	//	trace(drawbufs.id+" en2:"+drawbufs.vertices.length);
 		//trace("it`s work("+id+")");
 		/*for (i in 0...12) drawbufs.uvs[id * 12 + i] = null;
@@ -100,7 +105,7 @@ class Entity
 		UpdateVert();
 		UpdateColor();
 		UpdateUVS();*/
-	}
+//	}
 	
 	///<summary>Update uvs in drawbufs</summary>
 	public function UpdateUVS():Void
@@ -124,13 +129,14 @@ class Entity
 		drawbufs.uvs[tmp + 10] = uvs[10];
 		drawbufs.uvs[tmp + 11] = uvs[11];
 		
-		drawbufs.UdateUV = true;
+	//	drawbufs.UdateUV = true;
 	}
 	
 	///<summary>Update vertices in drawbufs</summary>
 	public function UpdateVert():Void
 	{
 		tmp = id * 18;
+
 		drawbufs.vertices[tmp + 0] =-Size + Position.x;
 		drawbufs.vertices[tmp + 1] =-Size + Position.y;
 		drawbufs.vertices[tmp + 2] = 0;
@@ -155,44 +161,50 @@ class Entity
 		drawbufs.vertices[tmp + 16] = Size + Position.y;
 		drawbufs.vertices[tmp + 17] = 0;
 		
-		drawbufs.UdateVertex = true;
+	//	drawbufs.UdateVertex = true;
 	}
 	
 	///<summary>Update colors in drawbufs</summary>
 	public function UpdateColor():Void
 	{
 		tmp = id * 24;
-		drawbufs.colors[tmp + 0] = color.R;
-		drawbufs.colors[tmp + 1] = color.G;
-		drawbufs.colors[tmp + 2] = color.B;
-		drawbufs.colors[tmp + 3] = color.A;
-		
-		drawbufs.colors[tmp + 4] = color.R;
-		drawbufs.colors[tmp + 5] = color.G;
-		drawbufs.colors[tmp + 6] = color.B;
-		drawbufs.colors[tmp + 7] = color.A;
-		
-		drawbufs.colors[tmp + 8] = color.R;
-		drawbufs.colors[tmp + 9] = color.G;
-		drawbufs.colors[tmp + 10] = color.B;
-		drawbufs.colors[tmp + 11] = color.A;
-		
-		drawbufs.colors[tmp + 12] = color.R;
-		drawbufs.colors[tmp + 13] = color.G;
-		drawbufs.colors[tmp + 14] = color.B;
-		drawbufs.colors[tmp + 15] = color.A;
-		
-		drawbufs.colors[tmp + 16] = color.R;
-		drawbufs.colors[tmp + 17] = color.G;
-		drawbufs.colors[tmp + 18] = color.B;
-		drawbufs.colors[tmp + 19] = color.A;
-		
-		drawbufs.colors[tmp + 20] = color.R;
-		drawbufs.colors[tmp + 21] = color.G;
-		drawbufs.colors[tmp + 22] = color.B;
-		drawbufs.colors[tmp + 23] = color.A;
-		
-		drawbufs.UdateColor = true;
+			drawbufs.colors[tmp + 0] = color.R;
+			drawbufs.colors[tmp + 1] = color.G;
+			drawbufs.colors[tmp + 2] = color.B;
+			drawbufs.colors[tmp + 3] = color.A;
+			
+			drawbufs.colors[tmp + 4] = color.R;
+			drawbufs.colors[tmp + 5] = color.G;
+			drawbufs.colors[tmp + 6] = color.B;
+			drawbufs.colors[tmp + 7] = color.A;
+			
+			drawbufs.colors[tmp + 8] = color.R;
+			drawbufs.colors[tmp + 9] = color.G;
+			drawbufs.colors[tmp + 10] = color.B;
+			drawbufs.colors[tmp + 11] = color.A;
+			
+			drawbufs.colors[tmp + 12] = color.R;
+			drawbufs.colors[tmp + 13] = color.G;
+			drawbufs.colors[tmp + 14] = color.B;
+			drawbufs.colors[tmp + 15] = color.A;
+			
+			drawbufs.colors[tmp + 16] = color.R;
+			drawbufs.colors[tmp + 17] = color.G;
+			drawbufs.colors[tmp + 18] = color.B;
+			drawbufs.colors[tmp + 19] = color.A;
+			
+			drawbufs.colors[tmp + 20] = color.R;
+			drawbufs.colors[tmp + 21] = color.G;
+			drawbufs.colors[tmp + 22] = color.B;
+			drawbufs.colors[tmp + 23] = color.A;
+	/*	for (i in 0...6)
+		{
+			drawbufs.colors[tmp + i * 4 + 0] = color.R;
+			drawbufs.colors[tmp + i * 4 + 1] = color.G;
+			drawbufs.colors[tmp + i * 4 + 2] = color.B;
+			drawbufs.colors[tmp + i * 4 + 3] = color.A;
+		}*/
+	//	drawbufs.UdateColor = true;
 	}
 	
 	public function AddColor():Void
@@ -204,7 +216,7 @@ class Entity
 			drawbufs.colors.push(color.B);
 			drawbufs.colors.push(color.A);
 		}		
-		drawbufs.UdateColor = true;
+	//	drawbufs.UdateColor = true;
 	}
 	
 	public function AddVert():Void
@@ -234,30 +246,15 @@ class Entity
 		drawbufs.vertices.push( Size + Position.y);
 		drawbufs.vertices.push( 0);
 		
-		drawbufs.UdateVertex = true;
+	//	drawbufs.UdateVertex = true;
 	}
 	
 	public function AddUVS(_uvs:Array<Float>):Void
 	{
-		tmp = id * 12;
-		drawbufs.uvs.push( _uvs[0]);
-		drawbufs.uvs.push( _uvs[1]);
-		
-		drawbufs.uvs.push( _uvs[2]);
-		drawbufs.uvs.push( _uvs[3]);
-		
-		drawbufs.uvs.push( _uvs[4]);
-		drawbufs.uvs.push( _uvs[5]);
-		
-		drawbufs.uvs.push( _uvs[6]);
-		drawbufs.uvs.push( _uvs[7]);
-		
-		drawbufs.uvs.push( _uvs[8]);
-		drawbufs.uvs.push( _uvs[9]);
-		
-		drawbufs.uvs.push( _uvs[10]);
-		drawbufs.uvs.push( _uvs[11]);
-		
-		drawbufs.UdateUV = true;
+		for (i in 0...12)
+		{
+			drawbufs.uvs.push( _uvs[i]); 
+		}
+	//	drawbufs.UdateUV = true;
 	}
 }

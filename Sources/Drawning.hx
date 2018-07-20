@@ -44,41 +44,43 @@ class Drawning
 	//var textureID:TextureUnit;
     var imageData:Image;
 	public static var idtmp:Int = 0;
+	public var IdEntity:Int = 0;
 	public var id:Int;
 	public var vertices:Array<Float>= new Array<Float>();
 	public var uvs:Array<Float> = new Array<Float>();
 	public var colors:Array<Float> = new Array<Float>();
-		public var IdIndex:Array<Bool>=new Array<Bool>();
+	//	public var IdIndex:Array<Bool>=new Array<Bool>();
 		//1200000
-	public function new(_imageData:Image) 
+	public function new(_imageData:Image, Lenght:Int) 
 	{
 		imageData = _imageData;
 		id =++idtmp;
+		CreateNewVertexBufer(Lenght);
 		// Create vertex buffer
 
 		//textureID = Set3d.pipeline.getTextureUnit("Light9");
 	}
-	var old_verLen:Int = 0;
-	public function temp()
+	//var old_verLen:Int = 0;
+	public function CreateNewVertexBufer(Lenght:Int)
 	{
-		
-		if (old_verLen != vertices.length)
-		{
+	//	trace("CreateNewVertexBufer: "+Lenght);
+	//	if (old_verLen != vertices.length)
+	//	{
 			//trace("temp");
-		old_verLen = vertices.length;
+	//	old_verLen = vertices.length;
 				vertexBuffer = new VertexBuffer( 
-			Std.int(vertices.length/3), // Vertex count - 3 floats per vertex
+			Std.int(Lenght), // Vertex count - 3 floats per vertex   vertices.length/3)
 			Set3d.structure, // Vertex structure
 			Usage.DynamicUsage // Vertex data will stay the same
 		);
 
-		CreateIndexBuffer(Std.int(vertices.length / 3));
+		CreateIndexBuffer(Lenght);
 		UdateUV = true;
 		UdateColor = true;
 		UdateVertex = true;
-		}
+	//	}
 	}
-	public function GetFreeId():Int
+	/*public function GetFreeId():Int
 	{
 		for (i in 0...IdIndex.length){
 			if (IdIndex[i] == null || IdIndex[i] == false) {IdIndex[i] = true; return i; }
@@ -89,7 +91,7 @@ class Drawning
 	public function FreeId(id:Int):Void
 	{
 		IdIndex[id] = null;
-	}
+	}*/
 	
 	public function update()
 	{
@@ -102,7 +104,7 @@ class Drawning
 	public var UdateVertex:Bool=false;
 
 		
-	public function CreateVertexBuffer(updVert:Bool,upduv:Bool,updcolor:Bool)
+	public function UpdateVertexBuffer(updVert:Bool,upduv:Bool,updcolor:Bool)
 	{
 		
 		var tmp1:Int = 0;
@@ -114,12 +116,14 @@ class Drawning
 		//	trace(id+" i`m hire!"+vertices.length);
 			vbData = vertexBuffer.lock();//vbData.length / Set3d.structureLength
 			
-			for (i in 0...Std.int(vbData.length / Set3d.structureLength))
+			for (i in 0...Std.int(vbData.length / Set3d.structureLength+1))
 			{
 				tmp1 = i * Set3d.structureLength;
 				tmp2 = i * 3;
 				if (vertices[tmp2] != null)
 				{
+				//	trace("vert->" + i + " - " + tmp1 + ", " + vertices[tmp2]);
+				//	trace(vbData.length / Set3d.structureLength);
 					vbData.set(tmp1, vertices[tmp2]);
 					vbData.set(tmp1 + 1, vertices[tmp2 + 1]);
 					vbData.set(tmp1 + 2, vertices[tmp2 + 2]);
@@ -192,8 +196,9 @@ class Drawning
 		
 	public function render(g:Graphics) 
 	{
-		temp();
-		CreateVertexBuffer(UdateVertex,UdateUV,UdateColor);
+	//	CreateNewVertexBufer();
+		UpdateVertexBuffer(UdateVertex, UdateUV, UdateColor);
+		
 		g.setVertexBuffer(vertexBuffer);
 		
 		g.setIndexBuffer(indexBuffer);

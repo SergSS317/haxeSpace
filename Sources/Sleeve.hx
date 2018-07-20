@@ -27,60 +27,59 @@ class Sleeve
 		this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
 		StarsInSleeve = 0;
 		
-		drawning = new Drawning(Assets.images.ImgData);
+		drawning = new Drawning(Assets.images.ImgData,90);
 		drawning.UdateColor = true;
 		drawning.UdateUV = true;
 		drawning.UdateVertex = true;
-		drawning.update();
+		//drawning.update();
 		
-		drawning2 = new Drawning(Assets.images.ImgData);
+		drawning2 = new Drawning(Assets.images.ImgData,90);
 		drawning2.UdateColor = true;
 		drawning2.UdateUV = true;
 		drawning2.UdateVertex = true;
-		drawning2.update();
+		//drawning2.update();
 	}
 
 	public function AddStars( count:Int)
 	{
+		drawning.CreateNewVertexBufer((stars.length + count)*6);
+		drawning2.CreateNewVertexBufer((stars.length + count)*6);
+		//trace("Add begin "+stars.length+"+"+count+"*2="+(stars.length + count)*2);
+		for ( i in 0...count) { AddStar(); }
+		trace("Add in sleeve " + SeedSleeve+" count=" + count + " remain=" + StarsInSleeve+" / " + stars.length);
+		//drawning.CreateNewVertexBufer(stars.length+count);
+		drawning.UdateColor=true;
+		drawning.UdateUV=true;
+		drawning.UdateVertex = true;
 		
-
-		for ( i in 0...count)
-		{
-			AddStar();
-		}
-		//trace("Add in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
-		//StarCount += count;
+		//trace("Vertex: " + drawning.vertices.length / 18 + "   Uvs: " + drawning.uvs.length / 12 + "   Color: " + drawning.colors.length / 24);
+		//trace("Vertex: " + drawning.vertices);
+		drawning2.UdateColor=true;
+		drawning2.UdateUV=true;
+		drawning2.UdateVertex = true;
+		
 	}
 	
 	//рассчет позиции звезды с вызовом ее создания
-	public function AddStar():Void			
+	function AddStar():Void			
 	{
-		//StarCount ++;
+		//trace("Addstar begin");
 		var xStarPosition = 0.0;
 		var yStarPosition = 0.0;
 		var t = (StarsInSleeve) * 0.00016;//угол поворота(шаг между звездами)0.00008
 		var rnd:Float = 0.0;
 	
-		rnd = Random.RndIter3(1.04, 0, SeedSleeve, StarsInSleeve);
-		//rnd = Random.RndIter2(0.519, -0.519, SeedSleeve, StarsInSlave);
+		rnd = Random.RndIter3(0.45, -0.45, SeedSleeve, StarsInSleeve);
+		//rnd = Random.RndIter3(1.04, 0, SeedSleeve, StarsInSleeve);
 
-		xStarPosition = 5000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
-		yStarPosition = 5000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		xStarPosition = 10000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		yStarPosition = 10000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
 
 		StarsInSleeve++;
 		PastStar( xStarPosition, yStarPosition);
+		//trace("Addstar end");
 	}
-	
-	public function RemoveStars(count:Int)
-	{
-		
-		for (i in 0...count)
-		{
-			RemoveStar();
-		}
-		trace("remove in sleeve " + SeedSleeve+" count=" + count+" remain="+StarsInSleeve+" / "+stars.length);
-	}
-	
+
 	public function RemoveStar2()
 	{
 		var e = stars.length;
@@ -96,43 +95,15 @@ class Sleeve
 		drawning.uvs.splice(_star.Sprt.id * 12, 12);
 		drawning.colors.splice(_star.Sprt.id*24, 24);
 		drawning.vertices.splice(_star.Sprt.id * 18, 18);
-		drawning.FreeId(_star.Sprt.id);
+	//	drawning.FreeId(_star.Sprt.id);
+		drawning.IdEntity--;
 //trace("destroy -->"+Base.drawning.vertices.length+" - " +Sprt.id);
 		drawning2.uvs.splice(_star.SprtFlare.id*12, 12);
 		drawning2.colors.splice(_star.SprtFlare.id*24, 24);
 		drawning2.vertices.splice(_star.SprtFlare.id * 18, 18);
-		drawning2.FreeId(_star.SprtFlare.id);
-	}
+	//	drawning2.FreeId(_star.SprtFlare.id);
+		drawning2.IdEntity--;
 	
-	public function RemoveStars2(count:Int)
-	{
-		var e = stars.length;
-		
-		while (e-->stars.length-count)
-		{
-	//		stars[e].destroy();
-		}
-	//	trace("Befor: "+ Base.drawning.uvs.length+"("+(Base.drawning.uvs.length/12)+") / "+Base.drawning.colors.length+"("+(Base.drawning.colors.length/24)+") / "+Base.drawning.vertices.length+"("+(Base.drawning.vertices.length/18)+")");
-		drawning.uvs.splice((e+1) * 12, count * 12);
-		drawning.colors.splice((e+1) *24, count * 24);
-		drawning.vertices.splice((e+1) * 18, count * 18);
-		drawning2.uvs.splice((e+1) * 12, count * 12);
-		drawning2.colors.splice((e+1) *24, count * 24);
-		drawning2.vertices.splice((e+1) * 18, count * 18);
-		
-		stars.splice(e+1, count);
-		StarsInSleeve-=count;
-		
-		trace("drawbufs.l: "+drawning.vertices.length+" - "+stars.length+" / "+StarsInSleeve);
-	}
-	
-	//удаление последней звезды
-	function RemoveStar():Void
-	{
-		var e = stars.length;
-	//	stars[e-1].destroy();
-		stars.splice(e-1, 1);
-		StarsInSleeve--;
 	}
 	
 	//создание звезды и ее установка в координаты учитывая шансы
@@ -143,6 +114,7 @@ class Sleeve
 		{
 			if (Chance > XmlControl.starPrototypes[i].stChanceMin && Chance < XmlControl.starPrototypes[i].stChanceMax)
 			{
+				
 				stars.push(new Star(new Vector3(x,y,0), XmlControl.starPrototypes[i].stColor, XmlControl.starPrototypes[i].stSize, XmlControl.starPrototypes[i].stLight,drawning,drawning2));
 			}
 		}
@@ -150,11 +122,10 @@ class Sleeve
 	
 	public function update(): Void 
 	{
-		
-		for ( star in  stars)
-		{
-			star.update();
-		} 
+		for ( star in  stars) { star.update(); } 
+
+		drawning.update();
+		drawning2.UdateVertex = true;
 		drawning2.update();
 	}
 	

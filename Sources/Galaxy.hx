@@ -42,29 +42,13 @@ class Galaxy
 	}
 	
 	public function AddStars(Count:Int){
-		//trace("Add " + Count);
-		//trace("Add " + Math.round(Count / Sleeves.length));
-		/*for (i in 0...Math.round(Count / Sleeves.length))
-		{
-			for (sleeve in Sleeves)
-			{
-				sleeve.AddStar();
-			}
-		}*/
+
 		trace("Add Stars: "+Count);
-		for (i in 0...Math.round(Count / Sleeves.length))
-		{
-			for (sleeve in Sleeves)
-			{
-				sleeve.AddStar();
-			}
-		}
 		
-		/*for (sleeve in Sleeves)
+		for (sleeve in Sleeves)
 		{
-			//trace("Add "+ Math.round( Count/Sleeves.length)+" stars!");
 			sleeve.AddStars(Math.round( Count/Sleeves.length));
-		}*/
+		}
 	}
 	
 	public function RemoveStars(Count:Int)
@@ -96,13 +80,6 @@ class Galaxy
 			sleeve.RemoveStars(Math.round( Count/Sleeves.length));
 		}*/
 	}
-	/*public function render(g: Graphics): Void {
-		for (sleeve in Sleeves)
-		{
-			sleeve.render(g);
-		}
-		
-	}*/
 
 	public function update(): Void {
 		for ( sleeve in Sleeves)
@@ -110,7 +87,6 @@ class Galaxy
 			sleeve.update();
 		}
 	}
-	
 	
 	public function render(g:Graphics)
 	{

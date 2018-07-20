@@ -79,7 +79,7 @@ class Base {
 
 //		drawning = new Drawning(Assets.images.ImgData);
 //		drawning2 = new Drawning(Assets.images.ImgData);
-		drawningOther = new Drawning(Assets.images.fon);
+		drawningOther = new Drawning(Assets.images.fon,90);
 
 		myMouse = new MouseControl();
 		
@@ -104,10 +104,10 @@ class Base {
 		//stars = new Array<Star>();
 		
 		controls = new Controls();
-	trace("6");	
+	//trace("6");	
 		galaxy = new Galaxy(XmlControl.galaxySettings.starCount, XmlControl.galaxySettings.galaxySleeve, XmlControl.galaxySettings.speenPower, XmlControl.galaxySettings.Seed);
 	//	galaxy = new Galaxy(100000, 2, 0.25, 123456789);
-		trace("!!!!!!>>>>>"+galaxy);
+	//	trace("!!!!!!>>>>>"+galaxy);
 //		trace("AllSprites:" + AllSprites.length);
 		
 //		drawning.UdateColor = true;
@@ -122,7 +122,7 @@ class Base {
 		
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1, 1,  0.5, 0,  1, 0,  1, 1];
 		//drawningOther.imageData = Assets.images.fon;
-		SprtBG = new Entity( new Vector3(0, 0, 0), Color.Purple, 5000000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
+		SprtBG = new Entity( new Vector3(0, 0, 0), Color.Purple, 1000000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
 		SprtBG.isStatic = true;
 		drawningOther.UdateColor = true;
 		drawningOther.UdateUV = true;
@@ -135,7 +135,7 @@ class Base {
 		font = Assets.fonts.kenpixel_mini_square;
 trace("End load");
 
-	Scheduler.addTimeTask(update, 0, 1 / 30);
+	Scheduler.addTimeTask(update, 0, 1 / 20);
 
 		//trace('000');
 	}
@@ -165,7 +165,7 @@ trace("End load");
         g.begin();
 
         // Clear screen
-		g.clear(Color.fromFloats(0.0, 0.0, 0.3), 1.0);
+		g.clear(Color.fromFloats(0.0, 0.0, 0.0), 1.0);
 		if (drawningOther != null){ drawningOther.render(g); }
 		if (galaxy != null)galaxy.render(g);
 	//	if (drawning2 != null){ drawning2.render(g); }
