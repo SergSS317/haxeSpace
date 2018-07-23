@@ -28,9 +28,13 @@ class Controls {
 		up = true;
     case KeyCode.Down:
 		down = true;
-	case KeyCode.Numpad9:
+	case KeyCode.PageUp:
 		zoomup = true;
-	case KeyCode.Numpad3:
+	case KeyCode.PageDown:
+		zoomdown = true;
+	case KeyCode.Add:
+		zoomup = true;
+	case KeyCode.Subtract:
 		zoomdown = true;
     default:
       // no-op
@@ -55,11 +59,14 @@ class Controls {
       up = false;
     case KeyCode.Down:
       down = false;
-	case KeyCode.Numpad9:
+	case KeyCode.PageUp:
 		zoomup = false;
-	case KeyCode.Numpad3:
+	case KeyCode.PageDown:
 		zoomdown = false;
-
+	case KeyCode.Add:
+		zoomup = false;
+	case KeyCode.Subtract:
+		zoomdown = false;
     default:
       //no-op
     }

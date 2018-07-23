@@ -29,7 +29,7 @@ class Galaxy
 		GenerateGalaxy();
 	}
 	
-	function GenerateGalaxy()
+	function GenerateGalaxy():Void
 	{
 		for ( i in 1...(GalaxySleeve+1))
 		{
@@ -38,8 +38,8 @@ class Galaxy
 		AddStars(StarCount);
 	}
 	
-	public function AddStars(Count:Int){
-
+	public function AddStars(Count:Int):Void
+	{
 		trace("Add Stars: "+Count);
 		for (sleeve in Sleeves)
 		{

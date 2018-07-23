@@ -13,7 +13,7 @@ package;
  import kha.math.FastVector3;
 class Camera
 {
-	var MapSize = 330000000000;
+	//var MapSize = 330000000000;
 	//public static var Position:Vector3;
 	public static var ZoomKoef:Float;
 	public static var Matrix:FastMatrix4;
@@ -21,9 +21,9 @@ class Camera
 	
 	public var x: Float;
 	public var y: Float;
-	public var zoom:Float = 1.0;
-	public var minzoom:Float=0.001;
-	public var maxzoom:Float=1.0;
+	public var zoom:Float;
+	public var minzoom:Float;
+	public var maxzoom:Float;
 	public var speed = 1.0;
 	
 	//public static var ZoomChanged:Bool=false; 
@@ -44,11 +44,11 @@ class Camera
 	public function new(_x: Int, _y: Int) {
 		x = _x;
 		y = _y;
-		maxzoom = 90000.0;
+		maxzoom = 500000.0;
 		minzoom = 5;
 		//zoomspeed = 1;
 		zoom = 10000;
-		startZoom = 100;
+		startZoom = 1000;
 		TransformUpdate();
 	}
 	public static var projection:FastMatrix4;
@@ -97,7 +97,7 @@ class Camera
 		}
 		if (!MouseControl.btnLeft) { oldXm = 0; oldYm = 0; }
 		
-		startZoom += MouseControl.z-oldZm;
+		startZoom += deltaTime *(MouseControl.z-oldZm)* startZoom;
 		if (controls.zoomup && !controls.zoomdown) 
 		{
 				startZoom -=  deltaTime * startZoom;
@@ -108,10 +108,10 @@ class Camera
 		
 		oldZm = MouseControl.z;
 		if (startZoom < 1) startZoom = 1;
-		zoom = Math.pow(startZoom,2.5);
+		zoom = Math.pow(startZoom,2);
 		
-		if (zoom < minzoom) zoom = minzoom;
-		if (zoom > maxzoom) zoom = maxzoom;
+		if (zoom < minzoom) { zoom = minzoom; startZoom = Math.sqrt(minzoom); }
+		if (zoom > maxzoom) { zoom = maxzoom; startZoom = Math.sqrt(maxzoom); }
 		
 		ZoomKoef = zoom / maxzoom;
 		TransformUpdate();

@@ -18,7 +18,7 @@ class Sleeve
 	
 	var drawning:Drawning;
 	var drawning2:Drawning;
-	
+	public static var MaxCoord:Float = 0; //максимальные координаты для перерассчета максимального зума
 	public function new(starCount:Int, speenPower:Float, speenRotate:Float) 
 	{
 		stars = new Array<Star>();
@@ -32,22 +32,24 @@ class Sleeve
 		drawning2.UpdateAllBuff = true;
 	}
 
-	public function AddStars( count:Int)
+	public function AddStars( count:Int):Void
 	{
 		drawning.CreateNewVertexBufer((stars.length + count)*6);
 		drawning2.CreateNewVertexBufer((stars.length + count)*6);
 
 		for ( i in 0...count) { AddStar(); }
-		trace("Add in sleeve " + SeedSleeve+" count=" + count + " remain=" + stars.length);
+	//	trace("Add in sleeve " + SeedSleeve+" count=" + count + " remain=" + stars.length);
 		drawning.UpdateAllBuff = true;
 		drawning2.UpdateAllBuff = true;
 	}
+	
 	
 	//рассчет позиции звезды, создание звезды и ее установка в координаты учитывая шансы
 	function AddStar():Void			
 	{
 		var SP = Random.CalcStarPosition(SpeenPower, SpeenRotate, stars.length, SeedSleeve);
-		
+		if (Math.abs(SP.y) > MaxCoord) MaxCoord = Math.abs(SP.y);
+		if (Math.abs(SP.x) > MaxCoord) MaxCoord = Math.abs(SP.x);
 		var Chance:Float = Math.abs(Math.sin(SP.x))*XmlControl.StarPrototipe.ChanceCounter;
 		for ( i in 0...XmlControl.starPrototypes.length)
 		{
@@ -57,11 +59,18 @@ class Sleeve
 			}
 		}
 	}
-
+	
+	var cnt = 0;
+	var speedStarShow = 10;
 	public function update(): Void 
 	{
-		for ( star in  stars) { star.update(); } 
-
+		for ( star in  stars) {
+			cnt++; if (cnt > speedStarShow) cnt = 0;					//для интересного эффекта
+			if ((star.SprtFlare.id+cnt) % speedStarShow == 0)			// плавного появления звезд - ну и малая оптимизация))
+			{
+				star.update(); 
+			}
+		} 
 		drawning.update();
 		drawning2.UpdateVertex = true;
 		drawning2.update();

@@ -80,7 +80,7 @@ class Base {
 
 		SprtBG = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.1,0.1,0.5,0.5), 100000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
 		SprtBG.isStatic = true;
-		SprtCentr = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.8,0.8,1.0,1.0), 9000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
+		SprtCentr = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.8,0.8,1.0,0.15), 9000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
 		SprtCentr.isStatic = true;
 		drawningOther.UpdateAllBuff = true;
 		SprtBG.update();
@@ -93,13 +93,14 @@ class Base {
 
 	function update(): Void {
 		timer.update();
+		camera.maxzoom = Sleeve.MaxCoord * 2;
 		camera.update(controls, timer.deltaTime);
 		uiController.update();
 		galaxy.update();
 	}
 
-	public function render(frame:Framebuffer) {
-		
+	public function render(frame:Framebuffer) 
+	{
 		// A graphics object which lets us perform 3D operations
 		var g = frame.g4;
 

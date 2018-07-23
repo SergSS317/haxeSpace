@@ -92,7 +92,7 @@ class Random
 		var xStarPosition = 0.0;
 		var yStarPosition = 0.0;
 		var t = (StarsInSleeve) * 0.00016;//угол поворота(шаг между звездами)0.00008 - 0.00016
-		var rnd:Float = RndIter3(0.7/XmlControl.galaxySettings.galaxySleeve, -0.7/XmlControl.galaxySettings.galaxySleeve, SeedSleeve, StarsInSleeve);
+		var rnd:Float = RndIter3(0.9/XmlControl.galaxySettings.galaxySleeve, -0.9/XmlControl.galaxySettings.galaxySleeve, SeedSleeve, StarsInSleeve);
 
 		xStarPosition = 10000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
 		yStarPosition = 10000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
