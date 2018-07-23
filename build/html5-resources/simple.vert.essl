@@ -1,0 +1,17 @@
+#version 100
+
+uniform mat4 MVP;
+
+attribute vec3 pos;
+varying vec2 vUV;
+attribute vec2 uv;
+varying vec4 color;
+attribute vec4 vertexColor;
+
+void main()
+{
+    gl_Position = MVP * vec4(pos, 1.0);
+    vUV = uv;
+    color = vertexColor;
+}
+

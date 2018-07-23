@@ -1,0 +1,17 @@
+#version 300 es
+
+uniform mediump mat4 MVP;
+
+in mediump vec3 pos;
+out mediump vec2 vUV;
+in mediump vec2 uv;
+out mediump vec4 color;
+in mediump vec4 vertexColor;
+
+void main()
+{
+    gl_Position = MVP * vec4(pos, 1.0);
+    vUV = uv;
+    color = vertexColor;
+}
+

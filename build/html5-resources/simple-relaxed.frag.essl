@@ -1,0 +1,16 @@
+#version 100
+precision mediump float;
+precision mediump int;
+
+uniform mediump sampler2D myTextureSampler;
+
+varying vec2 vUV;
+varying vec4 color;
+
+void main()
+{
+    vec4 texcolor = texture2D(myTextureSampler, vUV) * color;
+    texcolor *= color.w;
+    gl_FragData[0] = texcolor;
+}
+
