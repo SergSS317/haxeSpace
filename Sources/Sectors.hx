@@ -13,7 +13,6 @@ class Sectors
 	{
 		Stars = new Array<Star>();
 		this.Position = position;
-		
 	}
 	
 }

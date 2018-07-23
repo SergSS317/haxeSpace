@@ -7,14 +7,13 @@ class Star {
 	public var Light:Float;						//светимость
 	public var Size:Float;						//размер
 
+	var Sprt:Entity;							//спрайт звезды
+	var SprtFlare:Entity;						//спрайт светимости
+	
 	public static var TotalCount:Int = 0;		//счетчик звезд
 
-	public var Sprt:Entity;							//спрайт звезды
-	public var SprtFlare:Entity;						//спрайт светимости
-	
 	public function new(_pos:Vector3, color:Color, size:Float, light:Float, drb:Drawning, drb2:Drawning) :Void
 	{
-		//trace("SZ-"+size);
 		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed)*0.1;
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);
 
@@ -28,9 +27,8 @@ class Star {
 
 	public function update(): Void
 	{
-		SprtFlare.Size = Light / 5000 * Camera.zoom;
+		SprtFlare.Size = Light / 5000 * Base.camera.zoom;
 		SprtFlare.UpdateVert();
-		//SprtFlare.SetSize(Light/5000 * Camera.zoom);
 	}
 
 }

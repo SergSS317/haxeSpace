@@ -25,10 +25,7 @@ class Galaxy
 		this.StarCount = starCount;
 		this.GalaxySleeve = galaxySleeve;
 		this.SpeenPower = speenPower;
-		
 		Seed = _seed;
-		//Seed = 123456789;
-		
 		GenerateGalaxy();
 	}
 	
@@ -44,43 +41,12 @@ class Galaxy
 	public function AddStars(Count:Int){
 
 		trace("Add Stars: "+Count);
-		
 		for (sleeve in Sleeves)
 		{
 			sleeve.AddStars(Math.round( Count/Sleeves.length));
 		}
 	}
 	
-	public function RemoveStars(Count:Int)
-	{
-		trace("Remove stars: "+Count);
-		/*for (i in 0...Math.round(Count / Sleeves.length))
-		{
-			for (sleeve in Sleeves)
-			{
-				sleeve.RemoveStar();
-			}
-		//	Base.drawning.EntityId -= Count;
-		//	Base.drawning2.EntityId -= Count;
-		}*/
-		Sleeves.reverse();
-		
-		for (i in 0...Math.round(Count / Sleeves.length))
-		{
-			for (sleeve in Sleeves)
-			{
-				sleeve.RemoveStar2();
-			} 
-		}
-		
-		Sleeves.reverse();
-		/*for (sleeve in Sleeves)
-		{
-			trace("Remove "+ Math.round( Count/Sleeves.length)+" stars!");
-			sleeve.RemoveStars(Math.round( Count/Sleeves.length));
-		}*/
-	}
-
 	public function update(): Void {
 		for ( sleeve in Sleeves)
 		{
@@ -95,4 +61,19 @@ class Galaxy
 			sleeve.render(g);
 		}
 	}
+	
+	/*public function RemoveStars(Count:Int)
+	{
+		trace("Remove stars: "+Count);
+		Sleeves.reverse();
+		
+		for (i in 0...Math.round(Count / Sleeves.length))
+		{
+			for (sleeve in Sleeves)
+			{
+				sleeve.RemoveStar2();
+			} 
+		}
+		Sleeves.reverse();
+	}*/
 }

@@ -1,4 +1,5 @@
 package;
+import kha.math.Vector3;
 
 /**
  * ...
@@ -33,16 +34,9 @@ class Random
 		
 		Counter++;
 		var rnd = Math.pow( (12345+Counter), 2) % Seed;//(Seed * Counter * 9301.0 + 49297.0) % 233280.0;
-		//var rnd = (Seed * Counter * 9301.0 + 49297.0) % 233280.0;
 		rnd = Math.abs(Math.sin(rnd));
 		rnd = MinValue+rnd * (MaxValue-MinValue);
-		//var rnd =(Seed * Counter * 9301 + 49297) (Seed * Counter * 9301 + 49297) % 233280;
-		//rnd = MinValue+rnd*(MaxValue-MinValue);
-		//trace(rnd);
 		return rnd;
-		
-		//this.Seed = (this.Seed * 9301 + 49297) % 233280;
-		//return this.Seed / 233280.0;
 	}
 	
 	private var mCounter:Int = 0;
@@ -57,22 +51,13 @@ class Random
 	public static function RndIter2(maxValue:Float, minValue:Float, seed:Int, Iteration:Float)
 	{
 		var rnd = 0.0;
-		/*if (seed > Iteration + 12345){
-			rnd = (seed % (Iteration + 12345)/(Iteration + 12345));
-		}else{
-			rnd = ( (Iteration )%(seed+12345)/(seed + 12345));
-		}*/
+
 		if (seed > Iteration){
 			rnd = (seed % (Iteration)/(Iteration));
 		}else{
 			rnd = ( (Iteration )%(seed)/(seed));
 		}
-		
-		
-		
-		/*
-		var rnd = Math.pow( (12345+Iteration), 2) % seed;		
-		rnd = (Math.sin(rnd));*/
+
 		rnd = minValue+rnd * (maxValue-minValue);
 		return rnd;
 	}
@@ -82,19 +67,7 @@ class Random
 		var rnd = 0.0;
 		var rnd = Math.pow( (12345 + Iteration), 2) % seed;
 		rnd = (rnd - Math.round(rnd / 12345) * 12345) / 12345;
-		
-		/*
-		if (seed > Iteration){
-			rnd = (seed % (Iteration)/(Iteration));
-		}else{
-			rnd = ( (Iteration )%(seed)/(seed));
-		}
-		*/
-		
-		
-		/*
-		var rnd = Math.pow( (12345+Iteration), 2) % seed;		
-		rnd = (Math.sin(rnd));*/
+
 		rnd = minValue+rnd * (maxValue-minValue);
 		return rnd;
 	}
@@ -111,5 +84,18 @@ class Random
 		trace(rnd);
 		rnd = MinValue+rnd * (MaxValue-MinValue);
 		return rnd;
+	}
+	
+	public static function CalcStarPosition(SpeenPower:Float, SpeenRotate:Float, StarsInSleeve:Int, SeedSleeve:Int): Vector3
+	{
+				//trace("Addstar begin");
+		var xStarPosition = 0.0;
+		var yStarPosition = 0.0;
+		var t = (StarsInSleeve) * 0.00016;//угол поворота(шаг между звездами)0.00008 - 0.00016
+		var rnd:Float = RndIter3(0.7/XmlControl.galaxySettings.galaxySleeve, -0.7/XmlControl.galaxySettings.galaxySleeve, SeedSleeve, StarsInSleeve);
+
+		xStarPosition = 10000.0 * Math.exp(SpeenPower * t+rnd) * Math.cos(SpeenRotate+rnd+t);
+		yStarPosition = 10000.0 * Math.exp(SpeenPower * t+rnd) * Math.sin(SpeenRotate+rnd+t);
+		return new Vector3(xStarPosition,yStarPosition,0);
 	}
 }

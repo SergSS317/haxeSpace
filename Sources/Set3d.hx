@@ -12,7 +12,6 @@ import kha.graphics4.ConstantLocation;
  */
 class Set3d 
 {
-	
 	public static var structure:VertexStructure;
 	public static var structureLength:Int;
 	public static var pipeline:PipelineState;
@@ -26,16 +25,13 @@ class Set3d
 		
 	}
 	
-
-	
 	function CreateStructure()
 	{
-					// Define vertex structure
+		// Define vertex structure
 		structure = new VertexStructure();
         structure.add("pos", VertexData.Float3);
         structure.add("uv", VertexData.Float2);
 		structure.add("color", VertexData.Float4);
-		//structure.add("Cam", VertexData.Float1);
         // Save length - we store position and uv data
         structureLength = 9;
 	}

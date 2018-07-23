@@ -9,9 +9,7 @@ import kha.Image;
 import kha.Font;
 import kha.Color;
 
-
 import kha.input.Mouse;
-
 
 import kha.graphics2.Graphics;
 import kha.Assets;
@@ -22,134 +20,41 @@ import kha.math.FastMatrix3;
 
 class UiController 
 {
-	//public var UIbuffer: Image;
 	public var font:Font;
-	public var previousRealTime:Float;
-    public var realTime:Float;
+
 	public var AddStars1000_btn:Button;
 	public var AddStars10000_btn:Button;
-	//public var CameraRotate_btn:Button;
-	//public var RemoveStars1000_btn:Button;
-	//public var RemoveStars10000_btn:Button;
-
-	
+	var fps:FpsControl;
 	public function new() 
 	{
-		//UIbuffer = Image.createRenderTarget(800, 600);
-		
 		font = Assets.fonts.kenpixel_mini_square;
-
-		previousRealTime = 0.0;
-        realTime         = 0.0;
+		fps = new FpsControl();
 		
-		AddStars10000_btn = new Button(10, 512, 100, 32, Color.Blue,"+10k stars");
-		AddStars10000_btn.onClick = AddStars10000;
-		AddStars1000_btn = new Button(120, 512, 100, 32, Color.Blue,"+1k stars");
-		AddStars1000_btn.onClick = AddStars1000;
-		
-	//	CameraRotate_btn = new Button(230, 512, 100, 32, Color.Blue, "Rotate");
-	//	CameraRotate_btn.onClick = CameraRotate;
-
-	//	RemoveStars1000_btn = new Button(230, 512, 100, 32, Color.Blue,"-1k stars");
-	//	RemoveStars1000_btn.onClick = RemoveStars1000;
-	//	RemoveStars10000_btn = new Button(340, 512, 100, 32, Color.Blue,"-10k stars");
-	//	RemoveStars10000_btn.onClick = RemoveStars10000;
-		Mouse.get().notify(onMouseDown, null, null, null);
+		AddStars10000_btn = new Button(10, Std.int(Main.screen.y - 50), 100, 32, "+10k stars");
+		AddStars10000_btn.onClick = function(){ Base.galaxy.AddStars(10000); };
+		AddStars1000_btn = new Button(120, Std.int(Main.screen.y-50), 100, 32, "+1k stars", Color.Blue);
+		AddStars1000_btn.onClick = function(){Base.galaxy.AddStars(1000);};
 	}
 	
-	
-	var tfps: Float = 60;
-	var fps:Float = 0;
-
-	public function update(): Void {
-
-		MoveCam();
-		//if(MouseControl.btnLeft)
-		//onMouseDown(0, MouseControl.x, MouseControl.y);
-		
-	}
-	
-	//var tempCamX:Int;
-	function MoveCam()
+	public function update(): Void 
 	{
-		/*if (MouseControl.btnLeft){
-			Camera.x+= 300;
-			//tempCamX = MouseControl.x;
-			//tempCamX = MouseControl.x;
-	
-		}*/
+
 	}
 
-	public function render(g: Graphics): Void {
-
-
-   // var g = UIbuffer.g2;
-
-    // clear and draw to our backbuffer
-    //g.begin();
-	g.transformation = FastMatrix3.scale(1, 1);
+	public function render(g: Graphics): Void 
+	{
+		fps.update();
+		g.transformation = FastMatrix3.scale(1, 1);
 		AddStars1000_btn.render(g);
 		AddStars10000_btn.render(g);
-	//	CameraRotate_btn.render(g);
-		
-	//	RemoveStars1000_btn.render(g);
-	//	RemoveStars10000_btn.render(g);
 		
 		g.font = font;
 		g.fontSize = 20;
 		g.color = Color.White;
 		g.drawString("Stars count: " + Star.TotalCount+" ;", 10, 10);
 		
-		
-		//fps = Math.round( 1.0 / ( realTime - previousRealTime ) * 10.0) / 10.0;
-		
-		//if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
-		realTime = Scheduler.realTime();
-		fps = Math.round( (1.0 / ( realTime - previousRealTime )+tfps)/2);		if (fps != Math.POSITIVE_INFINITY && fps < 500) tfps = fps;
-		previousRealTime = realTime;
-		g.drawString("FPS: " + tfps + " ;", 10, 30);
-		
-		//trace("tfps: "+tfps);
-		//g.drawString("FPS: " + realTime , 10 - camera.aX, 70 - camera.aY);
-		//g.drawString("FPS:  - "+previousRealTime, 10 - camera.aX, 100 - camera.aY);
-	//	g.drawString("Delta Time: " + ( realTime - previousRealTime ), 10, 50);	
-		g.drawString("Zoom: " + Camera.zoom + " ;", 10, 50);
-		//g.drawString("Zoom: " + Camera.zoom + " ;   "+Camera.deltamap+"   x="+Camera.x+"   y="+Camera.y, 10, 70);
+		g.drawString("FPS: " + fps.FPS + " ;", 10, 30);
 
-
-		//g.drawString("zoomspeed: " + Camera.zoomspeed + " ;", 10, 90);
-		//g.drawString("cX: " + Camera.aX + "   cY: " + Camera.aY, 10, 90);	
-		//g.drawString("-> " + Camera.aX+"   cY: "+Camera.aY, 10, 100);
-		//trace("Test");
-  //  g.end();
-
-
-  }
-  
-  public function onMouseDown(button:Int, x:Int, y:Int){
-	  //trace('MD');
-		AddStars1000_btn.onMouseDown(button, x, y);
-		AddStars10000_btn.onMouseDown(button, x, y);
-	//	CameraRotate_btn.onMouseDown(button, x, y);
-	//	RemoveStars1000_btn.onMouseDown(button, x, y);
-	//	RemoveStars10000_btn.onMouseDown(button, x, y);
+		g.drawString("Zoom: " + Base.camera.zoom + " ;", 10, 50);
 	}
-	
-	public function AddStars1000(){
-		Base.galaxy.AddStars(1000);
-	}
-	public function AddStars10000(){
-		Base.galaxy.AddStars(10000);
-	}
-	
-	/*public function CameraRotate()
-	{
-		Camera.IsRotating = !Camera.IsRotating;
-	}*/
-	/*public function RemoveStars1000(){
-		Base.galaxy.RemoveStars(1000);
-	}
-	public function RemoveStars10000(){
-		Base.galaxy.RemoveStars(10000);
-	}*/
 }
