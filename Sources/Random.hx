@@ -88,7 +88,6 @@ class Random
 	
 	public static function CalcStarPosition(SpeenPower:Float, SpeenRotate:Float, StarsInSleeve:Int, SeedSleeve:Int): Vector3
 	{
-				//trace("Addstar begin");
 		var xStarPosition = 0.0;
 		var yStarPosition = 0.0;
 		var t = (StarsInSleeve) * 0.00016;//угол поворота(шаг между звездами)0.00008 - 0.00016

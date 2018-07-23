@@ -13,11 +13,8 @@ package;
  import kha.math.FastVector3;
 class Camera
 {
-	//var MapSize = 330000000000;
-	//public static var Position:Vector3;
 	public static var ZoomKoef:Float;
 	public static var Matrix:FastMatrix4;
-	
 	
 	public var x: Float;
 	public var y: Float;
@@ -26,12 +23,6 @@ class Camera
 	public var maxzoom:Float;
 	public var speed = 1.0;
 	
-	//public static var ZoomChanged:Bool=false; 
-	//public var aX:Float=0;//absolute
-	//public static var aY:Float=0;
-	//public static var zoomspeed:Float = 1;
-	//public static var zoomspeed:Float = 0.000001;
-	//public static var ScaleFlare:Float = 0.0;
 	static var startZoom:Float;
 	
 	var oldZm:Float;
@@ -46,7 +37,6 @@ class Camera
 		y = _y;
 		maxzoom = 500000.0;
 		minzoom = 5;
-		//zoomspeed = 1;
 		zoom = 10000;
 		startZoom = 1000;
 		TransformUpdate();

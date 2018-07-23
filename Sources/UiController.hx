@@ -58,7 +58,7 @@ class UiController
 		
 		g.drawString("FPS: " + fps.FPS + " ;", 10, 90);
 
-		//g.drawString("Zoom: " + Base.camera.zoom + " ;", 10, 50);
+		//g.drawString("Zoom: " + Base.camera.zoom + " ;", 10, 110);
 		
 		
 	}

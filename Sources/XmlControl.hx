@@ -4,19 +4,13 @@ import kha.Blob;
 import haxe.xml.Fast;
 import kha.Color;
 import kha.internal.VoidCallback;
-//import Sys;
 
-//import sys.io.File;
-//import sys.io.File;
 
 /**
  * ...
  * @author SergSS
  */
-//import kha.Assets;
 import haxe.Resource;
-
-//enum StarType={Default, BigRed, SmallWhite, Temp1, Temp2};
 
 class StarPrototipe
 {
