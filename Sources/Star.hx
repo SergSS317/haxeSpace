@@ -11,6 +11,7 @@ class Star {
 	public var SprtFlare:Entity;						//спрайт светимости
 	
 	public static var TotalCount:Int = 0;		//счетчик звезд
+	public var Id:Int;
 	
 	public function new(_pos:Vector3, color:Color, size:Float, light:Float, drb:Drawning, drb2:Drawning) :Void
 	{
@@ -21,7 +22,7 @@ class Star {
 		var flare_uvs:Array<Float> = [0.5, 0,  0.5, 1,  1,1,  0.5,0,  1,0,  1,1];
 		Sprt = new Entity( new Vector3(  _pos.x, _pos.y, 0), color, this.Size, drb, star_uvs  );
 		SprtFlare = new Entity( new Vector3( _pos.x, _pos.y, 0), color, 1.1, drb2, flare_uvs,false);//Base.drawning2
-
+		Id = TotalCount;
 		TotalCount++;
 	}
 

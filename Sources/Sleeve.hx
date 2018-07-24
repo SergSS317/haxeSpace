@@ -66,7 +66,7 @@ class Sleeve
 	{
 		for ( star in  stars) {
 			cnt++; if (cnt > speedStarShow) cnt = 0;					//для интересного эффекта
-			if ((star.SprtFlare.id+cnt) % speedStarShow == 0)			// плавного появления звезд - ну и малая оптимизация))
+			if ((star.Id+cnt) % speedStarShow == 0)			// плавного появления звезд - ну и малая оптимизация))
 			{
 				star.update(); 
 			}
