@@ -16,16 +16,16 @@ class Entity
 	var color:Color;
 	var uvs:Array<Float>;
 	public var id:Int;
-	var drawbufs:Drawning;
+	var drawbufs:DravningAdapter;
 	
 	var tmp:Int = 0;
 	var old_size:Float;
 	
-	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:Drawning, _uvs:Array<Float>,_static:Bool=true) 
+	public function new(_position:Vector3, _color:Color, _size:Float, _drawbufs:DravningAdapter, _uvs:Array<Float>,_static:Bool=true) 
 	{
 		this.drawbufs = _drawbufs;
 
-		this.id = drawbufs.IdEntity++;
+		this.id = drawbufs.EntityId;
 		this.Position = _position;
 		this.color = _color;
 		this.Size = _size;

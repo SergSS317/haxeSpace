@@ -21,10 +21,11 @@ Base.prototype = {
 	,set3d: null
 	,timer: null
 	,MyXml: null
+	,drawningOther: null
 	,SprtBG: null
 	,SprtCentr: null
 	,loadingFinished: function() {
-		haxe_Log.trace("Start load",{ fileName : "Base.hx", lineNumber : 59, className : "Base", methodName : "loadingFinished"});
+		haxe_Log.trace("Start load",{ fileName : "Base.hx", lineNumber : 60, className : "Base", methodName : "loadingFinished"});
 		this.MyXml = new XmlControl();
 		Base.camera = new Camera(0,0);
 		this.set3d = new Set3d();
@@ -32,18 +33,17 @@ Base.prototype = {
 		this.controls = new Controls();
 		this.timer = new Timer();
 		this.uiController = new UiController();
-		Base.drawningOther = new Drawning(kha_Assets.images.fon2,90);
+		this.drawningOther = new DravningAdapter(kha_Assets.images.fon2);
 		Base.galaxy = new Galaxy(XmlControl.galaxySettings.starCount,XmlControl.galaxySettings.galaxySleeve,XmlControl.galaxySettings.speenPower,XmlControl.galaxySettings.Seed);
-		this.SprtBG = new Entity(new kha_math_Vector3(0,0,0),kha__$Color_Color_$Impl_$.fromFloats(0.1,0.1,0.5,0.5),100000,Base.drawningOther,[0,0,0,1,1,1,0,0,1,0,1,1]);
+		this.SprtBG = new Entity(new kha_math_Vector3(0,0,0),kha__$Color_Color_$Impl_$.fromFloats(0.1,0.1,0.5,0.5),100000,this.drawningOther,[0,0,0,1,1,1,0,0,1,0,1,1]);
 		this.SprtBG.isStatic = true;
-		this.SprtCentr = new Entity(new kha_math_Vector3(0,0,0),kha__$Color_Color_$Impl_$.fromFloats(0.8,0.8,1.0,0.15),9000,Base.drawningOther,[0,0,0,1,1,1,0,0,1,0,1,1]);
+		this.SprtCentr = new Entity(new kha_math_Vector3(0,0,0),kha__$Color_Color_$Impl_$.fromFloats(0.8,0.8,1.0,0.15),9000,this.drawningOther,[0,0,0,1,1,1,0,0,1,0,1,1]);
 		this.SprtCentr.isStatic = true;
-		Base.drawningOther.UpdateAllBuff = true;
 		this.SprtBG.update();
 		this.SprtCentr.update();
-		Base.drawningOther.update();
+		this.drawningOther.UpdateAllBufs();
 		kha_Scheduler.addTimeTask($bind(this,this.update),0,0.05);
-		haxe_Log.trace("End load",{ fileName : "Base.hx", lineNumber : 91, className : "Base", methodName : "loadingFinished"});
+		haxe_Log.trace("End load",{ fileName : "Base.hx", lineNumber : 94, className : "Base", methodName : "loadingFinished"});
 	}
 	,update: function() {
 		this.timer.update();
@@ -56,9 +56,7 @@ Base.prototype = {
 		var g = frame.get_g4();
 		g.begin();
 		g.clear(kha__$Color_Color_$Impl_$.fromFloats(0.0,0.0,0.0),1.0);
-		if(Base.drawningOther != null) {
-			Base.drawningOther.render(g);
-		}
+		this.drawningOther.render(g);
 		if(Base.galaxy != null) {
 			Base.galaxy.render(g);
 		}
@@ -312,6 +310,42 @@ Controls.prototype = {
 	}
 	,__class__: Controls
 };
+var DravningAdapter = function(_imageData) {
+	this.drwBufs = new Drawning(_imageData,90);
+	this.vertices = this.drwBufs.vertices;
+	this.uvs = this.drwBufs.uvs;
+	this.colors = this.drwBufs.colors;
+};
+$hxClasses["DravningAdapter"] = DravningAdapter;
+DravningAdapter.__name__ = ["DravningAdapter"];
+DravningAdapter.prototype = {
+	drwBufs: null
+	,vertices: null
+	,uvs: null
+	,colors: null
+	,EntityId: null
+	,get_EntityId: function() {
+		this.drwBufs.IdEntity++;
+		return this.drwBufs.IdEntity;
+	}
+	,UpdateAllBufs: function() {
+		this.drwBufs.UpdateAllBuff = true;
+		this.drwBufs.UpdateBuffers();
+	}
+	,UpdateVertexBufs: function() {
+		this.drwBufs.UpdateVertex = true;
+		this.drwBufs.UpdateBuffers();
+	}
+	,CreateNewVertexBuffer: function(lenght) {
+		this.drwBufs.CreateNewVertexBufer(lenght);
+	}
+	,render: function(g) {
+		if(this.drwBufs != null) {
+			this.drwBufs.render(g);
+		}
+	}
+	,__class__: DravningAdapter
+};
 var Drawning = function(_imageData,Lenght) {
 	this.UpdateAllBuff = false;
 	this.UpdateVertex = false;
@@ -472,7 +506,7 @@ var Entity = function(_position,_color,_size,_drawbufs,_uvs,_static) {
 	this.tmp = 0;
 	this.isStatic = false;
 	this.drawbufs = _drawbufs;
-	this.id = this.drawbufs.IdEntity++;
+	this.id = this.drawbufs.get_EntityId();
 	this.Position = _position;
 	this.color = _color;
 	this.Size = _size;
@@ -1042,10 +1076,8 @@ var Sleeve = function(starCount,speenPower,speenRotate) {
 	this.SpeenPower = speenPower;
 	this.SpeenRotate = speenRotate;
 	this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
-	this.drawning = new Drawning(kha_Assets.images.ImgData,90);
-	this.drawning.UpdateAllBuff = true;
-	this.drawning2 = new Drawning(kha_Assets.images.ImgData,90);
-	this.drawning2.UpdateAllBuff = true;
+	this.drawning = new DravningAdapter(kha_Assets.images.ImgData);
+	this.drawning2 = new DravningAdapter(kha_Assets.images.ImgData);
 };
 $hxClasses["Sleeve"] = Sleeve;
 Sleeve.__name__ = ["Sleeve"];
@@ -1057,16 +1089,14 @@ Sleeve.prototype = {
 	,drawning: null
 	,drawning2: null
 	,AddStars: function(count) {
-		this.drawning.CreateNewVertexBufer((this.stars.length + count) * 6);
-		this.drawning2.CreateNewVertexBufer((this.stars.length + count) * 6);
+		this.drawning.CreateNewVertexBuffer((this.stars.length + count) * 6);
+		this.drawning2.CreateNewVertexBuffer((this.stars.length + count) * 6);
 		var _g1 = 0;
 		var _g = count;
 		while(_g1 < _g) {
 			var i = _g1++;
 			this.AddStar();
 		}
-		this.drawning.UpdateAllBuff = true;
-		this.drawning2.UpdateAllBuff = true;
 	}
 	,AddStar: function() {
 		var SP = Random.CalcStarPosition(this.SpeenPower,this.SpeenRotate,this.stars.length,this.SeedSleeve);
@@ -1102,17 +1132,11 @@ Sleeve.prototype = {
 				star.update();
 			}
 		}
-		this.drawning.update();
-		this.drawning2.UpdateVertex = true;
-		this.drawning2.update();
+		this.drawning2.UpdateVertexBufs();
 	}
 	,render: function(g) {
-		if(this.drawning != null) {
-			this.drawning.render(g);
-		}
-		if(this.drawning2 != null) {
-			this.drawning2.render(g);
-		}
+		this.drawning.render(g);
+		this.drawning2.render(g);
 	}
 	,__class__: Sleeve
 };

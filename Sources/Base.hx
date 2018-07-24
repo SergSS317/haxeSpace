@@ -45,7 +45,8 @@ class Base {
 	private var MyXml:XmlControl;
 	public static var galaxy:Galaxy;
 	
-	public static var drawningOther:Drawning;
+	//public static var drawningOther:Drawning;
+	var drawningOther:DravningAdapter;
 	public var SprtBG:Entity;			//для отрисовки
 	public var SprtCentr:Entity;
 	
@@ -59,13 +60,14 @@ class Base {
 		trace("Start load");
 		MyXml = new XmlControl();
 		camera = new Camera(0, 0);
-		set3d = new Set3d();
+		set3d = new Set3d();					/*Create this befor create Drawning*/
 		myMouse = new MouseControl();
 		controls = new Controls();
 		timer = new Timer();
 		uiController = new UiController();
 		
-		drawningOther = new Drawning(Assets.images.fon2,90);
+		drawningOther = new DravningAdapter(Assets.images.fon2);
+		//drawningOther = new Drawning(Assets.images.fon2,90);
 		
 		galaxy = new Galaxy(XmlControl.galaxySettings.starCount, XmlControl.galaxySettings.galaxySleeve, XmlControl.galaxySettings.speenPower, XmlControl.galaxySettings.Seed);
 		
@@ -78,14 +80,15 @@ class Base {
 			}
 		}*/
 
-		SprtBG = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.1,0.1,0.5,0.5), 100000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
+		SprtBG = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.1,0.1,0.5,0.5), 100000, drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
 		SprtBG.isStatic = true;
-		SprtCentr = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.8,0.8,1.0,0.15), 9000, Base.drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
+		SprtCentr = new Entity( new Vector3(0, 0, 0), Color.fromFloats(0.8,0.8,1.0,0.15), 9000, drawningOther, [0, 0,  0, 1,  1, 1,  0, 0,  1, 0,  1, 1]);
 		SprtCentr.isStatic = true;
-		drawningOther.UpdateAllBuff = true;
+		//drawningOther.UpdateAllBuff = true;
 		SprtBG.update();
 		SprtCentr.update();
-		drawningOther.update();
+		//drawningOther.update();
+		drawningOther.UpdateAllBufs();
 		
 		Scheduler.addTimeTask(update, 0, 1 / 20);
 		trace("End load");
@@ -106,7 +109,8 @@ class Base {
 
         g.begin();												// Begin rendering
 		g.clear(Color.fromFloats(0.0, 0.0, 0.0), 1.0);			// Clear screen
-		if (drawningOther != null){ drawningOther.render(g); }	//draw BG
+		drawningOther.render(g);
+		//if (drawningOther != null){ drawningOther.render(g); }	//draw BG
 		if (galaxy != null)galaxy.render(g);					//draw galaxy
 		if (uiController != null)uiController.render(frame.g2);	//draw UI
 		g.end();												// End rendering

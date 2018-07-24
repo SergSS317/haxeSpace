@@ -13,7 +13,7 @@ class Star {
 	public static var TotalCount:Int = 0;		//счетчик звезд
 	public var Id:Int;
 	
-	public function new(_pos:Vector3, color:Color, size:Float, light:Float, drb:Drawning, drb2:Drawning) :Void
+	public function new(_pos:Vector3, color:Color, size:Float, light:Float, drb:DravningAdapter, drb2:DravningAdapter) :Void
 	{
 		this.Size = size * Random.Rnd2(2.0, 0.5, Galaxy.Seed)*0.1;
 		this.Light = light * Random.Rnd2(2.0, 0.5, Galaxy.Seed);

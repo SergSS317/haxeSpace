@@ -16,8 +16,8 @@ class Sleeve
 	var SeedSleeve:Int;					//сид генерации данного рукава
 	public var stars: Array<Star>;		//список звезд рукава
 	
-	var drawning:Drawning;
-	var drawning2:Drawning;
+	var drawning:DravningAdapter;
+	var drawning2:DravningAdapter;
 	public static var MaxCoord:Float = 0; //максимальные координаты для перерассчета максимального зума
 	public function new(starCount:Int, speenPower:Float, speenRotate:Float) 
 	{
@@ -26,21 +26,21 @@ class Sleeve
 		this.SpeenRotate = speenRotate;
 		this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
 		
-		drawning = new Drawning(Assets.images.ImgData, 90);
-		drawning.UpdateAllBuff = true;
-		drawning2 = new Drawning(Assets.images.ImgData,90);
-		drawning2.UpdateAllBuff = true;
+		drawning = new DravningAdapter(Assets.images.ImgData);
+		//drawning.UpdateAllBuff = true;
+		drawning2 = new DravningAdapter(Assets.images.ImgData);
+		//drawning2.UpdateAllBuff = true;
 	}
 
 	public function AddStars( count:Int):Void
 	{
-		drawning.CreateNewVertexBufer((stars.length + count)*6);
-		drawning2.CreateNewVertexBufer((stars.length + count)*6);
+		drawning.CreateNewVertexBuffer((stars.length + count)*6);
+		drawning2.CreateNewVertexBuffer((stars.length + count)*6);
 
 		for ( i in 0...count) { AddStar(); }
 	//	trace("Add in sleeve " + SeedSleeve+" count=" + count + " remain=" + stars.length);
-		drawning.UpdateAllBuff = true;
-		drawning2.UpdateAllBuff = true;
+		//drawning.UpdateAllBuff = true;
+		//drawning2.UpdateAllBuff = true;
 	}
 	
 	
@@ -71,15 +71,15 @@ class Sleeve
 				star.update(); 
 			}
 		} 
-		drawning.update();
-		drawning2.UpdateVertex = true;
-		drawning2.update();
+		//drawning.update();
+		drawning2.UpdateVertexBufs();
+		
 	}
 	
 	public function render(g:Graphics)
 	{
-		if (drawning != null){ drawning.render(g); }
-		if (drawning2 != null){ drawning2.render(g); }
+		drawning.render(g);
+		drawning2.render(g);
 	}
 	
 	/*public function RemoveStar2()
