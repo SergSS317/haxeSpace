@@ -5,7 +5,7 @@ import kha.graphics4.Graphics;
  * ...
  * @author SergSS
  */
-class DravningAdapter 
+class DrawningAdapter 
 {
 	var drwBufs:Drawning;
 	public var vertices:Array<Float>;

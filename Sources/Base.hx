@@ -46,7 +46,7 @@ class Base {
 	public static var galaxy:Galaxy;
 	
 	//public static var drawningOther:Drawning;
-	var drawningOther:DravningAdapter;
+	var drawningOther:DrawningAdapter;
 	public var SprtBG:Entity;			//для отрисовки
 	public var SprtCentr:Entity;
 	
@@ -66,7 +66,7 @@ class Base {
 		timer = new Timer();
 		uiController = new UiController();
 		
-		drawningOther = new DravningAdapter(Assets.images.fon2);
+		drawningOther = new DrawningAdapter(Assets.images.fon2);
 		//drawningOther = new Drawning(Assets.images.fon2,90);
 		
 		galaxy = new Galaxy(XmlControl.galaxySettings.starCount, XmlControl.galaxySettings.galaxySleeve, XmlControl.galaxySettings.speenPower, XmlControl.galaxySettings.Seed);

@@ -16,8 +16,8 @@ class Sleeve
 	var SeedSleeve:Int;					//сид генерации данного рукава
 	public var stars: Array<Star>;		//список звезд рукава
 	
-	var drawning:DravningAdapter;
-	var drawning2:DravningAdapter;
+	var drawning:DrawningAdapter;
+	var drawning2:DrawningAdapter;
 	public static var MaxCoord:Float = 0; //максимальные координаты для перерассчета максимального зума
 	public function new(starCount:Int, speenPower:Float, speenRotate:Float) 
 	{
@@ -26,9 +26,9 @@ class Sleeve
 		this.SpeenRotate = speenRotate;
 		this.SeedSleeve = Math.round(Galaxy.Seed + speenRotate);
 		
-		drawning = new DravningAdapter(Assets.images.ImgData);
+		drawning = new DrawningAdapter(Assets.images.ImgData);
 		//drawning.UpdateAllBuff = true;
-		drawning2 = new DravningAdapter(Assets.images.ImgData);
+		drawning2 = new DrawningAdapter(Assets.images.ImgData);
 		//drawning2.UpdateAllBuff = true;
 	}
 
